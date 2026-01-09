@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { HERO_SLIDES } from '../constants';
 
@@ -9,26 +9,36 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ onDiscoverClick }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const isAnimatingRef = useRef(false);
+
+  const triggerSlideChange = useCallback((direction: 'next' | 'prev') => {
+    if (isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
+    setIsAnimating(true);
+    setCurrentSlide((prev) => (
+      direction === 'next'
+        ? (prev + 1) % HERO_SLIDES.length
+        : (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length
+    ));
+    setTimeout(() => {
+      isAnimatingRef.current = false;
+      setIsAnimating(false);
+    }, 700); // Sesuai dengan durasi transisi
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      handleNext();
-    }, 4000); // Dipercepat dari 6000ms ke 4000ms
+      triggerSlideChange('next');
+    }, 4500);
     return () => clearInterval(interval);
-  }, [currentSlide]);
+  }, [triggerSlideChange]);
 
   const handleNext = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    setTimeout(() => setIsAnimating(false), 700); // Sesuai dengan durasi transisi
+    triggerSlideChange('next');
   };
 
   const handlePrev = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setCurrentSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
-    setTimeout(() => setIsAnimating(false), 700);
+    triggerSlideChange('prev');
   };
 
   return (
@@ -58,7 +68,7 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick }) => {
 
           {/* Text Content */}
           <div className="container mx-auto px-6 h-full flex items-center relative z-20">
-            <div className={`max-w-3xl transition-all duration-700 transform ${
+            <div className={`max-w-3xl -mt-6 sm:-mt-4 md:mt-0 transition-all duration-700 transform ${
               index === currentSlide ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
             }`}>
               <div className="inline-block px-4 py-1.5 mb-6 border border-white/20 rounded-full bg-white/5 backdrop-blur-md">
@@ -93,7 +103,7 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick }) => {
       ))}
 
       {/* Navigation Controls */}
-      <div className="absolute bottom-10 right-6 md:right-20 z-30 flex items-center gap-6">
+      <div className="absolute bottom-14 md:bottom-10 right-6 md:right-20 z-30 hidden md:flex items-center gap-6">
         <div className="flex items-center gap-2">
            <button 
              onClick={handlePrev}
@@ -111,7 +121,7 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick }) => {
       </div>
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-10 left-6 md:left-20 z-30 flex items-center gap-3">
+      <div className="absolute bottom-14 md:bottom-10 left-6 md:left-20 z-30 flex items-center gap-3">
         {HERO_SLIDES.map((_, idx) => (
           <button
             key={idx}

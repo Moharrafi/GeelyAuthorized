@@ -160,9 +160,9 @@ const TestDriveModal: React.FC<TestDriveModalProps> = ({ isOpen, onClose }) => {
                     />
                     {/* Fixed text container with backdrop blur instead of full image gradient */}
                     <div className="absolute bottom-6 left-6 right-6 z-10">
-                        <div className="bg-slate-950/60 backdrop-blur-md border border-white/10 p-6 rounded-3xl">
+                        <div className="bg-slate-950/25 md:bg-slate-950/60 md:backdrop-blur-md border border-white/5 p-6 rounded-3xl">
                             <h3 className="text-2xl font-bold text-white mb-1">{content.title}</h3>
-                            <p className="text-slate-300 text-sm leading-relaxed">{content.desc}</p>
+                            <p className="text-slate-300/70 md:text-slate-300 text-sm leading-relaxed">{content.desc}</p>
                         </div>
                     </div>
                 </div>

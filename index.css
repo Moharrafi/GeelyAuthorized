@@ -144,3 +144,13 @@ html.light .bg-blue-600 .text-white,
 html.light .bg-blue-700 .text-white {
   color: #ffffff;
 } */
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

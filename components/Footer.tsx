@@ -22,7 +22,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <img
               src="https://geelysmgroup.com/wp-content/uploads/2025/01/Geely-white-1.png"
               alt="Geely"
-              className="h-14 mb-6 object-contain"
+              className="h-9 md:h-12 mb-6 object-contain"
               loading="lazy"
             />
             <p className="text-slate-400 text-sm leading-relaxed mb-6">

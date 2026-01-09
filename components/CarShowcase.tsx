@@ -177,7 +177,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
         <div className="relative group/carousel">
           
           {/* Track Controls */}
-          <div className="hidden lg:flex absolute inset-y-0 -left-20 -right-20 items-center justify-between pointer-events-none z-30">
+          <div className="hidden lg:flex absolute left-0 right-0 top-1/2 -translate-y-1/2 px-6 md:px-0 -ml-20 -mr-20 items-center justify-between pointer-events-none z-30">
              <button 
                onClick={() => scroll('left')}
                className="w-16 h-16 rounded-full border border-slate-800 flex items-center justify-center text-white hover:bg-accent hover:text-slate-950 transition-all active:scale-90 bg-slate-950/50 backdrop-blur-xl pointer-events-auto"
@@ -271,12 +271,12 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                             </div>
                         </div>
 
-                        <div className="flex items-center justify-between border-t border-slate-800 pt-8">
+                        <div className="relative flex items-center border-t border-slate-800 pt-8 pr-14 md:pr-16">
                             <div>
                                 <div className="text-[9px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest">Starting Price</div>
                                 <div className="text-xl md:text-3xl font-bold text-white tracking-tighter">{car.price}</div>
                             </div>
-                            <button className="w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center text-slate-950 shadow-2xl hover:bg-accent transition-all duration-300 group/btn">
+                            <button className="absolute right-0 top-1/2 -translate-y-1/2 -mt-6 md:mt-0 w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center text-slate-950 shadow-2xl hover:bg-accent transition-all duration-300 group/btn">
                               <ArrowRight size={22} className="md:w-7 md:h-7 group-hover/btn:translate-x-1 transition-transform" />
                             </button>
                         </div>

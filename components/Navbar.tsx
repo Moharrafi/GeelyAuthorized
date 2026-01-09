@@ -50,7 +50,7 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
             <img
               src="https://geelysmgroup.com/wp-content/uploads/2025/01/Geely-white-1.png"
               alt="Logo"
-              className="w-20 h-13 object-contain"
+              className="h-9 md:h-12 w-auto object-contain"
             />
           {/* <span className={`text-2xl font-bold tracking-tighter ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
             GEELY

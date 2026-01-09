@@ -81,7 +81,7 @@ const PromoGJAW: React.FC<PromoGJAWProps> = ({ onConsultClick }) => {
                   </p>
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-accent">
-                       <img src="https://gbaglarus-my.sharepoint.com/personal/mohamadarrafi_msdn365_vip/Documents/Gambar/Gambar1.png?Web=1" alt="Dayana" />
+                       <img src="/img/2.png" alt="Dayana" />
                     </div>
                     <div>
                        <div className="text-white font-bold text-sm">Dayana</div>

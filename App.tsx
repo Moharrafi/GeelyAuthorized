@@ -19,6 +19,10 @@ function App() {
   const [currentView, setCurrentView] = useState<View>('home');
   const [theme, setTheme] = useState<Theme>('dark');
   const chatRef = useRef<ChatAssistantHandle>(null);
+  const whatsappNumber = "6283197483984";
+  const whatsappKonsultasiOnlineUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+    "Halo Dayana, salam kenal. Saya ingin bertanya tentang promo terbaru. Terima kasih."
+  )}`;
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -105,14 +109,16 @@ function App() {
                     >
                       Pesan Sekarang
                     </button>
-                    <button 
-                      onClick={() => handleConsultClick("Halo Dayana, saya ingin bertanya tentang promo terbaru.")}
+                    <a 
+                      href={whatsappKonsultasiOnlineUrl}
+                      target="_blank"
+                      rel="noreferrer"
                       className={`px-12 py-5 bg-transparent border font-bold text-xs uppercase tracking-widest rounded-full backdrop-blur-sm transition-all duration-300 ${
                         theme === 'dark' ? 'border-white/30 text-white hover:bg-white/10' : 'border-slate-900/30 text-slate-900 hover:bg-slate-900/10'
                       }`}
                     >
                       Konsultasi Online
-                    </button>
+                    </a>
                   </div>
                </div>
             </section>

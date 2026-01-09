@@ -1,23 +1,34 @@
 import React from 'react';
-import { Globe, Award, Users, Lightbulb, ArrowRight, MessageCircle, Star, ShieldCheck, Trophy, Camera, Sparkles } from 'lucide-react';
+import { Globe, Award, Users, Lightbulb, ArrowRight, Star, ShieldCheck, Trophy, Camera, Sparkles } from 'lucide-react';
 
 interface AboutProps {
   onConsultClick: (prompt?: string) => void;
 }
 
 const GALLERY_IMAGES = [
-  { id: 1, url: "https://gbaglarus-my.sharepoint.com/personal/mohamadarrafi_msdn365_vip/Documents/Gambar/WhatsApp%20Image%202026-01-07%20at%2017.55.22.jpeg?Web=1", size: "tall" },
-  { id: 2, url: "https://gbaglarus-my.sharepoint.com/personal/mohamadarrafi_msdn365_vip/Documents/Gambar/WhatsApp%20Image%202026-01-07%20at%2017.55.21.jpeg?Web=1", size: "small" },
-  { id: 3, url: "https://gbaglarus-my.sharepoint.com/personal/mohamadarrafi_msdn365_vip/Documents/Gambar/1.jpeg?Web=1", size: "medium" },
-  { id: 4, url: "https://gbaglarus-my.sharepoint.com/personal/mohamadarrafi_msdn365_vip/Documents/Gambar/WhatsApp%20Image%202026-01-07%20at%2017.53.07.jpeg?Web=1", size: "small" },
-  { id: 5, url: "https://gbaglarus-my.sharepoint.com/personal/mohamadarrafi_msdn365_vip/Documents/Gambar/WhatsApp%20Image%202026-01-07%20at%2017.53.05.jpeg?Web=1", size: "tall" },
-  { id: 6, url: "https://gbaglarus-my.sharepoint.com/personal/mohamadarrafi_msdn365_vip/_api/v2.1/drives/b!_Vu60oSmvkmCiueXHav5-04Om6HjEuNJmpoLg18sMksbpnd4BsUPQrbulGkVCit0/items/01AAZKPQIFHN4HP2J4IZD35YLXHRWSYW43/thumbnails/0/c955x955/content?prefer=noredirect%2Cclosestavailablesize&cb=%22c%3A%7B77783B05-3CE9-4746-BEE1-773C6D2C5B9B%7D%2C1%22&photossw=1&skipAuth=1&eh=scenario%3ABrowsePhoto_OneUp_HDR&it=originalScale%3Ac512x512%2CdownloadScale%3Ac955x955%2Cmigrated%3Atrue%2CscenarioName%3ArenderPhoto", size: "medium" },
-  { id: 7, url: "https://gbaglarus-my.sharepoint.com/personal/mohamadarrafi_msdn365_vip/Documents/Gambar/WhatsApp%20Image%202026-01-08%20at%2017.25.31.jpeg?Web=1", size: "small" },
-  { id: 8, url: "https://gbaglarus-my.sharepoint.com/personal/mohamadarrafi_msdn365_vip/Documents/Gambar/WhatsApp%20Image%202026-01-07%20at%2017.53.06.jpeg?Web=1", size: "medium" },
-  { id: 9, url: "https://gbaglarus-my.sharepoint.com/personal/mohamadarrafi_msdn365_vip/Documents/Gambar/WhatsApp%20Image%202026-01-07%20at%2017.53.08.jpeg?Web=1", size: "small" },
+  { id: 1, url: "/img/9.jpeg", size: "tall" },
+  { id: 2, url: "/img/1.jpeg", size: "small" },
+  { id: 3, url: "/img/7.jpeg", size: "medium" },
+  { id: 4, url: "/img/5.jpeg", size: "small" },
+  { id: 5, url: "/img/3.jpeg", size: "tall" },
+  { id: 6, url: "/img/6.jpeg", size: "medium" },
+  { id: 7, url: "/img/8.jpeg", size: "small" },
+  { id: 8, url: "/img/4.jpeg", size: "medium" },
+  { id: 9, url: "/img/10.jpeg", size: "small" },
 ];
 
 const About: React.FC<AboutProps> = ({ onConsultClick }) => {
+  const whatsappNumber = "6283197483984";
+  const whatsappKonsultasiUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+    "Halo Dayana, salam kenal. Saya ingin konsultasi pemilihan mobil yang cocok untuk saya. Terima kasih."
+  )}`;
+  const whatsappSimulasiUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+    "Halo Dayana, salam kenal. Saya ingin minta simulasi kredit untuk Geely EX5. Terima kasih."
+  )}`;
+  const whatsappStokUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+    "Halo Dayana, salam kenal. Apakah ada stok ready untuk Starray EM-i? Terima kasih."
+  )}`;
+
   return (
     <div className="pt-24 md:pt-20 bg-slate-950 min-h-screen animate-fade-in text-slate-100">
       
@@ -44,13 +55,23 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
           <p className="text-slate-400 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed mb-10">
             Menemukan kendaraan impian bukan sekadar transaksi, melainkan perjalanan. Biarkan Dayana membantu Anda menemukan Geely yang tepat untuk gaya hidup Anda.
           </p>
-          <button 
-            onClick={() => onConsultClick("Halo Dayana, saya ingin konsultasi pemilihan mobil yang cocok untuk saya.")}
-            className="px-10 py-4 bg-white text-slate-950 font-bold rounded-full hover:bg-accent transition-all flex items-center justify-center gap-3 mx-auto shadow-xl shadow-white/5 group uppercase tracking-widest text-xs"
+          <a 
+            href={whatsappKonsultasiUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="px-8 py-4 bg-white text-slate-950 font-bold rounded-full hover:bg-accent transition-all inline-flex items-center justify-center gap-3 mx-auto shadow-xl shadow-white/5 group uppercase tracking-widest text-xs"
           >
             Mulai Konsultasi Sekarang
-            <MessageCircle size={18} className="group-hover:scale-110 transition-transform" />
-          </button>
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className="fill-current group-hover:scale-110 transition-transform"
+            >
+              <path d="M20.52 3.48A11.86 11.86 0 0 0 12.01 0C5.39 0 .02 5.37.02 11.99c0 2.11.55 4.17 1.6 5.99L0 24l6.2-1.62a11.95 11.95 0 0 0 5.8 1.48h.01c6.62 0 12-5.37 12-11.99 0-3.2-1.25-6.2-3.49-8.39zM12.01 22.1h-.01a10.1 10.1 0 0 1-5.15-1.42l-.37-.22-3.68.96.98-3.59-.24-.37a10.1 10.1 0 0 1-1.55-5.46c0-5.6 4.56-10.16 10.17-10.16 2.71 0 5.25 1.06 7.17 2.98a10.09 10.09 0 0 1 2.97 7.18c0 5.6-4.56 10.16-10.16 10.16zm5.56-7.62c-.3-.15-1.76-.87-2.03-.96-.27-.1-.46-.15-.66.15-.2.3-.76.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.8-1.5-1.79-1.67-2.09-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.66-1.59-.9-2.18-.24-.58-.48-.5-.66-.51h-.56c-.2 0-.52.07-.8.37-.27.3-1.04 1.01-1.04 2.47 0 1.46 1.06 2.87 1.2 3.07.15.2 2.09 3.19 5.06 4.47.71.31 1.26.5 1.69.64.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.69.25-1.28.17-1.41-.08-.13-.27-.2-.57-.35z" />
+            </svg>
+          </a>
         </div>
       </section>
 
@@ -60,7 +81,7 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
           <div className="w-full lg:w-1/2">
             <div className="relative rounded-3xl overflow-hidden border border-slate-800 shadow-2xl group isolate">
               <img 
-                src="https://gbaglarus-my.sharepoint.com/personal/mohamadarrafi_msdn365_vip/Documents/Gambar/WhatsApp%20Image%202026-01-07%20at%2017.55.20.jpeg?Web=1" 
+                src="/img/10.jpeg"
                 alt="Dayana - Lead Consultant" 
                 className="w-full h-[500px] md:h-[600px] object-cover transition-transform duration-700 group-hover:scale-105 opacity-90"
               />
@@ -162,12 +183,15 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
               { icon: Users, title: "After Sales Support", desc: "Pendampingan servis rutin dan klaim garansi tanpa ribet." },
               { icon: Award, title: "Proses Cepat", desc: "Pengurusan administrasi dan STNK yang efisien dan transparan." }
             ].map((item, idx) => (
-              <div key={idx} className="p-10 bg-slate-900 rounded-3xl border border-slate-800 hover:border-accent/30 transition-all text-center group">
-                <div className="w-16 h-16 bg-slate-950 rounded-2xl flex items-center justify-center mb-6 mx-auto border border-slate-800 group-hover:bg-accent group-hover:text-slate-950 transition-all">
-                  <item.icon className="w-8 h-8 text-accent group-hover:text-slate-950" />
+              <div
+                key={idx}
+                className="p-10 bg-slate-900 rounded-3xl border border-slate-800 text-center group transition-all duration-500 ease-out hover:border-accent/30 hover:-translate-y-1 hover:shadow-2xl hover:shadow-accent/10"
+              >
+                <div className="w-16 h-16 bg-slate-950 rounded-2xl flex items-center justify-center mb-6 mx-auto border border-slate-800 transition-all duration-500 ease-out group-hover:bg-accent group-hover:text-slate-950 group-hover:shadow-lg group-hover:shadow-accent/30">
+                  <item.icon className="w-8 h-8 text-accent transition-colors duration-500 ease-out group-hover:text-slate-950" />
                 </div>
                 <h4 className="text-xl font-bold text-white mb-3 tracking-tight">{item.title}</h4>
-                <p className="text-sm text-slate-400 leading-relaxed font-light">{item.desc}</p>
+                <p className="text-sm text-slate-400 leading-relaxed font-light transition-colors duration-500 ease-out group-hover:text-slate-200">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -233,8 +257,8 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
       {/* Final CTA */}
       <section className="py-12 md:py-16 container mx-auto px-6 text-center">
         <div className="bg-slate-900 rounded-[3rem] p-12 md:p-24 relative overflow-hidden shadow-2xl isolate border border-slate-800">
-          <div className="absolute inset-0 bg-accent mix-blend-overlay opacity-10"></div>
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent via-white/20 to-accent"></div>
+          <div className="absolute inset-0 bg-accent mix-blend-overlay opacity-10 pointer-events-none"></div>
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent via-white/20 to-accent pointer-events-none"></div>
           
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tighter">Siap Memiliki <span className="text-accent">Geely</span> Anda?</h2>
           <p className="text-slate-400 max-w-xl mx-auto mb-12 text-lg font-light leading-relaxed">
@@ -242,18 +266,22 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={() => onConsultClick("Saya ingin simulasi kredit untuk Geely EX5.")}
-              className="px-10 py-5 bg-accent text-slate-950 font-bold uppercase tracking-widest text-xs rounded-full hover:bg-white transition-all shadow-lg shadow-accent/20"
+            <a 
+              href={whatsappSimulasiUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="px-10 py-5 bg-accent text-slate-950 font-bold uppercase tracking-widest text-xs rounded-full hover:bg-white transition-all shadow-lg shadow-accent/20 text-center"
             >
               Minta Simulasi Kredit
-            </button>
-            <button 
-              onClick={() => onConsultClick("Dayana, apakah ada stok ready untuk Starray EM-i?")}
-              className="px-10 py-5 bg-transparent text-white font-bold uppercase tracking-widest text-xs rounded-full hover:bg-white/10 transition-all border border-slate-700"
+            </a>
+            <a 
+              href={whatsappStokUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="px-10 py-5 bg-transparent text-white font-bold uppercase tracking-widest text-xs rounded-full hover:bg-white/10 transition-all border border-slate-700 text-center"
             >
               Cek Stok Ready
-            </button>
+            </a>
           </div>
         </div>
       </section>

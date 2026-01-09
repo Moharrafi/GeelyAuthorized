@@ -16,7 +16,7 @@ const SalesProfilePreview: React.FC<SalesProfilePreviewProps> = ({ onMoreInfoCli
           <div className="w-full lg:w-1/2 relative group">
             <div className="relative rounded-[2.5rem] overflow-hidden border border-slate-700 shadow-2xl isolate">
               <img 
-                src="https://dayana.geelyauthorized.com/dayana.jpg" 
+                src="/img/10.jpeg"
                 alt="Dayana - Lead Sales Consultant" 
                 className="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
               />

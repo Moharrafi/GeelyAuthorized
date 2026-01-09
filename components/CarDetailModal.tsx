@@ -83,7 +83,7 @@ const CarDetailModal: React.FC<CarDetailModalProps> = ({ car, isOpen, onClose, o
         </button>
 
         {/* Left Side: Image */}
-        <div className="w-full md:w-1/2 relative h-80 md:h-auto overflow-hidden">
+        <div className="w-full md:w-1/2 relative h-[28rem] md:h-auto overflow-hidden">
           {images.map((src, idx) => (
             <img
               key={`${src}-${idx}`}

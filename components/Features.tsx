@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ShieldCheck, BatteryCharging, Cpu, Wifi, Smartphone, Globe, Speaker, Battery, Palette } from 'lucide-react';
+import { ShieldCheck, BatteryCharging, Cpu, Wifi, Smartphone, Globe, Speaker, Battery, Scan, Radar } from 'lucide-react';
 
 const Features: React.FC = () => {
   return (
@@ -54,17 +54,17 @@ const Features: React.FC = () => {
               playsInline
             >
               <source
-                src="https://cdn.jumpshare.com/preview/7aHYteyFLhvYXKgBmD180yC35g8GQVYC_BE7DT03iL15thSzDGHSnFaypSUIw0ukvYerGUS87fWNHYMQss21g5Fj3l2SdZVE47z8tJsXSIHxiOTkPSK6aSn-6amHqqBACG4OlATUR22aWL3K3UqMhm6yjbN-I2pg_cnoHs_AmgI.mp4"
+                src="https://geelywonder.id/public/domain/g/geelywonder.id/images/video_features-aeb-ex2.mp4"
                 type="video/mp4"
               />
             </video>
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-slate-950/20 to-transparent md:from-slate-950/90 md:via-slate-950/40"></div>
             <div className="relative z-10 p-8 pb-10 h-full flex flex-col justify-end">
               <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-3xl group-hover:bg-purple-500/10 transition-colors"></div>
-              <Palette size={32} className="text-blue-400 mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">256 Colors Ambient Light</h3>
+              <Radar size={32} className="text-green-400 mb-4" />
+              <h3 className="text-xl font-bold text-white mb-2">TSI Traffic Sign Recognition</h3>
               <p className="text-slate-200 text-sm">
-              Full of Atmosphere Vibes
+              Identify the speed limit sign on the road ahead and display a reminder through the LCD instrument
               </p>
             </div>
           </div>
@@ -137,7 +137,7 @@ const Features: React.FC = () => {
               playsInline
             >
               <source
-                src="https://cdn.jumpshare.com/preview/KorQKX3wtwvrOpMvxplCG6ygdjyJlft2zotj7ds7j36jFkoPTZmL886jwuj3mBHIVzv0x5Dkbl7lQtMVhnTk4UgjjzaHtS67pXI7tKS-LmBOBXqLaStw3cE0PQG040oOWmMnod-EzS7BQXQMyGq2UW6yjbN-I2pg_cnoHs_AmgI.mp4"
+                src="https://geelyambara.co.id/storage/2025/09/GEELY-EX5_4.mp4?&autoplay=1&mute=1&loop=1"
                 type="video/mp4"
               />
             </video>
