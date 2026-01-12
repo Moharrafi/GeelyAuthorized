@@ -38,7 +38,7 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
           <img 
             src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2000" 
             alt="Geely Showroom" 
-            className="w-full h-full object-cover opacity-20"
+            className="w-full h-full object-cover opacity-30"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/40 to-slate-950"></div>
         </div>
@@ -52,7 +52,7 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
             Konsultasi Eksklusif <br/>
             <span className="text-accent">Bersama Dayana</span>
           </h1>
-          <p className="text-slate-400 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed mb-10">
+          <p className="text-black dark:text-slate-200 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed mb-10">
             Menemukan kendaraan impian bukan sekadar transaksi, melainkan perjalanan. Biarkan Dayana membantu Anda menemukan Geely yang tepat untuk gaya hidup Anda.
           </p>
           <a 

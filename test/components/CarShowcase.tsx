@@ -18,7 +18,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  const categories = ['SUV', 'PHEV'];
+  const categories = ['SUV', 'Sedan', 'EV', 'Sport'];
 
   const handleCategoryChange = (category: string | null) => {
     if (selectedCategory === category) return;
@@ -69,26 +69,13 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
   };
 
   const scroll = (direction: 'left' | 'right') => {
-    if (!scrollRef.current) return;
-
-    const { clientWidth, scrollLeft, scrollWidth } = scrollRef.current;
-    const maxScrollLeft = scrollWidth - clientWidth;
-    const edgeThreshold = 5;
-
-    if (direction === 'right') {
-      if (scrollLeft >= maxScrollLeft - edgeThreshold) {
-        scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
-        return;
-      }
-      scrollRef.current.scrollBy({ left: clientWidth, behavior: 'smooth' });
-      return;
+    if (scrollRef.current) {
+      const { clientWidth } = scrollRef.current;
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -clientWidth : clientWidth,
+        behavior: 'smooth'
+      });
     }
-
-    if (scrollLeft <= edgeThreshold) {
-      scrollRef.current.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
-      return;
-    }
-    scrollRef.current.scrollBy({ left: -clientWidth, behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -100,9 +87,9 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
   }, [filteredAndSortedCars]);
 
   return (
-    <section id="models" className="pt-20 pb-12 md:pt-32 md:pb-16 bg-slate-950 premium-light-surface light-seam-overlap relative overflow-hidden">
+    <section id="models" className="pt-20 pb-12 md:pt-32 md:pb-16 bg-white dark:bg-slate-950 transition-colors duration-500 relative overflow-hidden">
       {/* Decorative background text */}
-      <div className="absolute top-20 md:top-40 left-0 text-[10rem] md:text-[15rem] font-black text-white/[0.02] light-wordmark select-none pointer-events-none whitespace-nowrap leading-none uppercase">
+      <div className="absolute top-20 md:top-40 left-0 text-[10rem] md:text-[15rem] font-black text-slate-100 dark:text-white/[0.02] select-none pointer-events-none whitespace-nowrap leading-none uppercase transition-colors">
         Masterpiece • 2025
       </div>
 
@@ -110,8 +97,8 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 md:mb-16 gap-8">
           <div className="max-w-xl">
             <span className="text-accent text-[10px] md:text-sm font-bold tracking-[0.4em] uppercase mb-2 md:mb-4 block">Our Legacy</span>
-            <h2 className="text-3xl md:text-7xl font-bold text-white tracking-tighter leading-none">
-              Explore The <br/> <span className="text-slate-500">New Collection</span>
+            <h2 className="text-3xl md:text-7xl font-bold text-slate-900 dark:text-white tracking-tighter leading-none transition-colors">
+              Explore The <br/> <span className="text-slate-300 dark:text-slate-500">New Collection</span>
             </h2>
           </div>
           
@@ -119,18 +106,18 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
             {/* Category Filters */}
             <div className="w-full sm:w-auto overflow-visible relative">
               <div className="overflow-x-auto no-scrollbar py-2">
-                <div className="inline-flex items-center bg-slate-900/60 p-1.5 md:p-2 rounded-full backdrop-blur-md shadow-[0_12px_30px_-12px_rgba(15,23,42,0.28),0_2px_8px_-2px_rgba(15,23,42,0.18)] min-w-max">
+                <div className="inline-flex items-center bg-slate-100 dark:bg-slate-900/60 p-1.5 md:p-2 rounded-full border border-slate-200 dark:border-slate-800 backdrop-blur-md shadow-lg transition-colors min-w-max">
                   <button
                     onClick={() => handleCategoryChange(null)}
                     className={`px-6 py-2.5 rounded-full text-[10px] font-black tracking-widest transition-all duration-500 ease-out whitespace-nowrap ${
                       selectedCategory === null
-                        ? 'bg-white text-slate-950 shadow-[0_10px_20px_-10px_rgba(15,23,42,0.30),0_2px_6px_-2px_rgba(15,23,42,0.18)] scale-[1.02]'
-                        : 'text-slate-500 hover:text-slate-300'
+                        ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-950 shadow-xl scale-[1.02]'
+                        : 'text-slate-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-300'
                     }`}
                   >
                     ALL MODELS
                   </button>
-                  <div className="w-px h-4 bg-slate-800 mx-3 shrink-0"></div>
+                  <div className="w-px h-4 bg-slate-200 dark:bg-slate-800 mx-3 shrink-0"></div>
                   <div className="flex items-center gap-1 pr-2">
                     {categories.map((cat) => (
                       <button
@@ -138,8 +125,8 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                         onClick={() => handleCategoryChange(cat)}
                         className={`px-6 py-2.5 rounded-full text-[10px] font-black tracking-widest transition-all duration-500 ease-out whitespace-nowrap ${
                           selectedCategory === cat
-                            ? 'bg-accent text-slate-950 shadow-[0_10px_20px_-10px_rgba(15,23,42,0.30),0_2px_6px_-2px_rgba(15,23,42,0.18)] scale-[1.02]'
-                            : 'text-slate-500 hover:text-slate-300'
+                            ? 'bg-accent text-slate-950 shadow-[0_0_20px_rgba(56,189,248,0.5)] scale-[1.02]'
+                            : 'text-slate-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-300'
                       }`}
                       >
                         {cat}
@@ -158,7 +145,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
               <select 
                 value={sortBy} 
                 onChange={(e) => setSortBy(e.target.value)}
-                className="w-full appearance-none bg-slate-900/60 border border-slate-800 text-slate-300 text-[10px] font-black uppercase tracking-widest rounded-full pl-12 pr-12 py-4 outline-none focus:border-accent transition-all cursor-pointer hover:bg-slate-800 shadow-xl"
+                className="w-full appearance-none bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-300 text-[10px] font-black uppercase tracking-widest rounded-full pl-12 pr-12 py-4 outline-none focus:border-accent transition-all cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-800 shadow-lg"
               >
                 <option value="featured">Featured First</option>
                 <option value="price_asc">Price: Low to High</option>
@@ -166,7 +153,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                 <option value="acceleration">Fastest Accel</option>
                 <option value="speed">Top Speed</option>
               </select>
-              <div className="absolute inset-y-0 right-5 flex items-center pointer-events-none text-slate-500">
+              <div className="absolute inset-y-0 right-5 flex items-center pointer-events-none text-slate-400">
                  <SlidersHorizontal size={14} />
               </div>
             </div>
@@ -177,16 +164,18 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
         <div className="relative group/carousel">
           
           {/* Track Controls */}
-          <div className="hidden lg:flex absolute left-0 right-0 top-1/2 -translate-y-1/2 px-6 md:px-0 -ml-20 -mr-20 items-center justify-between pointer-events-none z-30">
+          <div className="hidden lg:flex absolute inset-y-0 -left-20 -right-20 items-center justify-between pointer-events-none z-30">
              <button 
                onClick={() => scroll('left')}
-               className="w-16 h-16 rounded-full border border-slate-800 flex items-center justify-center text-white hover:bg-accent hover:text-slate-950 transition-all active:scale-90 bg-slate-950/50 backdrop-blur-xl pointer-events-auto"
+               className={`w-16 h-16 rounded-full border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-900 dark:text-white hover:bg-accent hover:text-slate-950 transition-all active:scale-90 bg-white/80 dark:bg-slate-950/50 backdrop-blur-xl pointer-events-auto shadow-xl ${scrollProgress <= 1 ? 'opacity-20 cursor-not-allowed' : 'opacity-100'}`}
+               disabled={scrollProgress <= 1}
              >
                <ChevronLeft size={32} />
              </button>
              <button 
                onClick={() => scroll('right')}
-               className="w-16 h-16 rounded-full border border-slate-800 flex items-center justify-center text-white hover:bg-accent hover:text-slate-950 transition-all active:scale-90 bg-slate-950/50 backdrop-blur-xl pointer-events-auto"
+               className={`w-16 h-16 rounded-full border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-900 dark:text-white hover:bg-accent hover:text-slate-950 transition-all active:scale-90 bg-white/80 dark:bg-slate-950/50 backdrop-blur-xl pointer-events-auto shadow-xl ${scrollProgress >= 99 ? 'opacity-20 cursor-not-allowed' : 'opacity-100'}`}
+               disabled={scrollProgress >= 99}
              >
                <ChevronRight size={32} />
              </button>
@@ -205,22 +194,21 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                   key={car.id} 
                   className="flex-shrink-0 w-[85vw] md:w-full snap-center px-3 md:px-4"
                 >
-                  {/* <div className="w-full p-2 rounded-[2.5rem] md:rounded-[3rem] shadow-[0_24px_70px_rgba(15,23,42,0.08),0_8px_20px_rgba(15,23,42,0.04)] dark:shadow-2xl"> */}
-                    <div 
-                      onClick={() => setSelectedCar(car)}
-                      className="relative w-full bg-slate-900 rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-slate-700 group/card cursor-pointer flex flex-col lg:flex-row"
-                    >
-                      {/* Image Area */}
-                      <div className="w-full lg:w-[60%] relative overflow-hidden h-[320px] sm:h-[400px] lg:h-auto lg:min-h-[600px] bg-slate-800">
-                        <div className={`absolute inset-0 bg-slate-800 transition-opacity duration-700 z-10 ${loadedImages[car.id] ? 'opacity-0' : 'opacity-100'}`} />
+                  <div 
+                    onClick={() => setSelectedCar(car)}
+                    className="relative w-full bg-slate-50 dark:bg-slate-900 rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-slate-200 dark:border-slate-800 group/card cursor-pointer flex flex-col lg:flex-row shadow-2xl transition-colors"
+                  >
+                    {/* Image Area - Clean Edges */}
+                    <div className="w-full lg:w-[60%] relative overflow-hidden h-[320px] sm:h-[400px] lg:h-[600px] bg-slate-200 dark:bg-slate-800">
+                        <div className={`absolute inset-0 bg-slate-200 dark:bg-slate-800 transition-opacity duration-700 z-10 ${loadedImages[car.id] ? 'opacity-0' : 'opacity-100'}`} />
                         <img
                           src={car.image}
                           alt={car.name}
                           loading="lazy"
                           onLoad={() => handleImageLoad(car.id)}
-                          className="block w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover/card:scale-110"
+                          className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover/card:scale-110"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-slate-950/80 via-transparent to-transparent"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-white/90 dark:from-slate-950/80 via-transparent to-transparent transition-colors"></div>
                         
                         <div className="absolute top-6 left-6 md:top-10 md:left-10">
                             <span className="px-4 md:px-6 py-2 bg-accent text-slate-950 text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] rounded-full shadow-xl">
@@ -229,66 +217,63 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                         </div>
                     </div>
 
-                      {/* Details Area */}
-                      <div className="w-full lg:w-[40%] p-10 md:p-16 flex flex-col justify-center">
+                    {/* Details Area */}
+                    <div className="w-full lg:w-[40%] p-10 md:p-16 flex flex-col justify-center">
                         <div className="mb-2">
                            <span className="text-accent text-[9px] md:text-[10px] font-black uppercase tracking-widest">{car.tagline}</span>
                         </div>
-                        <h3 className="font-bold text-white mb-8 md:mb-6 tracking-tighter leading-none text-2xl md:text-5xl">
-                          {car.name}
-                        </h3>
+                        <h3 className="text-3xl md:text-6xl font-bold text-slate-900 dark:text-white mb-8 md:mb-6 tracking-tighter leading-none transition-colors">{car.name}</h3>
                         
                         <div className="grid grid-cols-3 lg:flex lg:flex-col gap-6 md:gap-8 mb-10 md:mb-12">
                             <div className="flex flex-col lg:flex-row items-center lg:items-center gap-3 lg:gap-6 text-center lg:text-left">
-                                <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-slate-800 flex items-center justify-center text-accent shadow-inner">
+                                <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white dark:bg-slate-800 flex items-center justify-center text-accent shadow-inner border border-slate-100 dark:border-slate-700">
                                     <Gauge size={20} className="md:w-6 md:h-6" />
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-0.5">Accel</span>
-                                    <span className="text-sm md:text-2xl font-bold text-white">{car.specs.acceleration}</span>
+                                    <span className="text-[8px] md:text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest mb-0.5">Accel</span>
+                                    <span className="text-sm md:text-2xl font-bold text-slate-900 dark:text-white transition-colors">{car.specs.acceleration}</span>
                                 </div>
                             </div>
                             <div className="flex flex-col lg:flex-row items-center lg:items-center gap-3 lg:gap-6 text-center lg:text-left">
-                                <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-slate-800 flex items-center justify-center text-accent shadow-inner">
+                                <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white dark:bg-slate-800 flex items-center justify-center text-accent shadow-inner border border-slate-100 dark:border-slate-700">
                                     <Zap size={20} className="md:w-6 md:h-6" />
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-0.5">Power</span>
-                                    <span className="text-sm md:text-2xl font-bold text-white">{car.specs.power}</span>
+                                    <span className="text-[8px] md:text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest mb-0.5">Power</span>
+                                    <span className="text-sm md:text-2xl font-bold text-slate-900 dark:text-white transition-colors">{car.specs.power}</span>
                                 </div>
                             </div>
                             <div className="flex flex-col lg:flex-row items-center lg:items-center gap-3 lg:gap-6 text-center lg:text-left">
-                                <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-slate-800 flex items-center justify-center text-accent shadow-inner">
+                                <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white dark:bg-slate-800 flex items-center justify-center text-accent shadow-inner border border-slate-100 dark:border-slate-700">
                                     <Wind size={20} className="md:w-6 md:h-6" />
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-0.5">Speed</span>
-                                    <span className="text-sm md:text-2xl font-bold text-white">{car.specs.topSpeed}</span>
+                                    <span className="text-[8px] md:text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest mb-0.5">Speed</span>
+                                    <span className="text-sm md:text-2xl font-bold text-slate-900 dark:text-white transition-colors">{car.specs.topSpeed}</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="relative flex items-center border-t border-slate-800 pt-8 pr-14 md:pr-16">
+                        <div className="flex items-center justify-between border-t border-slate-200 dark:border-slate-800 pt-8 transition-colors">
                             <div>
-                                <div className="text-[9px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest">Starting Price</div>
-                                <div className="text-xl md:text-3xl font-bold text-white tracking-tighter">{car.price}</div>
+                                <div className="text-[9px] md:text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest">Starting Price</div>
+                                <div className="text-xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tighter transition-colors">{car.price}</div>
                             </div>
-                            <button className="absolute right-0 top-1/2 -translate-y-1/2 -mt-6 md:mt-0 w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center text-slate-950 shadow-2xl hover:bg-accent transition-all duration-300 group/btn">
+                            <button className="w-12 h-12 md:w-16 md:h-16 bg-slate-900 dark:bg-white rounded-full flex items-center justify-center text-white dark:text-slate-950 shadow-2xl hover:bg-accent transition-all duration-300 group/btn">
                               <ArrowRight size={22} className="md:w-7 md:h-7 group-hover/btn:translate-x-1 transition-transform" />
                             </button>
                         </div>
-                      </div>
                     </div>
-                  {/* </div> */}
+                  </div>
                 </div>
               ))
             ) : (
               <div className="w-full py-40 md:py-60 text-center">
-                <div className="w-16 h-16 md:w-20 md:h-20 bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-700">
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-slate-100 dark:bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-400">
                     <SlidersHorizontal size={28} />
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">No Matching Models</h3>
-                <p className="text-slate-500 text-sm">Please refine your search criteria or reset filters.</p>
+                <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2 transition-colors">No Matching Models</h3>
+                <p className="text-slate-400 dark:text-slate-500 text-sm">Please refine your search criteria or reset filters.</p>
                 <button 
                   onClick={() => handleCategoryChange(null)}
                   className="mt-6 text-accent font-black text-[9px] md:text-[10px] uppercase tracking-widest border-b border-accent/30 pb-1"
@@ -319,7 +304,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                                     }
                                 }}
                                 className={`h-1.5 transition-all duration-500 rounded-full ${
-                                    isActive ? 'w-12 bg-accent shadow-[0_0_15px_rgba(56,189,248,0.5)]' : 'w-4 bg-slate-800 hover:bg-slate-700'
+                                    isActive ? 'w-12 bg-accent shadow-[0_0_15px_rgba(56,189,248,0.5)]' : 'w-4 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700'
                                 }`}
                             />
                         );
@@ -328,14 +313,14 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
 
                 {/* Progress Bar & Counter */}
                 <div className="flex items-center gap-6 flex-1 w-full md:w-auto">
-                    <span className="text-[9px] md:text-[10px] font-black text-slate-600 uppercase tracking-widest whitespace-nowrap">Discovery Mode</span>
-                    <div className="flex-1 h-px bg-slate-900 relative">
+                    <span className="text-[9px] md:text-[10px] font-black text-slate-300 dark:text-slate-600 uppercase tracking-widest whitespace-nowrap transition-colors">Discovery Mode</span>
+                    <div className="flex-1 h-px bg-slate-200 dark:bg-slate-900 relative transition-colors">
                         <div 
                             className="absolute inset-y-0 left-0 bg-accent transition-all duration-300 shadow-[0_0_10px_rgba(56,189,248,0.3)]"
                             style={{ width: `${scrollProgress}%`, height: '2px', top: '-0.5px' }}
                         />
                     </div>
-                    <span className="text-[9px] md:text-[10px] font-black text-slate-600 uppercase tracking-widest whitespace-nowrap">Model {Math.min(filteredAndSortedCars.length, Math.max(1, Math.round((scrollProgress / 100) * (filteredAndSortedCars.length - 1)) + 1))} of {filteredAndSortedCars.length}</span>
+                    <span className="text-[9px] md:text-[10px] font-black text-slate-300 dark:text-slate-600 uppercase tracking-widest whitespace-nowrap transition-colors">Model {Math.min(filteredAndSortedCars.length, Math.max(1, Math.round((scrollProgress / 100) * (filteredAndSortedCars.length - 1)) + 1))} of {filteredAndSortedCars.length}</span>
                 </div>
             </div>
           )}
@@ -353,4 +338,3 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
 };
 
 export default CarShowcase;
-

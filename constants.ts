@@ -43,9 +43,9 @@ export const CARS: Car[] = [
     description: 'At the heart of the STARRAY EM-i is our advanced EM-i Super Hybrid technology engineered for maximum efficiency. EM-i or E-Motive intelligence is Geely is advanced hybrid technology, combining the benefits of fuel and battery for greater efficiency, capability, and lower emissions.',
     features: ['Carbon Fiber Body', 'Sport Tuned Suspension', 'Launch Control', 'Active Aerodynamics'],
     specs: {
-      acceleration: '3.2s',
+      acceleration: '8.0s',
       power: '550 HP',
-      topSpeed: '290 km/h'
+      topSpeed: '170 km/h'
     }
   },
   // {

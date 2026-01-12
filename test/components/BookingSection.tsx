@@ -15,58 +15,40 @@ const BookingSection: React.FC = () => {
     model: '',
     consent: false
   });
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab);
     setStatus('idle');
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
-    try {
-      const response = await fetch('/api/booking', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          tab: activeTab,
-          ...formData
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit');
-      }
-
+    // Simulate API call
+    setTimeout(() => {
       setStatus('success');
       setFormData({
         name: '', email: '', phone: '', province: '', city: '', model: '', consent: false
       });
-    } catch (error) {
-      setStatus('error');
-    }
+    }, 1500);
   };
 
   // Dynamic content based on active tab
   const getTabContent = () => {
-    const getCarImage = (name: string) =>
-      CARS.find((car) => car.name === name)?.image ??
-      "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=1200";
-
     switch(activeTab) {
       case 'pre-book':
         return {
           title: "Pre-Book Now",
-          desc: "Be the first to own the future. Secure your Geely X-Prototype now.",
-          image: getCarImage("Geely EX2"),
+          desc: "Be the first to own the future. Secure your Lumina X-Prototype now.",
+          image: "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&q=80&w=1200",
           btnText: "Secure Pre-Order"
         };
       case 'book-now':
         return {
           title: "Order Your Geely",
           desc: "Secure your offer today. Choose your configuration and dealer.",
-          image: getCarImage("Geely EX5"),
+          image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=1200",
           btnText: "Request Quote"
         };
       case 'test-drive':
@@ -74,7 +56,7 @@ const BookingSection: React.FC = () => {
         return {
           title: "Test Drive",
           desc: "Experience tomorrow, today. Book your test drive and discover the thrill.",
-          image: getCarImage("Geely Starray EM-i"),
+          image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=1200",
           btnText: "Schedule Drive"
         };
     }
@@ -95,9 +77,9 @@ const BookingSection: React.FC = () => {
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex flex-col md:flex-row border-b border-slate-200 dark:border-slate-700 mb-0">
+        <div className="flex flex-col md:flex-row border-b border-slate-100 dark:border-slate-900 mb-0">
           {[
-            { id: 'pre-book', label: 'PRE-BOOK NOW', sub: 'Pre-book Geely Concept' },
+            { id: 'pre-book', label: 'PRE-BOOK NOW', sub: 'Pre-book Lumina Concept' },
             { id: 'book-now', label: 'BOOK NOW', sub: 'Secure your offer today' },
             { id: 'test-drive', label: 'TEST DRIVE', sub: 'Experience the thrill' },
           ].map((tab) => (
@@ -128,21 +110,17 @@ const BookingSection: React.FC = () => {
           
           {/* Left: Image (Cleaned from flickering elements) */}
           <div className="w-full lg:w-1/2 relative overflow-hidden h-64 lg:h-auto">
-            <div className="absolute inset-0 bg-slate-200 dark:bg-slate-900 z-0"></div>
+            <div className="absolute inset-0 bg-slate-200 dark:bg-slate-900"></div>
             <img 
               key={activeTab} 
               src={content.image} 
               alt={content.title} 
-              className="relative z-10 w-full h-full object-cover transition-transform duration-700 hover:scale-105 animate-fade-in"
-              loading="eager"
-              referrerPolicy="no-referrer"
+              className="w-full h-full object-cover transition-transform duration-700 hover:scale-105 animate-fade-in"
             />
-            <div className="absolute inset-0 z-10 bg-gradient-to-r from-white/70 via-white/20 to-white/80 dark:from-slate-950/70 dark:via-slate-950/20 dark:to-slate-950/90"></div>
-            <div className="absolute inset-0 z-10 bg-gradient-to-t from-white/30 via-transparent to-transparent dark:from-slate-950/30"></div>
             {/* Overlay content with fixed backdrop blur container */}
-            <div className="hidden lg:block absolute bottom-8 left-8 right-8 z-20">
+            <div className="absolute bottom-8 left-8 right-8 z-10">
               <div className="bg-white/80 dark:bg-slate-950/60 backdrop-blur-md border border-slate-200 dark:border-white/10 p-8 rounded-3xl">
-                <h3 className="text-3xl font-bold text-white mb-2">{content.title}</h3>
+                <h3 className="text-3xl font-bold text-white/80 mb-2">{content.title}</h3>
                 <p className="text-white/80 dark:text-slate-300 text-lg">{content.desc}</p>
               </div>
             </div>
@@ -286,7 +264,7 @@ const BookingSection: React.FC = () => {
                       <CheckCircle2 size={14} className="absolute text-slate-900 opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity" />
                     </div>
                     <span className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed group-hover:text-slate-900 dark:group-hover:text-slate-300 transition-colors">
-                      I agree to receive email for the latest information and news according to Geely's Privacy Policy.
+                      I agree to receive email for the latest information and news according to Lumina's Privacy Policy.
                     </span>
                   </label>
                 </div>
@@ -299,11 +277,6 @@ const BookingSection: React.FC = () => {
                   {status === 'submitting' ? 'Processing...' : content.btnText}
                   {!status && <ChevronRight size={18} />}
                 </button>
-                {status === 'error' && (
-                  <p className="text-xs text-red-400">
-                    Gagal mengirim data. Coba lagi ya.
-                  </p>
-                )}
               </form>
             )}
           </div>

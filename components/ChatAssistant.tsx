@@ -38,7 +38,7 @@ const ChatAssistant = forwardRef<ChatAssistantHandle>(() => {
         target="_blank"
         rel="noreferrer"
         aria-label="Chat via WhatsApp"
-        className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-[#25D366] hover:bg-white text-white hover:text-[#25D366] shadow-lg shadow-emerald-500/20 transition-all duration-300 transform hover:scale-110 flex items-center justify-center"
+        className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-[#25D366] hover:bg-white text-white hover:text-[#25D366] shadow-lg shadow-emerald-500/20 transition-all duration-300 transform hover:scale-110 flex items-center justify-center wa-fab"
       >
         <svg
           width="34"

@@ -14,23 +14,18 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   };
 
   return (
-    <footer id="contact" className="bg-slate-100 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 pt-16 pb-8 text-slate-700 dark:text-slate-100">
+    <footer id="contact" className="bg-slate-950 dark:bg-slate-950 border-t border-slate-800 dark:border-slate-800 pt-16 pb-8 text-slate-100">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           
           <div className="col-span-1 md:col-span-1">
-            <img
-              src="https://geelysmgroup.com/wp-content/uploads/2025/01/Geely-white-1.png"
-              alt="Geely"
-              className="h-9 md:h-12 mb-6 object-contain invert dark:invert-0"
-              loading="lazy"
-            />
+            <h3 className="text-2xl font-bold text-white mb-6">LUMINA<span className="text-accent">AUTO</span></h3>
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
               Redefining the automotive industry with sustainable luxury and artificial intelligence. Join the revolution today.
             </p>
             <div className="flex gap-4">
               <a 
-                href="https://www.instagram.com/geely_smcibubur/" 
+                href="https://instagram.com" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
@@ -39,7 +34,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <Instagram size={18} />
               </a>
               <a 
-                href="https://www.facebook.com/sales.geely.cibubur" 
+                href="https://facebook.com" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
@@ -48,7 +43,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <Facebook size={18} />
               </a>
               <a 
-                href="https://www.youtube.com/@GeelyAutoCibubur" 
+                href="https://youtube.com" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
@@ -62,9 +57,10 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div>
             <h4 className="text-white font-bold mb-6 uppercase text-xs tracking-widest">Our Models</h4>
             <ul className="space-y-4 text-sm text-slate-400">
-              <li><a href="#models" onClick={(e) => handleLinkClick(e, 'home', 'models')} className="hover:text-accent transition-colors">Geely EX-2</a></li>
-              <li><a href="#models" onClick={(e) => handleLinkClick(e, 'home', 'models')} className="hover:text-accent transition-colors">Geely EX-5</a></li>
-              <li><a href="#models" onClick={(e) => handleLinkClick(e, 'home', 'models')} className="hover:text-accent transition-colors">Geely Starray EM-i</a></li>
+              <li><a href="#models" onClick={(e) => handleLinkClick(e, 'home', 'models')} className="hover:text-accent transition-colors">Lumina X-7 SUV</a></li>
+              <li><a href="#models" onClick={(e) => handleLinkClick(e, 'home', 'models')} className="hover:text-accent transition-colors">Lumina Electron EV</a></li>
+              <li><a href="#models" onClick={(e) => handleLinkClick(e, 'home', 'models')} className="hover:text-accent transition-colors">Lumina GT-S Sport</a></li>
+              <li><a href="#models" onClick={(e) => handleLinkClick(e, 'home', 'models')} className="hover:text-accent transition-colors">Lumina Prime Sedan</a></li>
             </ul>
           </div>
 
@@ -73,7 +69,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <ul className="space-y-4 text-sm text-slate-400">
               <li><a href="#about" onClick={(e) => handleLinkClick(e, 'about')} className="hover:text-accent transition-colors">Profile Sales (Dayana)</a></li>
               <li><a href="#technology" onClick={(e) => handleLinkClick(e, 'home', 'technology')} className="hover:text-accent transition-colors">Sustainability</a></li>
-              <li><a href="mailto:careers@Geelyauto.id" className="hover:text-accent transition-colors">Career Opportunities</a></li>
+              <li><a href="mailto:careers@luminaauto.id" className="hover:text-accent transition-colors">Career Opportunities</a></li>
               <li><a href="#news" onClick={(e) => handleLinkClick(e, 'home', 'news')} className="hover:text-accent transition-colors">News & Events</a></li>
             </ul>
           </div>
@@ -84,21 +80,21 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-accent mt-0.5 flex-shrink-0" />
                 <a 
-                  href="https://maps.app.goo.gl/FZWs2EdhpdjvJMkRA " 
+                  href="https://maps.google.com/?q=SCBD+Lot+28,+Jendral+Sudirman+Kav+52-53,+Jakarta+Selatan" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:text-accent transition-colors leading-relaxed"
                 >
-                  Geely SM Group Cibubur, Jl. Alternatif Cibubur No.2 KM, Cileungsi, Bogor Regency, West Java 16820
+                  SCBD Lot 28, Jendral Sudirman Kav 52-53, Jakarta Selatan
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-accent flex-shrink-0" />
-                <a href="tel:+6283197483984" className="hover:text-accent transition-colors">+62 831-9748-3984</a>
+                <a href="tel:+62215550192" className="hover:text-accent transition-colors">+62 21 555 0192</a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={18} className="text-accent flex-shrink-0" />
-                <a href="mailto:diananistii@gmail.com" className="hover:text-accent transition-colors">diananistii@gmail.com</a>
+                <a href="mailto:sales@luminaauto.id" className="hover:text-accent transition-colors">sales@luminaauto.id</a>
               </li>
             </ul>
           </div>
@@ -106,7 +102,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         </div>
 
         <div className="border-t border-slate-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600">
-          <p>&copy; 2025 Geely Indonesia. Redefining Automotive Excellence.</p>
+          <p>&copy; 2025 Lumina Auto Indonesia. Redefining Automotive Excellence.</p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-slate-400 transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-slate-400 transition-colors">Terms of Service</a>

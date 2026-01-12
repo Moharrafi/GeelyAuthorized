@@ -34,23 +34,35 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
     setIsMobileMenuOpen(false);
   };
 
+  const isLightHero = theme === 'light' && !isScrolled && !isMobileMenuOpen && currentView === 'home';
+
   const navBgClass = isScrolled || isMobileMenuOpen || currentView === 'about'
     ? (theme === 'dark' ? 'bg-slate-950/80 border-slate-800' : 'bg-white/80 border-slate-200')
     : 'bg-transparent border-transparent';
 
-  const textClass = theme === 'dark' ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900';
+  const textClass = theme === 'dark'
+    ? 'text-slate-300 hover:text-white'
+    : (isLightHero
+      ? 'nav-link-hero drop-shadow-[0_1px_2px_rgba(15,23,42,0.6)]'
+      : (isScrolled || isMobileMenuOpen || currentView === 'about'
+        ? 'text-slate-700 hover:text-slate-950'
+        : 'text-slate-700/90 hover:text-slate-900 drop-shadow-[0_1px_1px_rgba(255,255,255,0.35)]'));
+
+  const logoClass = theme === 'dark'
+    ? 'invert-0'
+    : (isLightHero ? 'invert-0' : 'invert');
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b backdrop-blur-xl ${navBgClass} ${isScrolled ? 'py-3' : 'py-6'}`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b backdrop-blur-xl ${navBgClass} ${isScrolled ? 'py-3' : 'py-6'} ${isLightHero ? 'light-hero-nav' : ''}`}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
         <a href="#" onClick={(e) => handleLinkClick(e, '#hero')} className="flex items-center gap-2 group">
-            <img
+          <img
               src="https://geelysmgroup.com/wp-content/uploads/2025/01/Geely-white-1.png"
               alt="Logo"
-              className="h-9 md:h-12 w-auto object-contain"
+              className={`h-9 md:h-12 w-auto object-contain ${logoClass}`}
             />
           {/* <span className={`text-2xl font-bold tracking-tighter ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
             GEELY
@@ -64,7 +76,7 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
               key={link.name}
               href={link.href}
               onClick={(e) => handleLinkClick(e, link.href)}
-              className={`text-xs font-bold transition-colors uppercase tracking-[0.15em] relative group py-2 ${currentView === 'about' && link.href === '#about'
+              className={`nav-link text-xs font-semibold transition-colors uppercase tracking-[0.15em] relative group py-2 ${currentView === 'about' && link.href === '#about'
                   ? 'text-accent'
                   : textClass
                 }`}
@@ -79,20 +91,25 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
             {/* Theme Toggle */}
             <button
               onClick={onToggleTheme}
-              className={`p-2.5 rounded-full transition-all duration-300 border ${theme === 'dark'
+              className={`p-2.5 rounded-full transition-all duration-300 border ring-1 ring-transparent hover:ring-accent/40 hover:scale-[1.03] active:scale-100 ${theme === 'dark'
                   ? 'bg-slate-900 border-slate-800 text-accent hover:bg-slate-800'
-                  : 'bg-slate-100 border-slate-200 text-slate-900 hover:bg-slate-200'
+                  : 'bg-white border-slate-200 text-slate-900 hover:bg-slate-100'
                 }`}
               aria-label="Toggle Theme"
+              title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             >
-              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+              {theme === 'dark' ? (
+                <Sun size={18} className="transition-transform duration-300 rotate-0" />
+              ) : (
+                <Moon size={18} className="transition-transform duration-300 -rotate-12" />
+              )}
             </button>
 
             <button
               onClick={onTestDriveClick}
-              className={`flex items-center gap-2 px-6 py-2.5 font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 hover:-translate-y-0.5 shadow-lg ${theme === 'dark'
-                  ? 'bg-white text-slate-950 hover:bg-accent'
-                  : 'bg-slate-900 text-white hover:bg-accent hover:text-slate-950 shadow-slate-900/10'
+              className={`flex items-center gap-2 px-6 py-2.5 font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl ${theme === 'dark'
+                  ? 'bg-white text-slate-950 hover:bg-accent hover:text-slate-950 hover:shadow-accent/10'
+                  : 'nav-cta text-white border border-slate-900/10 shadow-slate-900/10'
                 }`}
             >
               Test Drive
@@ -104,12 +121,18 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
         <div className="flex items-center gap-2 md:hidden">
           <button
             onClick={onToggleTheme}
-            className={`p-2 rounded-full border ${theme === 'dark'
-                ? 'bg-slate-900 border-slate-800 text-accent'
-                : 'bg-slate-100 border-slate-200 text-slate-900'
+            className={`p-2 rounded-full border transition-all duration-300 ring-1 ring-transparent hover:ring-accent/40 hover:scale-[1.03] active:scale-100 ${theme === 'dark'
+                ? 'bg-slate-900 border-slate-800 text-accent hover:bg-slate-800'
+                : 'bg-white border-slate-200 text-slate-900 hover:bg-slate-100'
               }`}
+            aria-label="Toggle Theme"
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
           >
-            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            {theme === 'dark' ? (
+              <Sun size={18} className="transition-transform duration-300 rotate-0" />
+            ) : (
+              <Moon size={18} className="transition-transform duration-300 -rotate-12" />
+            )}
           </button>
           <button
             className={`transition-colors p-2 ${theme === 'dark' ? 'text-white hover:text-accent' : 'text-slate-900 hover:text-accent'}`}

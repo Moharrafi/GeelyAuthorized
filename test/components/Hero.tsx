@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { HERO_SLIDES } from '../constants';
 
@@ -9,50 +9,36 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ onDiscoverClick }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [isFilmOpen, setIsFilmOpen] = useState(false);
-  const isAnimatingRef = useRef(false);
-
-  const triggerSlideChange = useCallback((direction: 'next' | 'prev') => {
-    if (isAnimatingRef.current) return;
-    isAnimatingRef.current = true;
-    setIsAnimating(true);
-    setCurrentSlide((prev) => (
-      direction === 'next'
-        ? (prev + 1) % HERO_SLIDES.length
-        : (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length
-    ));
-    setTimeout(() => {
-      isAnimatingRef.current = false;
-      setIsAnimating(false);
-    }, 700); // Sesuai dengan durasi transisi
-  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      triggerSlideChange('next');
-    }, 4500);
+      handleNext();
+    }, 4000); // Dipercepat dari 6000ms ke 4000ms
     return () => clearInterval(interval);
-  }, [triggerSlideChange]);
+  }, [currentSlide]);
 
   const handleNext = () => {
-    triggerSlideChange('next');
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    setTimeout(() => setIsAnimating(false), 700); // Sesuai dengan durasi transisi
   };
 
   const handlePrev = () => {
-    triggerSlideChange('prev');
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
+    setTimeout(() => setIsAnimating(false), 700);
   };
 
-  const handleOpenFilm = () => setIsFilmOpen(true);
-  const handleCloseFilm = () => setIsFilmOpen(false);
-
   return (
-    <section id="hero" className="relative h-screen min-h-[700px] flex items-center overflow-hidden bg-slate-950 light-hero-blend light-hero-dark">
+    <section id="hero" className="relative h-screen min-h-[700px] flex items-center overflow-hidden bg-slate-950">
       
       {/* Slides */}
       {HERO_SLIDES.map((slide, index) => (
         <div
           key={slide.id}
-          className={`absolute inset-0 bg-slate-950 transition-opacity duration-700 ease-in-out ${
+          className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
             index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
           }`}
         >
@@ -66,18 +52,18 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick }) => {
               }`}
             />
             {/* Overlays */}
-            <div className="absolute inset-0 bg-slate-950/40 light-hero-overlay"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent light-hero-gradient"></div>
+            <div className="absolute inset-0 bg-slate-950/40"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
           </div>
 
           {/* Text Content */}
           <div className="container mx-auto px-6 h-full flex items-center relative z-20">
-            <div className={`max-w-3xl -mt-6 sm:-mt-4 md:mt-0 transition-all duration-700 transform ${
+            <div className={`max-w-3xl transition-all duration-700 transform ${
               index === currentSlide ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
             }`}>
               <div className="inline-block px-4 py-1.5 mb-6 border border-white/20 rounded-full bg-white/5 backdrop-blur-md">
                 <span className="text-white text-xs font-bold tracking-[0.2em] uppercase">
-                  Geely
+                  Lumina Automotive
                 </span>
               </div>
               
@@ -97,11 +83,7 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick }) => {
                   {slide.cta}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
-                <button
-                  type="button"
-                  onClick={handleOpenFilm}
-                  className="px-10 py-4 border border-white/30 text-white font-bold text-sm uppercase tracking-widest hover:bg-white/10 backdrop-blur-sm transition-colors duration-300 rounded-full text-center"
-                >
+                <button className="px-10 py-4 border border-white/30 text-white font-bold text-sm uppercase tracking-widest hover:bg-white/10 backdrop-blur-sm transition-colors duration-300 rounded-full">
                   Watch Film
                 </button>
               </div>
@@ -110,40 +92,8 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick }) => {
         </div>
       ))}
 
-      {isFilmOpen ? (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm p-6">
-          <button
-            type="button"
-            onClick={handleCloseFilm}
-            className="absolute inset-0 cursor-default"
-            aria-label="Close film modal"
-          />
-          <div className="relative z-10 w-full max-w-4xl rounded-3xl overflow-hidden border border-white/10 shadow-[0_40px_120px_rgba(0,0,0,0.6)] bg-black">
-            <div className="absolute top-4 right-4 z-20">
-              <button
-                type="button"
-                onClick={handleCloseFilm}
-                className="w-10 h-10 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
-                aria-label="Close"
-              >
-                ✕
-              </button>
-            </div>
-            <div className="relative w-full pb-[56.25%]">
-              <iframe
-                className="absolute inset-0 w-full h-full"
-                src="https://www.youtube.com/embed/Vsp4Ir6FTQo?autoplay=1&playsinline=1"
-                title="Geely Watch Film"
-                allow="autoplay; encrypted-media; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </div>
-        </div>
-      ) : null}
-
       {/* Navigation Controls */}
-      <div className="absolute bottom-14 md:bottom-10 right-6 md:right-20 z-30 hidden md:flex items-center gap-6">
+      <div className="absolute bottom-10 right-6 md:right-20 z-30 flex items-center gap-6">
         <div className="flex items-center gap-2">
            <button 
              onClick={handlePrev}
@@ -161,7 +111,7 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick }) => {
       </div>
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-14 md:bottom-10 left-6 md:left-20 z-30 flex items-center gap-3">
+      <div className="absolute bottom-10 left-6 md:left-20 z-30 flex items-center gap-3">
         {HERO_SLIDES.map((_, idx) => (
           <button
             key={idx}

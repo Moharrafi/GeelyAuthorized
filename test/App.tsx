@@ -20,10 +20,6 @@ function App() {
   const [currentView, setCurrentView] = useState<View>('home');
   const [theme, setTheme] = useState<Theme>('dark');
   const chatRef = useRef<ChatAssistantHandle>(null);
-  const whatsappNumber = "6283197483984";
-  const whatsappKonsultasiOnlineUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    "Halo Dayana, salam kenal. Saya ingin bertanya tentang promo terbaru. Terima kasih."
-  )}`;
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -93,34 +89,32 @@ function App() {
 
             <section className={`py-32 relative overflow-hidden transition-colors duration-500 ${theme === 'dark' ? 'bg-slate-900' : 'bg-slate-100'}`}>
                <div className="absolute inset-0 z-0">
-                  <img src="https://geelyauto.id/sites/default/files/2025-10/%E5%9B%BD%E8%B4%B8%E8%B7%AF%E8%B7%91%20%281%29.jpg" className="w-full h-full object-cover opacity-20" alt="Driving" />
+                  <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=2000" className="w-full h-full object-cover opacity-20" alt="Driving" />
                   <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-gradient-to-t from-slate-950 via-slate-900/80 to-transparent' : 'bg-gradient-to-t from-slate-50 via-white/80 to-transparent'}`}></div>
                </div>
 
                <div className="container mx-auto px-6 relative z-10 text-center">
                   <h2 className={`text-4xl md:text-6xl font-bold mb-6 tracking-tighter ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Mulai Perjalanan Anda</h2>
                   <p className={`text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
-                    Nikmati perpaduan sempurna antara kemewahan dan teknologi. Pesan sesi test drive eksklusif Anda bersama Geely sekarang.
+                    Nikmati perpaduan sempurna antara kemewahan dan teknologi. Pesan sesi test drive eksklusif Anda bersama Lumina Auto sekarang.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <button 
                       onClick={handleTestDriveClick}
                       className={`px-12 py-5 font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 shadow-2xl hover:-translate-y-1 ${
-                        theme === 'dark' ? 'bg-white text-slate-950 hover:bg-accent' : 'bg-white text-slate-900 border border-slate-200 hover:bg-black hover:text-white'
+                        theme === 'dark' ? 'bg-white text-slate-950 hover:bg-accent' : 'bg-slate-900 text-white hover:bg-accent hover:text-slate-950'
                       }`}
                     >
                       Pesan Sekarang
                     </button>
-                    <a 
-                      href={whatsappKonsultasiOnlineUrl}
-                      target="_blank"
-                      rel="noreferrer"
+                    <button 
+                      onClick={() => handleConsultClick("Halo Dayana, saya ingin bertanya tentang promo terbaru.")}
                       className={`px-12 py-5 bg-transparent border font-bold text-xs uppercase tracking-widest rounded-full backdrop-blur-sm transition-all duration-300 ${
                         theme === 'dark' ? 'border-white/30 text-white hover:bg-white/10' : 'border-slate-900/30 text-slate-900 hover:bg-slate-900/10'
                       }`}
                     >
                       Konsultasi Online
-                    </a>
+                    </button>
                   </div>
                </div>
             </section>
