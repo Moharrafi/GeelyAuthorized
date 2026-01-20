@@ -50,6 +50,9 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick }) => {
               className={`w-full h-full object-cover transition-transform duration-[5000ms] ease-out ${
                 index === currentSlide ? 'scale-110' : 'scale-100'
               }`}
+              loading={index === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              fetchPriority={index === 0 ? 'high' : 'low'}
             />
             {/* Overlays */}
             <div className="absolute inset-0 bg-slate-950/40"></div>
@@ -57,7 +60,7 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick }) => {
           </div>
 
           {/* Text Content */}
-          <div className="container mx-auto px-6 h-full flex items-center relative z-20">
+          <div className="container mx-auto px-6 h-full flex items-center relative z-30">
             <div className={`max-w-3xl transition-all duration-700 transform ${
               index === currentSlide ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
             }`}>
@@ -91,6 +94,9 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick }) => {
           </div>
         </div>
       ))}
+
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-4 bg-slate-950 z-25" />
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent z-20" />
 
       {/* Navigation Controls */}
       <div className="absolute bottom-10 right-6 md:right-20 z-30 flex items-center gap-6">

@@ -1,68 +1,85 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { CARS, PROVINCES, CITIES } from '../constants';
 import { ChevronRight, CheckCircle2 } from 'lucide-react';
 
 type TabType = 'pre-book' | 'book-now' | 'test-drive';
 
+const TAB_ITEMS: { id: TabType; label: string; sub: string }[] = [
+  { id: 'pre-book', label: 'PRE-BOOK NOW', sub: 'Pre-book Lumina Concept' },
+  { id: 'book-now', label: 'BOOK NOW', sub: 'Secure your offer today' },
+  { id: 'test-drive', label: 'TEST DRIVE', sub: 'Experience the thrill' },
+];
+
+const TAB_CONTENT: Record<TabType, { title: string; desc: string; image: string; btnText: string }> = {
+  'pre-book': {
+    title: 'Pre-Book Now',
+    desc: 'Be the first to own the future. Secure your Lumina X-Prototype now.',
+    image: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&q=80&w=1200',
+    btnText: 'Secure Pre-Order'
+  },
+  'book-now': {
+    title: 'Order Your Geely',
+    desc: 'Secure your offer today. Choose your configuration and dealer.',
+    image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=1200',
+    btnText: 'Request Quote'
+  },
+  'test-drive': {
+    title: 'Test Drive',
+    desc: 'Experience tomorrow, today. Book your test drive and discover the thrill.',
+    image: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=1200',
+    btnText: 'Schedule Drive'
+  }
+};
+
+const WHATSAPP_PROMO_URL =
+  'https://wa.me/6283197483984?text=Halo%2C%20saya%20ingin%20ambil%20promo%20sekarang.%20Mohon%20info%20detailnya%20ya.';
+
+const createInitialFormData = () => ({
+  name: '',
+  email: '',
+  phone: '',
+  province: '',
+  city: '',
+  model: '',
+  consent: false
+});
+
 const BookingSection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('test-drive');
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    province: '',
-    city: '',
-    model: '',
-    consent: false
-  });
+  const [formData, setFormData] = useState(createInitialFormData);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
-  const handleTabChange = (tab: TabType) => {
+  const handleTabChange = useCallback((tab: TabType) => {
     setActiveTab(tab);
     setStatus('idle');
-  };
+  }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
     // Simulate API call
     setTimeout(() => {
       setStatus('success');
-      setFormData({
-        name: '', email: '', phone: '', province: '', city: '', model: '', consent: false
-      });
+      setFormData(createInitialFormData());
     }, 1500);
-  };
+  }, []);
 
-  // Dynamic content based on active tab
-  const getTabContent = () => {
-    switch(activeTab) {
-      case 'pre-book':
-        return {
-          title: "Pre-Book Now",
-          desc: "Be the first to own the future. Secure your Lumina X-Prototype now.",
-          image: "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&q=80&w=1200",
-          btnText: "Secure Pre-Order"
-        };
-      case 'book-now':
-        return {
-          title: "Order Your Geely",
-          desc: "Secure your offer today. Choose your configuration and dealer.",
-          image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=1200",
-          btnText: "Request Quote"
-        };
-      case 'test-drive':
-      default:
-        return {
-          title: "Test Drive",
-          desc: "Experience tomorrow, today. Book your test drive and discover the thrill.",
-          image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=1200",
-          btnText: "Schedule Drive"
-        };
-    }
-  };
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, type, value, checked } = e.target;
+    const nextValue = type === 'checkbox' ? checked : value;
+    setFormData((prev) => {
+      if (name === 'province') {
+        return { ...prev, province: nextValue as string, city: '' };
+      }
+      return { ...prev, [name]: nextValue };
+    });
+  }, []);
 
-  const content = getTabContent();
+  const content = useMemo(() => TAB_CONTENT[activeTab], [activeTab]);
+  const availableCities = useMemo(
+    () => (formData.province ? CITIES[formData.province] ?? [] : []),
+    [formData.province]
+  );
 
   return (
     <section id="booking" className="py-24 bg-slate-50 text-slate-900 border-t border-slate-200 dark:bg-slate-900 dark:text-white dark:border-slate-800">
@@ -74,15 +91,22 @@ const BookingSection: React.FC = () => {
             How might we <br/><span className="text-accent">help you today?</span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 mt-4 text-lg">Let us assist you. Choose an option below.</p>
+          <div className="mt-6">
+            <a
+              href={WHATSAPP_PROMO_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-sky-400 text-slate-900 font-bold uppercase tracking-widest rounded-full hover:bg-sky-300 transition-colors"
+            >
+              Ambil Promo Sekarang
+              <ChevronRight size={18} />
+            </a>
+          </div>
         </div>
 
         {/* Tab Navigation */}
         <div className="flex flex-col md:flex-row border-b border-slate-100 dark:border-slate-900 mb-0">
-          {[
-            { id: 'pre-book', label: 'PRE-BOOK NOW', sub: 'Pre-book Lumina Concept' },
-            { id: 'book-now', label: 'BOOK NOW', sub: 'Secure your offer today' },
-            { id: 'test-drive', label: 'TEST DRIVE', sub: 'Experience the thrill' },
-          ].map((tab) => (
+          {TAB_ITEMS.map((tab) => (
             <button
               key={tab.id}
               onClick={() => handleTabChange(tab.id as TabType)}
@@ -112,9 +136,10 @@ const BookingSection: React.FC = () => {
           <div className="w-full lg:w-1/2 relative overflow-hidden h-64 lg:h-auto">
             <div className="absolute inset-0 bg-slate-200 dark:bg-slate-900"></div>
             <img 
-              key={activeTab} 
               src={content.image} 
               alt={content.title} 
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover transition-transform duration-700 hover:scale-105 animate-fade-in"
             />
             {/* Overlay content with fixed backdrop blur container */}
@@ -157,10 +182,11 @@ const BookingSection: React.FC = () => {
                     <input 
                       required
                       type="text" 
+                      name="name"
                       placeholder="Your Full Name Here"
                       className="w-full bg-transparent border-b border-slate-300 dark:border-slate-700 py-3 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-600 focus:border-accent focus:outline-none transition-colors"
                       value={formData.name}
-                      onChange={e => setFormData({...formData, name: e.target.value})}
+                      onChange={handleInputChange}
                     />
                   </div>
 
@@ -171,10 +197,11 @@ const BookingSection: React.FC = () => {
                     <input 
                       required
                       type="email" 
+                      name="email"
                       placeholder="name@email.com"
                       className="w-full bg-transparent border-b border-slate-300 dark:border-slate-700 py-3 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-600 focus:border-accent focus:outline-none transition-colors"
                       value={formData.email}
-                      onChange={e => setFormData({...formData, email: e.target.value})}
+                      onChange={handleInputChange}
                     />
                   </div>
 
@@ -189,10 +216,11 @@ const BookingSection: React.FC = () => {
                       <input 
                         required
                         type="tel" 
+                        name="phone"
                         placeholder="812 3456 7890"
                         className="w-full bg-transparent border-b border-slate-300 dark:border-slate-700 py-3 pl-4 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-600 focus:border-accent focus:outline-none transition-colors"
                         value={formData.phone}
-                        onChange={e => setFormData({...formData, phone: e.target.value})}
+                        onChange={handleInputChange}
                       />
                     </div>
                   </div>
@@ -204,9 +232,10 @@ const BookingSection: React.FC = () => {
                       </label>
                       <select 
                         required
+                        name="province"
                         className="w-full bg-transparent border-b border-slate-300 dark:border-slate-700 py-3 text-slate-900 dark:text-white focus:border-accent focus:outline-none transition-colors appearance-none cursor-pointer"
                         value={formData.province}
-                        onChange={e => setFormData({...formData, province: e.target.value, city: ''})}
+                        onChange={handleInputChange}
                       >
                         <option value="" className="bg-white dark:bg-slate-900">Select Province</option>
                         {PROVINCES.map(p => (
@@ -220,13 +249,14 @@ const BookingSection: React.FC = () => {
                       </label>
                       <select 
                         required
+                        name="city"
                         disabled={!formData.province}
                         className="w-full bg-transparent border-b border-slate-300 dark:border-slate-700 py-3 text-slate-900 dark:text-white focus:border-accent focus:outline-none transition-colors appearance-none cursor-pointer disabled:opacity-50"
                         value={formData.city}
-                        onChange={e => setFormData({...formData, city: e.target.value})}
+                        onChange={handleInputChange}
                       >
                         <option value="" className="bg-white dark:bg-slate-900">Select City</option>
-                        {formData.province && CITIES[formData.province]?.map(c => (
+                        {availableCities.map(c => (
                           <option key={c} value={c} className="bg-white dark:bg-slate-900">{c}</option>
                         ))}
                       </select>
@@ -238,9 +268,10 @@ const BookingSection: React.FC = () => {
                       Preferred Model
                     </label>
                     <select 
+                      name="model"
                       className="w-full bg-transparent border-b border-slate-300 dark:border-slate-700 py-3 text-slate-900 dark:text-white focus:border-accent focus:outline-none transition-colors appearance-none cursor-pointer"
                       value={formData.model}
-                      onChange={e => setFormData({...formData, model: e.target.value})}
+                      onChange={handleInputChange}
                     >
                       <option value="" className="bg-white dark:bg-slate-900">Please Select</option>
                       {CARS.map(c => (
@@ -256,9 +287,10 @@ const BookingSection: React.FC = () => {
                       <input 
                         required
                         type="checkbox" 
+                        name="consent"
                         className="peer sr-only"
                         checked={formData.consent}
-                        onChange={e => setFormData({...formData, consent: e.target.checked})}
+                        onChange={handleInputChange}
                       />
                       <div className="w-5 h-5 border border-slate-400 dark:border-slate-500 rounded bg-transparent peer-checked:bg-accent peer-checked:border-accent transition-all"></div>
                       <CheckCircle2 size={14} className="absolute text-slate-900 opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity" />

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, CarFront, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { NAV_LINKS } from '../constants';
 
 interface NavbarProps {
@@ -34,11 +34,17 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
     setIsMobileMenuOpen(false);
   };
 
+  const isLightHero = theme === 'light' && !isScrolled && !isMobileMenuOpen && currentView === 'home';
+
   const navBgClass = isScrolled || isMobileMenuOpen || currentView === 'about'
     ? (theme === 'dark' ? 'bg-slate-950/80 border-slate-800' : 'bg-white/80 border-slate-200')
     : 'bg-transparent border-transparent';
 
   const textClass = theme === 'dark' ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900';
+
+  const logoClass = theme === 'dark'
+    ? 'invert'
+    : (isLightHero ? 'invert' : 'invert-0');
 
   return (
     <nav
@@ -47,12 +53,11 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
       <div className="container mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
         <a href="#" onClick={(e) => handleLinkClick(e, '#hero')} className="flex items-center gap-2 group">
-          <div className="w-10 h-10 bg-accent text-slate-950 flex items-center justify-center rounded-xl transform transition-transform group-hover:rotate-12">
-            <CarFront size={24} strokeWidth={2.5} />
-          </div>
-          <span className={`text-2xl font-bold tracking-tighter ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
-            LUMINA<span className="text-accent">AUTO</span>
-          </span>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Geely_Auto_2023.svg/2560px-Geely_Auto_2023.svg.png"
+            alt="Geely Auto"
+            className={`h-9 md:h-12 w-auto object-contain ${logoClass}`}
+          />
         </a>
 
         {/* Desktop Menu */}

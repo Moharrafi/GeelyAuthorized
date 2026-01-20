@@ -1,16 +1,19 @@
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback, Suspense, lazy } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import CarShowcase from './components/CarShowcase';
-import CarColorSelector from './components/CarColorSelector';
-import Features from './components/Features';
-import ChatAssistant, { ChatAssistantHandle } from './components/ChatAssistant';
-import TestDriveModal from './components/TestDriveModal';
-import Footer from './components/Footer';
-import About from './components/About';
-import PromoGJAW from './components/PromoGJAW';
-import SalesProfilePreview from './components/SalesProfilePreview';
+import LazySection from './components/LazySection';
+import type { ChatAssistantHandle } from './components/ChatAssistant';
+
+const ChatAssistant = lazy(() => import('./components/ChatAssistant'));
+const TestDriveModal = lazy(() => import('./components/TestDriveModal'));
+const About = lazy(() => import('./components/About'));
+const CarShowcase = lazy(() => import('./components/CarShowcase'));
+const CarColorSelector = lazy(() => import('./components/CarColorSelector'));
+const Features = lazy(() => import('./components/Features'));
+const PromoGJAW = lazy(() => import('./components/PromoGJAW'));
+const SalesProfilePreview = lazy(() => import('./components/SalesProfilePreview'));
+const Footer = lazy(() => import('./components/Footer'));
 
 type View = 'home' | 'about';
 type Theme = 'dark' | 'light';
@@ -19,6 +22,7 @@ function App() {
   const [isTestDriveOpen, setTestDriveOpen] = useState(false);
   const [currentView, setCurrentView] = useState<View>('home');
   const [theme, setTheme] = useState<Theme>('dark');
+  const [isChatReady, setIsChatReady] = useState(false);
   const chatRef = useRef<ChatAssistantHandle>(null);
   const whatsappNumber = "6283197483984";
   const whatsappKonsultasiOnlineUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
@@ -36,21 +40,40 @@ function App() {
     }
   }, [theme]);
 
-  const toggleTheme = () => {
+  useEffect(() => {
+    let idleId: number | undefined;
+    const defer = () => setIsChatReady(true);
+    if ('requestIdleCallback' in window) {
+      idleId = window.requestIdleCallback(defer, { timeout: 1500 });
+    } else {
+      idleId = window.setTimeout(defer, 800);
+    }
+    return () => {
+      if (idleId) {
+        if ('cancelIdleCallback' in window) {
+          window.cancelIdleCallback(idleId);
+        } else {
+          window.clearTimeout(idleId);
+        }
+      }
+    };
+  }, []);
+
+  const toggleTheme = useCallback(() => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  };
+  }, []);
 
-  const handleTestDriveClick = () => {
+  const handleTestDriveClick = useCallback(() => {
     setTestDriveOpen(true);
-  };
+  }, []);
 
-  const handleConsultClick = (prompt?: string) => {
+  const handleConsultClick = useCallback((prompt?: string) => {
     if (chatRef.current) {
       chatRef.current.openWithPrompt(prompt || "");
     }
-  };
+  }, []);
 
-  const navigateTo = (view: View, sectionId?: string) => {
+  const navigateTo = useCallback((view: View, sectionId?: string) => {
     setCurrentView(view);
     
     setTimeout(() => {
@@ -67,7 +90,7 @@ function App() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }, 100);
-  };
+  }, []);
 
   return (
     <div className={`min-h-screen font-sans transition-colors duration-500 ${theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
@@ -83,17 +106,43 @@ function App() {
         {currentView === 'home' ? (
           <>
             <Hero onDiscoverClick={() => navigateTo('home', 'models')} />
-            <CarShowcase onTestDriveClick={handleTestDriveClick} />
-            <CarColorSelector />
-            <Features />
+            <Suspense fallback={<div className="min-h-[520px]" />}>
+              <LazySection placeholderClassName="min-h-[520px]">
+                <CarShowcase onTestDriveClick={handleTestDriveClick} />
+              </LazySection>
+            </Suspense>
+            <Suspense fallback={<div className="min-h-[760px]" />}>
+              <LazySection placeholderClassName="min-h-[760px]">
+                <CarColorSelector />
+              </LazySection>
+            </Suspense>
+            <Suspense fallback={<div className="min-h-[520px]" />}>
+              <LazySection placeholderClassName="min-h-[520px]">
+                <Features />
+              </LazySection>
+            </Suspense>
             
-            <SalesProfilePreview onMoreInfoClick={() => navigateTo('about')} />
+            <Suspense fallback={<div className="min-h-[420px]" />}>
+              <LazySection placeholderClassName="min-h-[420px]">
+                <SalesProfilePreview onMoreInfoClick={() => navigateTo('about')} />
+              </LazySection>
+            </Suspense>
 
-            <PromoGJAW onConsultClick={handleConsultClick} />
+            <Suspense fallback={<div className="min-h-[520px]" />}>
+              <LazySection placeholderClassName="min-h-[520px]">
+                <PromoGJAW onConsultClick={handleConsultClick} />
+              </LazySection>
+            </Suspense>
 
             <section className={`py-32 relative overflow-hidden transition-colors duration-500 ${theme === 'dark' ? 'bg-slate-900' : 'bg-slate-100'}`}>
                <div className="absolute inset-0 z-0">
-                  <img src="https://geelyauto.id/sites/default/files/2025-10/%E5%9B%BD%E8%B4%B8%E8%B7%AF%E8%B7%91%20%281%29.jpg" className="w-full h-full object-cover opacity-20" alt="Driving" />
+                  <img
+                    src="https://geelyauto.id/sites/default/files/2025-10/%E5%9B%BD%E8%B4%B8%E8%B7%AF%E8%B7%91%20%281%29.jpg"
+                    className="w-full h-full object-cover opacity-20"
+                    alt="Driving"
+                    loading="lazy"
+                    decoding="async"
+                  />
                   <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-gradient-to-t from-slate-950 via-slate-900/80 to-transparent' : 'bg-gradient-to-t from-slate-50 via-white/80 to-transparent'}`}></div>
                </div>
 
@@ -126,18 +175,32 @@ function App() {
             </section>
           </>
         ) : (
-          <About onConsultClick={handleConsultClick} />
+          <Suspense fallback={null}>
+            <About onConsultClick={handleConsultClick} />
+          </Suspense>
         )}
       </main>
 
-      <Footer onNavigate={navigateTo} />
+      <Suspense fallback={<div className="min-h-[320px]" />}>
+        <LazySection placeholderClassName="min-h-[320px]">
+          <Footer onNavigate={navigateTo} />
+        </LazySection>
+      </Suspense>
       
-      <ChatAssistant ref={chatRef} />
+      {isChatReady ? (
+        <Suspense fallback={null}>
+          <ChatAssistant ref={chatRef} />
+        </Suspense>
+      ) : null}
       
-      <TestDriveModal 
-        isOpen={isTestDriveOpen} 
-        onClose={() => setTestDriveOpen(false)} 
-      />
+      {isTestDriveOpen ? (
+        <Suspense fallback={null}>
+          <TestDriveModal 
+            isOpen={isTestDriveOpen} 
+            onClose={() => setTestDriveOpen(false)} 
+          />
+        </Suspense>
+      ) : null}
     </div>
   );
 }

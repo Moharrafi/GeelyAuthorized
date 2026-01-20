@@ -28,6 +28,9 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
   const whatsappStokUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     "Halo Dayana, salam kenal. Apakah ada stok ready untuk Starray EM-i? Terima kasih."
   )}`;
+  const whatsappPromoOtrUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+    "Halo Dayana, saya ingin tanya tentang promo OTR terbaru. Mohon info detailnya ya."
+  )}`;
 
   return (
     <div className="pt-24 md:pt-20 bg-slate-950 min-h-screen animate-fade-in text-slate-100">
@@ -136,13 +139,16 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
               </div>
             </div>
 
-            <button 
+            <a 
+              href={whatsappPromoOtrUrl}
+              target="_blank"
+              rel="noreferrer"
               onClick={() => onConsultClick("Dayana, apa saja promo OTR terbaru untuk bulan ini?")}
               className="w-full py-5 bg-slate-900 text-white font-bold rounded-full border border-slate-800 shadow-sm hover:border-accent/50 transition-all flex items-center justify-center gap-3 group uppercase tracking-widest text-xs"
             >
               Tanya Tentang Promo OTR
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform text-accent" />
-            </button>
+            </a>
           </div>
         </div>
       </section>

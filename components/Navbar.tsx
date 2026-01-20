@@ -49,8 +49,8 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
         : 'text-slate-700/90 hover:text-slate-900 drop-shadow-[0_1px_1px_rgba(255,255,255,0.35)]'));
 
   const logoClass = theme === 'dark'
-    ? 'invert-0'
-    : (isLightHero ? 'invert-0' : 'invert');
+    ? 'invert'
+    : (isLightHero ? 'invert' : 'invert-0');
 
   return (
     <nav
@@ -60,10 +60,10 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
         {/* Logo */}
         <a href="#" onClick={(e) => handleLinkClick(e, '#hero')} className="flex items-center gap-2 group">
           <img
-              src="https://geelysmgroup.com/wp-content/uploads/2025/01/Geely-white-1.png"
-              alt="Logo"
-              className={`h-9 md:h-12 w-auto object-contain ${logoClass}`}
-            />
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Geely_Auto_2023.svg/2560px-Geely_Auto_2023.svg.png"
+            alt="Geely Auto"
+            className={`h-9 md:h-12 w-auto object-contain ${logoClass}`}
+          />
           {/* <span className={`text-2xl font-bold tracking-tighter ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
             GEELY
           </span> */}

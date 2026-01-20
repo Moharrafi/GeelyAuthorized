@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Check, ChevronRight, Zap, Shield, Target, Info, Sparkles } from 'lucide-react';
 
 interface CarModel {
@@ -60,10 +60,53 @@ const CarColorSelector: React.FC = () => {
   const [activeModel, setActiveModel] = useState(CAR_MODELS[0]);
   const [activeColor, setActiveColor] = useState(CAR_MODELS[0].colors[0]);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [shouldPreload, setShouldPreload] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setActiveColor(activeModel.colors[0]);
-  }, [activeModel]);
+    if (!shouldPreload || typeof Image === 'undefined') return;
+    const firstImage = new Image();
+    firstImage.src = activeModel.colors[0].image;
+    let idleId: number | undefined;
+    const preload = () => {
+      activeModel.colors.forEach((color) => {
+        const img = new Image();
+        img.src = color.image;
+      });
+    };
+    if ('requestIdleCallback' in window) {
+      idleId = window.requestIdleCallback(preload, { timeout: 1500 });
+    } else {
+      idleId = window.setTimeout(preload, 500);
+    }
+    return () => {
+      if (idleId) {
+        if ('cancelIdleCallback' in window) {
+          window.cancelIdleCallback(idleId);
+        } else {
+          window.clearTimeout(idleId);
+        }
+      }
+    };
+  }, [activeModel, shouldPreload]);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    if (!('IntersectionObserver' in window)) {
+      setShouldPreload(true);
+      return;
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setShouldPreload(true);
+        observer.disconnect();
+      }
+    }, { rootMargin: '200px' });
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   const changeModel = (model: CarModel) => {
     if (model.id === activeModel.id) return;
@@ -84,7 +127,10 @@ const CarColorSelector: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-screen bg-white dark:bg-slate-950 flex flex-col justify-center overflow-hidden py-32 px-6 transition-colors duration-1000 select-none">
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen bg-white dark:bg-slate-950 flex flex-col justify-center overflow-hidden py-32 px-6 transition-colors duration-1000 select-none"
+    >
       
       {/* TRIPLE-LAYER ATMOSPHERIC LIGHTING */}
       <div className="absolute inset-0 pointer-events-none transition-all duration-1000 ease-in-out">
@@ -207,6 +253,8 @@ const CarColorSelector: React.FC = () => {
                     src={activeColor.image} 
                     alt={activeModel.name} 
                     className="w-full h-auto object-cover transition-transform duration-[4s] group-hover:scale-[1.05]"
+                    loading={shouldPreload ? 'eager' : 'lazy'}
+                    decoding="async"
                   />
                   {/* Internal Saturated Overlay to blend with atmospheric lighting */}
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 to-transparent pointer-events-none" />
