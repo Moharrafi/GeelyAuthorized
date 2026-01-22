@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, CarFront, Sun, Moon } from 'lucide-react';
 import { NAV_LINKS } from '../constants';
 
 interface NavbarProps {
   onTestDriveClick: () => void;
-  onNavigate: (view: 'home' | 'about', sectionId?: string) => void;
-  currentView: 'home' | 'about';
+  onNavigate: (view: 'home' | 'about' | 'specifications', sectionId?: string) => void;
+  currentView: 'home' | 'about' | 'specifications';
   theme: 'dark' | 'light';
   onToggleTheme: () => void;
 }
@@ -27,6 +27,8 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
     e.preventDefault();
     if (href === '#about') {
       onNavigate('about');
+    } else if (href === '#specifications') {
+      onNavigate('specifications');
     } else if (href.startsWith('#')) {
       const sectionId = href.replace('#', '');
       onNavigate('home', sectionId);
@@ -34,17 +36,11 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
     setIsMobileMenuOpen(false);
   };
 
-  const isLightHero = theme === 'light' && !isScrolled && !isMobileMenuOpen && currentView === 'home';
-
-  const navBgClass = isScrolled || isMobileMenuOpen || currentView === 'about'
+  const navBgClass = isScrolled || isMobileMenuOpen || currentView !== 'home'
     ? (theme === 'dark' ? 'bg-slate-950/80 border-slate-800' : 'bg-white/80 border-slate-200')
     : 'bg-transparent border-transparent';
 
   const textClass = theme === 'dark' ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900';
-
-  const logoClass = theme === 'dark'
-    ? 'invert'
-    : (isLightHero ? 'invert' : 'invert-0');
 
   return (
     <nav
@@ -53,35 +49,39 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
       <div className="container mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
         <a href="#" onClick={(e) => handleLinkClick(e, '#hero')} className="flex items-center gap-2 group">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Geely_Auto_2023.svg/2560px-Geely_Auto_2023.svg.png"
-            alt="Geely Auto"
-            className={`h-9 md:h-12 w-auto object-contain ${logoClass}`}
-          />
+          <div className="w-10 h-10 bg-accent text-slate-950 flex items-center justify-center rounded-xl transform transition-transform group-hover:rotate-12 shadow-lg shadow-accent/20">
+            <CarFront size={24} strokeWidth={2.5} />
+          </div>
+          <span className={`text-2xl font-bold tracking-tighter ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+            LUMINA<span className="text-accent">AUTO</span>
+          </span>
         </a>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={(e) => handleLinkClick(e, link.href)}
-              className={`text-xs font-bold transition-colors uppercase tracking-[0.15em] relative group py-2 ${
-                currentView === 'about' && link.href === '#about' 
-                  ? 'text-accent' 
-                  : textClass
-              }`}
-            >
-              {link.name}
-              <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-accent transition-all duration-300 ${
-                currentView === 'about' && link.href === '#about' ? 'w-full' : 'w-0 group-hover:w-full'
-              }`}></span>
-            </a>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const isActive = 
+              (link.href === '#about' && currentView === 'about') || 
+              (link.href === '#specifications' && currentView === 'specifications');
+
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={(e) => handleLinkClick(e, link.href)}
+                className={`text-xs font-bold transition-colors uppercase tracking-[0.15em] relative group py-2 ${
+                  isActive ? 'text-accent' : textClass
+                }`}
+              >
+                {link.name}
+                <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-accent transition-all duration-300 ${
+                  isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                }`}></span>
+              </a>
+            );
+          })}
           
           <div className="flex items-center gap-4 ml-4">
-            {/* Theme Toggle */}
             <button
               onClick={onToggleTheme}
               className={`p-2.5 rounded-full transition-all duration-300 border ${
@@ -107,7 +107,7 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
           </div>
         </div>
 
-        {/* Mobile Toggle & Mobile Theme Toggle */}
+        {/* Mobile Toggle */}
         <div className="flex items-center gap-2 md:hidden">
           <button
             onClick={onToggleTheme}
@@ -140,7 +140,8 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
               key={link.name}
               href={link.href}
               className={`text-lg font-medium hover:text-accent transition-colors ${
-                currentView === 'about' && link.href === '#about' 
+                (link.href === '#about' && currentView === 'about') || 
+                (link.href === '#specifications' && currentView === 'specifications')
                   ? 'text-accent' 
                   : (theme === 'dark' ? 'text-slate-300' : 'text-slate-600')
               }`}
@@ -154,7 +155,7 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
               onTestDriveClick();
               setIsMobileMenuOpen(false);
             }}
-            className="w-full py-4 bg-accent text-slate-950 font-bold uppercase tracking-wide rounded-full mt-4"
+            className="w-full py-4 bg-accent text-slate-950 font-bold uppercase tracking-wide rounded-full mt-4 shadow-xl shadow-accent/20"
           >
             Book Test Drive
           </button>

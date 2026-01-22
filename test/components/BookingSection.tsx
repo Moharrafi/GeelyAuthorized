@@ -1,125 +1,101 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { CARS, PROVINCES, CITIES } from '../constants';
 import { ChevronRight, CheckCircle2 } from 'lucide-react';
 
 type TabType = 'pre-book' | 'book-now' | 'test-drive';
 
-const TAB_ITEMS: { id: TabType; label: string; sub: string }[] = [
-  { id: 'pre-book', label: 'PRE-BOOK NOW', sub: 'Pre-book Lumina Concept' },
-  { id: 'book-now', label: 'BOOK NOW', sub: 'Secure your offer today' },
-  { id: 'test-drive', label: 'TEST DRIVE', sub: 'Experience the thrill' },
-];
-
-const TAB_CONTENT: Record<TabType, { title: string; desc: string; image: string; btnText: string }> = {
-  'pre-book': {
-    title: 'Pre-Book Now',
-    desc: 'Be the first to own the future. Secure your Lumina X-Prototype now.',
-    image: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&q=80&w=1200',
-    btnText: 'Secure Pre-Order'
-  },
-  'book-now': {
-    title: 'Order Your Geely',
-    desc: 'Secure your offer today. Choose your configuration and dealer.',
-    image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=1200',
-    btnText: 'Request Quote'
-  },
-  'test-drive': {
-    title: 'Test Drive',
-    desc: 'Experience tomorrow, today. Book your test drive and discover the thrill.',
-    image: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=1200',
-    btnText: 'Schedule Drive'
-  }
-};
-
-const WHATSAPP_PROMO_URL =
-  'https://wa.me/6283197483984?text=Halo%2C%20saya%20ingin%20ambil%20promo%20sekarang.%20Mohon%20info%20detailnya%20ya.';
-
-const createInitialFormData = () => ({
-  name: '',
-  email: '',
-  phone: '',
-  province: '',
-  city: '',
-  model: '',
-  consent: false
-});
-
 const BookingSection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('test-drive');
-  const [formData, setFormData] = useState(createInitialFormData);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    province: '',
+    city: '',
+    model: '',
+    consent: false
+  });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
-  const handleTabChange = useCallback((tab: TabType) => {
+  const handleTabChange = (tab: TabType) => {
     setActiveTab(tab);
     setStatus('idle');
-  }, []);
+  };
 
-  const handleSubmit = useCallback((e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
     // Simulate API call
     setTimeout(() => {
       setStatus('success');
-      setFormData(createInitialFormData());
+      setFormData({
+        name: '', email: '', phone: '', province: '', city: '', model: '', consent: false
+      });
     }, 1500);
-  }, []);
+  };
 
-  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, type, value, checked } = e.target;
-    const nextValue = type === 'checkbox' ? checked : value;
-    setFormData((prev) => {
-      if (name === 'province') {
-        return { ...prev, province: nextValue as string, city: '' };
-      }
-      return { ...prev, [name]: nextValue };
-    });
-  }, []);
+  // Dynamic content based on active tab
+  const getTabContent = () => {
+    switch(activeTab) {
+      case 'pre-book':
+        return {
+          title: "Pre-Book Now",
+          desc: "Be the first to own the future. Secure your Lumina X-Prototype now.",
+          image: "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&q=80&w=1200",
+          btnText: "Secure Pre-Order"
+        };
+      case 'book-now':
+        return {
+          title: "Order Your Lumina",
+          desc: "Secure your offer today. Choose your configuration and dealer.",
+          image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=1200",
+          btnText: "Request Quote"
+        };
+      case 'test-drive':
+      default:
+        return {
+          title: "Test Drive",
+          desc: "Experience tomorrow, today. Book your test drive and discover the thrill.",
+          image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=1200",
+          btnText: "Schedule Drive"
+        };
+    }
+  };
 
-  const content = useMemo(() => TAB_CONTENT[activeTab], [activeTab]);
-  const availableCities = useMemo(
-    () => (formData.province ? CITIES[formData.province] ?? [] : []),
-    [formData.province]
-  );
+  const content = getTabContent();
 
   return (
-    <section id="booking" className="py-24 bg-slate-50 text-slate-900 border-t border-slate-200 dark:bg-slate-900 dark:text-white dark:border-slate-800">
+    <section id="booking" className="py-24 bg-slate-900 border-t border-slate-800">
       <div className="container mx-auto px-6">
         
         {/* Section Header */}
         <div className="mb-12 text-center md:text-left">
-          <h2 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white uppercase tracking-tight">
+          <h2 className="text-4xl md:text-6xl font-bold text-white uppercase tracking-tight">
             How might we <br/><span className="text-accent">help you today?</span>
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 mt-4 text-lg">Let us assist you. Choose an option below.</p>
-          <div className="mt-6">
-            <a
-              href={WHATSAPP_PROMO_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-sky-400 text-slate-900 font-bold uppercase tracking-widest rounded-full hover:bg-sky-300 transition-colors"
-            >
-              Ambil Promo Sekarang
-              <ChevronRight size={18} />
-            </a>
-          </div>
+          <p className="text-slate-400 mt-4 text-lg">Let us assist you. Choose an option below.</p>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex flex-col md:flex-row border-b border-slate-100 dark:border-slate-900 mb-0">
-          {TAB_ITEMS.map((tab) => (
+        <div className="flex flex-col md:flex-row border-b border-slate-700 mb-0">
+          {[
+            { id: 'pre-book', label: 'PRE-BOOK NOW', sub: 'Pre-book Lumina Concept' },
+            { id: 'book-now', label: 'BOOK NOW', sub: 'Secure your offer today' },
+            { id: 'test-drive', label: 'TEST DRIVE', sub: 'Experience the thrill' },
+          ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => handleTabChange(tab.id as TabType)}
               className={`flex-1 text-left py-6 px-6 md:px-8 transition-all duration-300 relative group ${
-                activeTab === tab.id ? 'bg-slate-100 dark:bg-slate-800/50' : 'hover:bg-slate-100/80 dark:hover:bg-slate-800/30'
+                activeTab === tab.id ? 'bg-slate-800/50' : 'hover:bg-slate-800/30'
               }`}
             >
               <span className={`block text-lg font-bold mb-1 uppercase tracking-wider ${
-                activeTab === tab.id ? 'text-accent' : 'text-slate-600 dark:text-slate-400 dark:group-hover:text-white group-hover:text-slate-900'
+                activeTab === tab.id ? 'text-accent' : 'text-slate-400 group-hover:text-white'
               }`}>
                 {tab.label}
               </span>
-              <span className="block text-xs text-slate-500 dark:text-slate-500 font-medium">
+              <span className="block text-xs text-slate-500 font-medium">
                 {tab.sub}
               </span>
               {activeTab === tab.id && (
@@ -130,23 +106,22 @@ const BookingSection: React.FC = () => {
         </div>
 
         {/* Main Content Area */}
-        <div className="flex flex-col lg:flex-row bg-white dark:bg-slate-950 border border-t-0 border-slate-200 dark:border-slate-800 min-h-[600px] animate-fade-in rounded-b-[2.5rem] overflow-hidden">
+        <div className="flex flex-col lg:flex-row bg-slate-950 border border-t-0 border-slate-800 min-h-[600px] animate-fade-in rounded-b-[2.5rem] overflow-hidden">
           
           {/* Left: Image (Cleaned from flickering elements) */}
           <div className="w-full lg:w-1/2 relative overflow-hidden h-64 lg:h-auto">
-            <div className="absolute inset-0 bg-slate-200 dark:bg-slate-900"></div>
+            <div className="absolute inset-0 bg-slate-900"></div>
             <img 
+              key={activeTab} 
               src={content.image} 
               alt={content.title} 
-              loading="lazy"
-              decoding="async"
               className="w-full h-full object-cover transition-transform duration-700 hover:scale-105 animate-fade-in"
             />
             {/* Overlay content with fixed backdrop blur container */}
             <div className="absolute bottom-8 left-8 right-8 z-10">
-              <div className="bg-white/80 dark:bg-slate-950/60 backdrop-blur-md border border-slate-200 dark:border-white/10 p-8 rounded-3xl">
-                <h3 className="text-3xl font-bold text-white/80 mb-2">{content.title}</h3>
-                <p className="text-white/80 dark:text-slate-300 text-lg">{content.desc}</p>
+              <div className="bg-slate-950/60 backdrop-blur-md border border-white/10 p-8 rounded-3xl">
+                <h3 className="text-3xl font-bold text-white mb-2">{content.title}</h3>
+                <p className="text-slate-300 text-lg">{content.desc}</p>
               </div>
             </div>
           </div>
@@ -159,15 +134,15 @@ const BookingSection: React.FC = () => {
                   <CheckCircle2 size={40} className="text-green-500" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Request Received</h3>
-                  <p className="text-slate-600 dark:text-slate-400 max-w-sm mx-auto">
+                  <h3 className="text-2xl font-bold text-white mb-2">Request Received</h3>
+                  <p className="text-slate-400 max-w-sm mx-auto">
                     Thank you, {formData.name || 'valued customer'}. Our team is reviewing your request for 
                     <span className="text-accent font-bold"> {activeTab.replace('-', ' ')}</span> and will contact you shortly.
                   </p>
                 </div>
                 <button 
                   onClick={() => setStatus('idle')}
-                  className="px-8 py-3 bg-slate-900 text-white font-bold rounded-full hover:bg-slate-800 transition-colors"
+                  className="px-8 py-3 bg-slate-800 text-white font-bold rounded-full hover:bg-slate-700 transition-colors"
                 >
                   Submit Another
                 </button>
@@ -176,106 +151,100 @@ const BookingSection: React.FC = () => {
               <form onSubmit={handleSubmit} className="space-y-6 max-w-md mx-auto lg:mx-0">
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">
+                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
                       Full Name<span className="text-accent">*</span>
                     </label>
                     <input 
                       required
                       type="text" 
-                      name="name"
                       placeholder="Your Full Name Here"
-                      className="w-full bg-transparent border-b border-slate-300 dark:border-slate-700 py-3 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-600 focus:border-accent focus:outline-none transition-colors"
+                      className="w-full bg-transparent border-b border-slate-700 py-3 text-white placeholder-slate-600 focus:border-accent focus:outline-none transition-colors"
                       value={formData.name}
-                      onChange={handleInputChange}
+                      onChange={e => setFormData({...formData, name: e.target.value})}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">
+                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
                       Email Address<span className="text-accent">*</span>
                     </label>
                     <input 
                       required
                       type="email" 
-                      name="email"
                       placeholder="name@email.com"
-                      className="w-full bg-transparent border-b border-slate-300 dark:border-slate-700 py-3 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-600 focus:border-accent focus:outline-none transition-colors"
+                      className="w-full bg-transparent border-b border-slate-700 py-3 text-white placeholder-slate-600 focus:border-accent focus:outline-none transition-colors"
                       value={formData.email}
-                      onChange={handleInputChange}
+                      onChange={e => setFormData({...formData, email: e.target.value})}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">
+                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
                       Phone Number<span className="text-accent">*</span>
                     </label>
                     <div className="flex">
-                      <span className="flex items-center justify-center bg-slate-200 dark:bg-slate-800 px-3 text-slate-700 dark:text-slate-300 text-sm border-b border-slate-300 dark:border-slate-700 rounded-tl-sm">
+                      <span className="flex items-center justify-center bg-slate-800 px-3 text-slate-300 text-sm border-b border-slate-700 rounded-tl-sm">
                         🇮🇩 +62
                       </span>
                       <input 
                         required
                         type="tel" 
-                        name="phone"
                         placeholder="812 3456 7890"
-                        className="w-full bg-transparent border-b border-slate-300 dark:border-slate-700 py-3 pl-4 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-600 focus:border-accent focus:outline-none transition-colors"
+                        className="w-full bg-transparent border-b border-slate-700 py-3 pl-4 text-white placeholder-slate-600 focus:border-accent focus:outline-none transition-colors"
                         value={formData.phone}
-                        onChange={handleInputChange}
+                        onChange={e => setFormData({...formData, phone: e.target.value})}
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">
+                      <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
                         Province<span className="text-accent">*</span>
                       </label>
                       <select 
                         required
-                        name="province"
-                        className="w-full bg-transparent border-b border-slate-300 dark:border-slate-700 py-3 text-slate-900 dark:text-white focus:border-accent focus:outline-none transition-colors appearance-none cursor-pointer"
+                        className="w-full bg-transparent border-b border-slate-700 py-3 text-white focus:border-accent focus:outline-none transition-colors appearance-none cursor-pointer"
                         value={formData.province}
-                        onChange={handleInputChange}
+                        onChange={e => setFormData({...formData, province: e.target.value, city: ''})}
                       >
-                        <option value="" className="bg-white dark:bg-slate-900">Select Province</option>
+                        <option value="" className="bg-slate-900">Select Province</option>
                         {PROVINCES.map(p => (
-                          <option key={p} value={p} className="bg-white dark:bg-slate-900">{p}</option>
+                          <option key={p} value={p} className="bg-slate-900">{p}</option>
                         ))}
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">
+                      <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
                         City<span className="text-accent">*</span>
                       </label>
                       <select 
                         required
-                        name="city"
                         disabled={!formData.province}
-                        className="w-full bg-transparent border-b border-slate-300 dark:border-slate-700 py-3 text-slate-900 dark:text-white focus:border-accent focus:outline-none transition-colors appearance-none cursor-pointer disabled:opacity-50"
+                        className="w-full bg-transparent border-b border-slate-700 py-3 text-white focus:border-accent focus:outline-none transition-colors appearance-none cursor-pointer disabled:opacity-50"
                         value={formData.city}
-                        onChange={handleInputChange}
+                        onChange={e => setFormData({...formData, city: e.target.value})}
                       >
-                        <option value="" className="bg-white dark:bg-slate-900">Select City</option>
-                        {availableCities.map(c => (
-                          <option key={c} value={c} className="bg-white dark:bg-slate-900">{c}</option>
+                        <option value="" className="bg-slate-900">Select City</option>
+                        {formData.province && CITIES[formData.province]?.map(c => (
+                          <option key={c} value={c} className="bg-slate-900">{c}</option>
                         ))}
                       </select>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">
+                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
                       Preferred Model
                     </label>
                     <select 
-                      name="model"
-                      className="w-full bg-transparent border-b border-slate-300 dark:border-slate-700 py-3 text-slate-900 dark:text-white focus:border-accent focus:outline-none transition-colors appearance-none cursor-pointer"
+                      className="w-full bg-transparent border-b border-slate-700 py-3 text-white focus:border-accent focus:outline-none transition-colors appearance-none cursor-pointer"
                       value={formData.model}
-                      onChange={handleInputChange}
+                      onChange={e => setFormData({...formData, model: e.target.value})}
                     >
-                      <option value="" className="bg-white dark:bg-slate-900">Please Select</option>
+                      <option value="" className="bg-slate-900">Please Select</option>
                       {CARS.map(c => (
-                        <option key={c.id} value={c.name} className="bg-white dark:bg-slate-900">{c.name}</option>
+                        <option key={c.id} value={c.name} className="bg-slate-900">{c.name}</option>
                       ))}
                     </select>
                   </div>
@@ -287,15 +256,14 @@ const BookingSection: React.FC = () => {
                       <input 
                         required
                         type="checkbox" 
-                        name="consent"
                         className="peer sr-only"
                         checked={formData.consent}
-                        onChange={handleInputChange}
+                        onChange={e => setFormData({...formData, consent: e.target.checked})}
                       />
-                      <div className="w-5 h-5 border border-slate-400 dark:border-slate-500 rounded bg-transparent peer-checked:bg-accent peer-checked:border-accent transition-all"></div>
+                      <div className="w-5 h-5 border border-slate-500 rounded bg-transparent peer-checked:bg-accent peer-checked:border-accent transition-all"></div>
                       <CheckCircle2 size={14} className="absolute text-slate-900 opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity" />
                     </div>
-                    <span className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed group-hover:text-slate-900 dark:group-hover:text-slate-300 transition-colors">
+                    <span className="text-xs text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors">
                       I agree to receive email for the latest information and news according to Lumina's Privacy Policy.
                     </span>
                   </label>
@@ -304,7 +272,7 @@ const BookingSection: React.FC = () => {
                 <button 
                   type="submit"
                   disabled={status === 'submitting'}
-                  className="w-full py-4 bg-white text-slate-900 border border-slate-300 font-bold uppercase tracking-widest rounded-full hover:bg-accent hover:border-accent transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 dark:bg-white dark:text-slate-950 dark:border-transparent"
+                  className="w-full py-4 bg-white text-slate-950 font-bold uppercase tracking-widest rounded-full hover:bg-accent transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {status === 'submitting' ? 'Processing...' : content.btnText}
                   {!status && <ChevronRight size={18} />}

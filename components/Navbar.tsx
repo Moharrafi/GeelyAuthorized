@@ -5,8 +5,8 @@ import { NAV_LINKS } from '../constants';
 
 interface NavbarProps {
   onTestDriveClick: () => void;
-  onNavigate: (view: 'home' | 'about', sectionId?: string) => void;
-  currentView: 'home' | 'about';
+  onNavigate: (view: 'home' | 'about' | 'specifications', sectionId?: string) => void;
+  currentView: 'home' | 'about' | 'specifications';
   theme: 'dark' | 'light';
   onToggleTheme: () => void;
 }
@@ -27,6 +27,8 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
     e.preventDefault();
     if (href === '#about') {
       onNavigate('about');
+    } else if (href === '#specifications') {
+      onNavigate('specifications');
     } else if (href.startsWith('#')) {
       const sectionId = href.replace('#', '');
       onNavigate('home', sectionId);
@@ -36,7 +38,7 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
 
   const isLightHero = theme === 'light' && !isScrolled && !isMobileMenuOpen && currentView === 'home';
 
-  const navBgClass = isScrolled || isMobileMenuOpen || currentView === 'about'
+  const navBgClass = isScrolled || isMobileMenuOpen || currentView === 'about' || currentView === 'specifications'
     ? (theme === 'dark' ? 'bg-slate-950/80 border-slate-800' : 'bg-white/80 border-slate-200')
     : 'bg-transparent border-transparent';
 
@@ -44,7 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
     ? 'text-slate-300 hover:text-white'
     : (isLightHero
       ? 'nav-link-hero drop-shadow-[0_1px_2px_rgba(15,23,42,0.6)]'
-      : (isScrolled || isMobileMenuOpen || currentView === 'about'
+      : (isScrolled || isMobileMenuOpen || currentView === 'about' || currentView === 'specifications'
         ? 'text-slate-700 hover:text-slate-950'
         : 'text-slate-700/90 hover:text-slate-900 drop-shadow-[0_1px_1px_rgba(255,255,255,0.35)]'));
 
@@ -76,13 +78,15 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
               key={link.name}
               href={link.href}
               onClick={(e) => handleLinkClick(e, link.href)}
-              className={`nav-link text-xs font-semibold transition-colors uppercase tracking-[0.15em] relative group py-2 ${currentView === 'about' && link.href === '#about'
+              className={`nav-link text-xs font-semibold transition-colors uppercase tracking-[0.15em] relative group py-2 ${(currentView === 'about' && link.href === '#about') || (currentView === 'specifications' && link.href === '#specifications')
                   ? 'text-accent'
                   : textClass
                 }`}
             >
               {link.name}
-              <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-accent transition-all duration-300 ${currentView === 'about' && link.href === '#about' ? 'w-full' : 'w-0 group-hover:w-full'
+              <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-accent transition-all duration-300 ${(currentView === 'about' && link.href === '#about') || (currentView === 'specifications' && link.href === '#specifications')
+                ? 'w-full'
+                : 'w-0 group-hover:w-full'
                 }`}></span>
             </a>
           ))}
@@ -92,8 +96,8 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
             <button
               onClick={onToggleTheme}
               className={`p-2.5 rounded-full transition-all duration-300 border ring-1 ring-transparent hover:ring-accent/40 hover:scale-[1.03] active:scale-100 ${theme === 'dark'
-                  ? 'bg-slate-900 border-slate-800 text-accent hover:bg-slate-800'
-                  : 'bg-white border-slate-200 text-slate-900 hover:bg-slate-100'
+                ? 'bg-slate-900 border-slate-800 text-accent hover:bg-slate-800'
+                : 'bg-white border-slate-200 text-slate-900 hover:bg-slate-100'
                 }`}
               aria-label="Toggle Theme"
               title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
@@ -108,8 +112,8 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
             <button
               onClick={onTestDriveClick}
               className={`flex items-center gap-2 px-6 py-2.5 font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl ${theme === 'dark'
-                  ? 'bg-white text-slate-950 hover:bg-accent hover:text-slate-950 hover:shadow-accent/10'
-                  : 'nav-cta text-white border border-slate-900/10 shadow-slate-900/10'
+                ? 'bg-white text-slate-950 hover:bg-accent hover:text-slate-950 hover:shadow-accent/10'
+                : 'nav-cta text-white border border-slate-900/10 shadow-slate-900/10'
                 }`}
             >
               Test Drive
@@ -122,8 +126,8 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
           <button
             onClick={onToggleTheme}
             className={`p-2 rounded-full border transition-all duration-300 ring-1 ring-transparent hover:ring-accent/40 hover:scale-[1.03] active:scale-100 ${theme === 'dark'
-                ? 'bg-slate-900 border-slate-800 text-accent hover:bg-slate-800'
-                : 'bg-white border-slate-200 text-slate-900 hover:bg-slate-100'
+              ? 'bg-slate-900 border-slate-800 text-accent hover:bg-slate-800'
+              : 'bg-white border-slate-200 text-slate-900 hover:bg-slate-100'
               }`}
             aria-label="Toggle Theme"
             title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
@@ -153,7 +157,7 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
             <a
               key={link.name}
               href={link.href}
-              className={`text-lg font-medium hover:text-accent transition-colors ${currentView === 'about' && link.href === '#about'
+              className={`text-lg font-medium hover:text-accent transition-colors ${(currentView === 'about' && link.href === '#about') || (currentView === 'specifications' && link.href === '#specifications')
                   ? 'text-accent'
                   : (theme === 'dark' ? 'text-slate-300' : 'text-slate-600')
                 }`}

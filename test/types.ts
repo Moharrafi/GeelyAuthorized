@@ -1,3 +1,4 @@
+
 export interface Car {
   id: string;
   name: string;
@@ -12,6 +13,16 @@ export interface Car {
     power: string;
     range?: string; // For EVs
     topSpeed: string;
+    torque?: string;
+    weight?: string;
+    dragCoefficient?: string;
+    braking?: string;
+    dimensions?: {
+      length: string;
+      width: string;
+      height: string;
+      wheelbase: string;
+    };
   };
 }
 

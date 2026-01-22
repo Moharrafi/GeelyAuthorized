@@ -3,12 +3,12 @@ import React from 'react';
 import { Facebook, Instagram, Twitter, Youtube, MapPin, Phone, Mail } from 'lucide-react';
 
 interface FooterProps {
-  onNavigate: (view: 'home' | 'about', sectionId?: string) => void;
+  onNavigate: (view: 'home' | 'about' | 'specifications', sectionId?: string) => void;
 }
 
 const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   
-  const handleLinkClick = (e: React.MouseEvent, view: 'home' | 'about', sectionId?: string) => {
+  const handleLinkClick = (e: React.MouseEvent, view: 'home' | 'about' | 'specifications', sectionId?: string) => {
     e.preventDefault();
     onNavigate(view, sectionId);
   };
@@ -19,83 +19,19 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           
           <div className="col-span-1 md:col-span-1">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Geely_Auto_2023.svg/2560px-Geely_Auto_2023.svg.png"
-              alt="Geely Auto"
-              className="h-9 md:h-12 mb-6 object-contain invert"
-              loading="lazy"
-            />
+            <h3 className="text-2xl font-bold text-white mb-6">LUMINA<span className="text-accent">AUTO</span></h3>
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
               Redefining the automotive industry with sustainable luxury and artificial intelligence. Join the revolution today.
             </p>
             <div className="flex gap-4">
-              <a 
-                href="https://instagram.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-500 transition-colors hover:text-[#E4405F] hover:border-[#E4405F] dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:text-[#E4405F] dark:hover:border-[#E4405F]"
-                aria-label="Instagram"
-              >
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/500px-Instagram_icon.png"
-                  alt="Instagram"
-                  className="h-5 w-5 object-contain"
-                  width="20"
-                  height="20"
-                  loading="lazy"
-                  decoding="async"
-                />
+              <a href="#" className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+                <Instagram size={18} />
               </a>
-              <a 
-                href="https://facebook.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-500 transition-colors hover:text-[#1877F2] hover:border-[#1877F2] dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:text-[#1877F2] dark:hover:border-[#1877F2]"
-                aria-label="Facebook"
-              >
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/500px-Facebook_f_logo_%282019%29.svg.png"
-                  alt="Facebook"
-                  className="h-5 w-5 object-contain"
-                  width="20"
-                  height="20"
-                  loading="lazy"
-                  decoding="async"
-                />
+              <a href="#" className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+                <Facebook size={18} />
               </a>
-              <a 
-                href="https://youtube.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-500 transition-colors hover:text-[#FF0000] hover:border-[#FF0000] dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:text-[#FF0000] dark:hover:border-[#FF0000]"
-                aria-label="YouTube"
-              >
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png"
-                  alt="YouTube"
-                  className="h-5 w-5 object-contain"
-                  width="20"
-                  height="20"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </a>
-              <a 
-                href="https://tiktok.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-500 transition-colors hover:text-[#FE2C55] hover:border-[#FE2C55] dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:text-[#FE2C55] dark:hover:border-[#FE2C55]"
-                aria-label="TikTok"
-              >
-                <img
-                  src="https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338432_960_720.png"
-                  alt="TikTok"
-                  className="h-5 w-5 object-contain"
-                  width="20"
-                  height="20"
-                  loading="lazy"
-                  decoding="async"
-                />
+              <a href="#" className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+                <Youtube size={18} />
               </a>
             </div>
           </div>
@@ -103,10 +39,10 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div>
             <h4 className="text-white font-bold mb-6 uppercase text-xs tracking-widest">Our Models</h4>
             <ul className="space-y-4 text-sm text-slate-400">
+              <li><a href="#specifications" onClick={(e) => handleLinkClick(e, 'specifications')} className="hover:text-accent transition-colors">Specifications</a></li>
               <li><a href="#models" onClick={(e) => handleLinkClick(e, 'home', 'models')} className="hover:text-accent transition-colors">Lumina X-7 SUV</a></li>
               <li><a href="#models" onClick={(e) => handleLinkClick(e, 'home', 'models')} className="hover:text-accent transition-colors">Lumina Electron EV</a></li>
               <li><a href="#models" onClick={(e) => handleLinkClick(e, 'home', 'models')} className="hover:text-accent transition-colors">Lumina GT-S Sport</a></li>
-              <li><a href="#models" onClick={(e) => handleLinkClick(e, 'home', 'models')} className="hover:text-accent transition-colors">Lumina Prime Sedan</a></li>
             </ul>
           </div>
 
@@ -125,14 +61,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <ul className="space-y-4 text-sm text-slate-400">
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-accent mt-0.5 flex-shrink-0" />
-                <a 
-                  href="https://maps.google.com/?q=SCBD+Lot+28,+Jendral+Sudirman+Kav+52-53,+Jakarta+Selatan" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="hover:text-accent transition-colors leading-relaxed"
-                >
-                  SCBD Lot 28, Jendral Sudirman Kav 52-53, Jakarta Selatan
-                </a>
+                <span className="leading-relaxed">SCBD Lot 28, Jendral Sudirman Kav 52-53, Jakarta Selatan</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-accent flex-shrink-0" />

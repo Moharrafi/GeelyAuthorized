@@ -3,7 +3,7 @@ import { Car } from './types';
 
 export const CARS: Car[] = [
   {
-    id: '1',
+    id: 'ex2',
     name: 'Geely EX2',
     tagline: 'The Ultimate Family SUV',
     price: 'Rp 233.000.000',
@@ -18,7 +18,7 @@ export const CARS: Car[] = [
     }
   },
   {
-    id: '2',
+    id: 'ex5',
     name: 'Geely EX5',
     tagline: 'Pure Electric Elegance',
     price: 'Rp 515.000.000',
@@ -34,7 +34,7 @@ export const CARS: Car[] = [
     }
   },
   {
-    id: '3',
+    id: 'starray',
     name: 'Geely Starray EM-i',
     tagline: 'Born for the Track',
     price: 'Rp 499.000.000',
@@ -67,10 +67,11 @@ export const CARS: Car[] = [
 
 export const NAV_LINKS = [
   { name: 'Models', href: '#models' },
+  { name: 'Specifications', href: '#specifications' },
   { name: 'Technology', href: '#technology' },
   { name: 'Profile Sales', href: '#about' }, // Berubah dari About Us
   { name: 'News', href: '#news' },
-   { name: 'Purchase', href: '#booking' },
+  { name: 'Purchase', href: '#booking' },
 ];
 
 export const HERO_SLIDES = [

@@ -6,9 +6,6 @@ interface PromoGJAWProps {
   onConsultClick: (prompt?: string) => void;
 }
 
-const WHATSAPP_GJAW_URL =
-  'https://wa.me/6283197483984?text=Halo%2C%20saya%20ingin%20ambil%20promo%20GJAW%202026.%20Mohon%20info%20detailnya%20ya.';
-
 const PromoGJAW: React.FC<PromoGJAWProps> = ({ onConsultClick }) => {
   return (
     <section id="news" className="py-24 bg-white dark:bg-slate-950 relative overflow-hidden transition-colors duration-500">
@@ -58,16 +55,13 @@ const PromoGJAW: React.FC<PromoGJAWProps> = ({ onConsultClick }) => {
                 ))}
               </div>
 
-              <a 
-                href={WHATSAPP_GJAW_URL}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => onConsultClick("Saya ingin mengambil promo GJAW 2026.")}
+              <button 
+                onClick={() => onConsultClick("Saya ingin mengambil promo GJAW Bunga 0%.")}
                 className="px-10 py-5 bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-black rounded-full hover:bg-accent hover:text-white dark:hover:bg-accent dark:hover:text-slate-950 transition-all flex items-center justify-center gap-3 w-fit shadow-xl uppercase tracking-widest text-xs"
               >
                 Ambil Promo Sekarang
                 <ArrowRight size={18} />
-              </a>
+              </button>
             </div>
 
             {/* Right Content: The Visual */}
