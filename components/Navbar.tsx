@@ -71,16 +71,15 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
           </span> */}
         </a>
         {/* <span className="text-accent">AUTO</span> */}
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-6 xl:gap-8">
           {NAV_LINKS.map((link) => (
             <a
               key={link.name}
               href={link.href}
               onClick={(e) => handleLinkClick(e, link.href)}
               className={`nav-link text-xs font-semibold transition-colors uppercase tracking-[0.15em] relative group py-2 ${(currentView === 'about' && link.href === '#about') || (currentView === 'specifications' && link.href === '#specifications')
-                  ? 'text-accent'
-                  : textClass
+                ? 'text-accent'
+                : textClass
                 }`}
             >
               {link.name}
@@ -122,7 +121,7 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
         </div>
 
         {/* Mobile Toggle & Mobile Theme Toggle */}
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <button
             onClick={onToggleTheme}
             className={`p-2 rounded-full border transition-all duration-300 ring-1 ring-transparent hover:ring-accent/40 hover:scale-[1.03] active:scale-100 ${theme === 'dark'
@@ -149,7 +148,7 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden absolute top-full left-0 w-full transition-all duration-500 overflow-hidden border-b ${theme === 'dark' ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'
+        className={`lg:hidden absolute top-full left-0 w-full transition-all duration-500 overflow-hidden border-b ${theme === 'dark' ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'
           } ${isMobileMenuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}
       >
         <div className="flex flex-col p-8 gap-6 items-center">
@@ -158,8 +157,8 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
               key={link.name}
               href={link.href}
               className={`text-lg font-medium hover:text-accent transition-colors ${(currentView === 'about' && link.href === '#about') || (currentView === 'specifications' && link.href === '#specifications')
-                  ? 'text-accent'
-                  : (theme === 'dark' ? 'text-slate-300' : 'text-slate-600')
+                ? 'text-accent'
+                : (theme === 'dark' ? 'text-slate-300' : 'text-slate-600')
                 }`}
               onClick={(e) => handleLinkClick(e, link.href)}
             >

@@ -71,28 +71,28 @@ const CarDetailModal: React.FC<CarDetailModalProps> = ({ car, isOpen, onClose, o
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onClick={onClose}></div>
-      
-      <div className="relative bg-slate-900 w-full max-w-[95rem] rounded-[2.5rem] border border-slate-700 shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] md:max-h-[80vh] animate-fade-in-up">
-        
+
+      <div className="relative bg-slate-900 w-full max-w-[95rem] rounded-[2.5rem] border border-slate-700 shadow-2xl overflow-hidden flex flex-col lg:flex-row max-h-[90vh] lg:max-h-[80vh] animate-fade-in-up">
+
         {/* Close Button */}
-        <button 
-          onClick={onClose} 
-          className="absolute top-4 right-4 md:top-6 md:right-6 z-20 w-10 h-10 bg-black/30 hover:bg-white text-white hover:text-slate-900 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300"
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 lg:top-6 lg:right-6 z-20 w-10 h-10 bg-black/30 hover:bg-white text-white hover:text-slate-900 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300"
         >
           <X size={20} />
         </button>
 
         {/* Left Side: Image */}
-        <div className="w-full md:w-1/2 relative h-[28rem] md:h-auto overflow-hidden">
+        <div className="w-full lg:w-1/2 relative h-[28rem] lg:h-auto overflow-hidden">
           {images.map((src, idx) => (
             <img
               key={`${src}-${idx}`}
               src={src}
               alt={`${car.name} ${idx + 1}`}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
-                idx === activeImage ? 'opacity-100' : 'opacity-0'
-              }`}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${idx === activeImage ? 'opacity-100' : 'opacity-0'
+                }`}
               loading="lazy"
+              decoding="async"
             />
           ))}
           {images.length > 1 && (
@@ -101,33 +101,31 @@ const CarDetailModal: React.FC<CarDetailModalProps> = ({ car, isOpen, onClose, o
                 <button
                   key={`dot-${idx}`}
                   onClick={() => setActiveImage(idx)}
-                  className={`h-1.5 rounded-full transition-all ${
-                    idx === activeImage ? 'w-8 bg-white/90' : 'w-3 bg-white/30 hover:bg-white/50'
-                  }`}
+                  className={`h-1.5 rounded-full transition-all ${idx === activeImage ? 'w-8 bg-white/90' : 'w-3 bg-white/30 hover:bg-white/50'
+                    }`}
                   aria-label={`Show image ${idx + 1}`}
                 />
               ))}
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-slate-900"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-slate-900"></div>
           <div className="absolute bottom-6 left-6">
-             <span className="px-3 py-1 bg-accent text-slate-900 text-xs font-bold uppercase tracking-wider rounded-full">
-               {car.category}
-             </span>
+            <span className="px-3 py-1 bg-accent text-slate-900 text-xs font-bold uppercase tracking-wider rounded-full">
+              {car.category}
+            </span>
           </div>
         </div>
 
         {/* Right Side: Details */}
-        <div className="w-full md:w-1/2 p-8 md:p-10 overflow-y-auto custom-scrollbar">
+        <div className="w-full lg:w-1/2 p-8 lg:p-10 overflow-y-auto custom-scrollbar">
           <h2
-            className={`font-bold text-white mb-2 ${
-              car.name === 'Geely Starray EM-i' ? 'text-3xl md:text-4xl' : 'text-4xl md:text-5xl'
-            }`}
+            className={`font-bold text-white mb-2 ${car.name === 'Geely Starray EM-i' ? 'text-3xl lg:text-4xl' : 'text-4xl lg:text-5xl'
+              }`}
           >
             {car.name}
           </h2>
           <p className="text-xl text-accent font-medium mb-6">{car.tagline}</p>
-          
+
           <div className="flex items-end gap-2 mb-8 border-b border-slate-800 pb-8">
             <span className="text-3xl font-bold text-white">{car.price}</span>
             <span className="text-slate-500 text-sm mb-1.5">Starting Price</span>
@@ -139,21 +137,21 @@ const CarDetailModal: React.FC<CarDetailModalProps> = ({ car, isOpen, onClose, o
 
           {/* Specs Grid */}
           <div className="grid grid-cols-3 gap-4 mb-8">
-             <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700 text-center">
-                <Gauge className="text-accent w-6 h-6 mx-auto mb-2" />
-                <div className="font-bold text-white">{car.specs.acceleration}</div>
-                <div className="text-[10px] text-slate-500 uppercase">0-100 km/h</div>
-             </div>
-             <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700 text-center">
-                <Zap className="text-accent w-6 h-6 mx-auto mb-2" />
-                <div className="font-bold text-white">{car.specs.power}</div>
-                <div className="text-[10px] text-slate-500 uppercase">Power</div>
-             </div>
-             <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700 text-center">
-                <Wind className="text-accent w-6 h-6 mx-auto mb-2" />
-                <div className="font-bold text-white">{car.specs.topSpeed}</div>
-                <div className="text-[10px] text-slate-500 uppercase">Top Speed</div>
-             </div>
+            <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700 text-center">
+              <Gauge className="text-accent w-6 h-6 mx-auto mb-2" />
+              <div className="font-bold text-white">{car.specs.acceleration}</div>
+              <div className="text-[10px] text-slate-500 uppercase">0-100 km/h</div>
+            </div>
+            <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700 text-center">
+              <Zap className="text-accent w-6 h-6 mx-auto mb-2" />
+              <div className="font-bold text-white">{car.specs.power}</div>
+              <div className="text-[10px] text-slate-500 uppercase">Power</div>
+            </div>
+            <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700 text-center">
+              <Wind className="text-accent w-6 h-6 mx-auto mb-2" />
+              <div className="font-bold text-white">{car.specs.topSpeed}</div>
+              <div className="text-[10px] text-slate-500 uppercase">Top Speed</div>
+            </div>
           </div>
 
           {/* Features List */}
@@ -170,7 +168,7 @@ const CarDetailModal: React.FC<CarDetailModalProps> = ({ car, isOpen, onClose, o
           </div>
 
           {/* CTA */}
-          <button 
+          <button
             onClick={() => {
               onClose();
               onTestDriveClick();

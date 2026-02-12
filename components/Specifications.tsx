@@ -535,6 +535,9 @@ const Specifications: React.FC = () => {
                                 <img
                                     src={activeCar.image}
                                     alt={`${activeCar.name} Technical Visual`}
+                                    loading="lazy"
+                                    decoding="async"
+                                    fetchPriority="low"
                                     className="w-full h-auto opacity-90 rounded-[2.5rem] transition-transform duration-1000 group-hover:scale-105"
                                 />
                                 <div className="absolute inset-0 pointer-events-none opacity-20">

@@ -34,31 +34,31 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
 
   return (
     <div className="pt-24 md:pt-20 bg-slate-950 min-h-screen animate-fade-in text-slate-100">
-      
+
       {/* About Hero */}
       <section className="relative h-[70vh] md:h-[60vh] flex items-center justify-center overflow-hidden border-b border-slate-800">
         <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2000" 
-            alt="Geely Showroom" 
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2000"
+            alt="Geely Showroom"
             className="w-full h-full object-cover opacity-30"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/40 to-slate-950"></div>
         </div>
-        
+
         <div className="relative z-10 text-center px-6 mt-12 md:mt-0">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent rounded-full mb-6 border border-accent/20 animate-fade-in-up">
             <Trophy size={16} />
             <span className="text-[10px] font-black tracking-widest uppercase">Dealer Award 2025 Winner</span>
           </div>
           <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
-            Konsultasi Eksklusif <br/>
+            Konsultasi Eksklusif <br />
             <span className="text-accent">Bersama Dayana</span>
           </h1>
           <p className="text-black dark:text-slate-200 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed mb-10">
             Menemukan kendaraan impian bukan sekadar transaksi, melainkan perjalanan. Biarkan Dayana membantu Anda menemukan Geely yang tepat untuk gaya hidup Anda.
           </p>
-          <a 
+          <a
             href={whatsappKonsultasiUrl}
             target="_blank"
             rel="noreferrer"
@@ -83,26 +83,26 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           <div className="w-full lg:w-1/2">
             <div className="relative rounded-3xl overflow-hidden border border-slate-800 shadow-2xl group isolate">
-              <img 
+              <img
                 src="/img/10.jpeg"
-                alt="Dayana - Lead Consultant" 
+                alt="Dayana - Lead Consultant"
                 className="w-full h-[500px] md:h-[600px] object-cover transition-transform duration-700 group-hover:scale-105 opacity-90"
               />
               {/* Top Sales Badge Overlay */}
               <div className="absolute top-8 right-8 z-20 flex flex-col items-center">
                 <div className="w-24 h-24 bg-accent rounded-full border-4 border-slate-950 shadow-2xl flex flex-col items-center justify-center text-slate-950 transform -rotate-12 group-hover:rotate-0 transition-transform duration-500">
-                   <Star size={24} fill="currentColor" />
-                   <span className="text-[10px] font-black uppercase tracking-tighter">TOP SALES</span>
-                   <span className="text-sm font-black">2025</span>
+                  <Star size={24} fill="currentColor" />
+                  <span className="text-[10px] font-black uppercase tracking-tighter">TOP SALES</span>
+                  <span className="text-sm font-black">2025</span>
                 </div>
               </div>
 
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80"></div>
               <div className="absolute bottom-10 left-10">
-                 <div className="bg-accent text-slate-950 text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-2 inline-block">
-                   Lead Sales Consultant
-                 </div>
-                 <h2 className="text-4xl font-bold text-white tracking-tight">Dayana</h2>
+                <div className="bg-accent text-slate-950 text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-2 inline-block">
+                  Lead Sales Consultant
+                </div>
+                <h2 className="text-4xl font-bold text-white tracking-tight">Dayana</h2>
               </div>
             </div>
           </div>
@@ -119,7 +119,7 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
             <p className="text-slate-500 leading-relaxed mb-10 font-light">
               Geely baru saja dinobatkan sebagai <strong className="text-white">Dealer Award 2025</strong> berkat dedikasi kami pada inovasi teknologi dan kepuasan pelanggan yang tak tertandingi.
             </p>
-            
+
             <div className="grid grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-4 border-t border-slate-800 pt-10 mb-10">
               <div>
                 <div className="text-4xl font-bold text-white mb-1 tracking-tighter">500+</div>
@@ -139,7 +139,7 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
               </div>
             </div>
 
-            <a 
+            <a
               href={whatsappPromoOtrUrl}
               target="_blank"
               rel="noreferrer"
@@ -209,8 +209,8 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <div className="inline-flex items-center gap-2 mb-4 text-accent">
-               <Camera size={20} />
-               <span className="text-[10px] font-black uppercase tracking-[0.4em]">Success Stories</span>
+              <Camera size={20} />
+              <span className="text-[10px] font-black uppercase tracking-[0.4em]">Success Stories</span>
             </div>
             <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter mb-4">
               Delivery <span className="text-accent">Gallery</span>
@@ -218,44 +218,44 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
             <div className="w-24 h-1 bg-accent mx-auto rounded-full"></div>
           </div>
 
-          <div className="columns-1 sm:columns-2 lg:columns-3 gap-8 space-y-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {GALLERY_IMAGES.map((item) => (
-              <div 
-                key={item.id} 
-                className="relative group overflow-hidden rounded-[2.5rem] border border-slate-800 shadow-sm hover:shadow-2xl hover:shadow-accent/10 transition-all duration-700 cursor-zoom-in"
+              <div
+                key={item.id}
+                className="relative group overflow-hidden rounded-[2.5rem] border border-slate-800 shadow-sm hover:shadow-2xl hover:shadow-accent/10 transition-all duration-700 cursor-zoom-in h-[400px]"
               >
                 <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/5 transition-colors duration-700 z-10"></div>
-                
+
                 <div className="absolute top-6 right-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                   <div className="w-12 h-12 bg-slate-900/80 backdrop-blur-md rounded-full flex items-center justify-center text-accent shadow-xl border border-slate-700">
-                      <Sparkles size={20} fill="currentColor" />
-                   </div>
+                  <div className="w-12 h-12 bg-slate-900/80 backdrop-blur-md rounded-full flex items-center justify-center text-accent shadow-xl border border-slate-700">
+                    <Sparkles size={20} fill="currentColor" />
+                  </div>
                 </div>
 
-                <img 
-                  src={item.url} 
-                  alt={`Delivery Success ${item.id}`} 
-                  className="w-full h-auto object-cover transition-transform duration-[2s] group-hover:scale-110"
+                <img
+                  src={item.url}
+                  alt={`Delivery Success ${item.id}`}
+                  className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
                 />
-                
+
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
               </div>
             ))}
           </div>
 
           <div className="mt-20 flex flex-col items-center">
-             <div className="flex items-center gap-8 mb-10">
-                <div className="text-center">
-                    <div className="text-4xl font-bold text-white tracking-tighter">50+</div>
-                    <div className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Units Sold</div>
-                </div>
-                <div className="w-px h-10 bg-slate-800"></div>
-                <div className="text-center">
-                    <div className="text-4xl font-bold text-white tracking-tighter">100%</div>
-                    <div className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Trust Rate</div>
-                </div>
-             </div>
-             <p className="text-slate-500 text-sm font-light italic">"Setiap unit adalah bukti dedikasi kami."</p>
+            <div className="flex items-center gap-8 mb-10">
+              <div className="text-center">
+                <div className="text-4xl font-bold text-white tracking-tighter">50+</div>
+                <div className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Units Sold</div>
+              </div>
+              <div className="w-px h-10 bg-slate-800"></div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-white tracking-tighter">100%</div>
+                <div className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Trust Rate</div>
+              </div>
+            </div>
+            <p className="text-slate-500 text-sm font-light italic">"Setiap unit adalah bukti dedikasi kami."</p>
           </div>
         </div>
       </section>
@@ -265,14 +265,14 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
         <div className="bg-slate-900 rounded-[3rem] p-12 md:p-24 relative overflow-hidden shadow-2xl isolate border border-slate-800">
           <div className="absolute inset-0 bg-accent mix-blend-overlay opacity-10 pointer-events-none"></div>
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent via-white/20 to-accent pointer-events-none"></div>
-          
+
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tighter">Siap Memiliki <span className="text-accent">Geely</span> Anda?</h2>
           <p className="text-slate-400 max-w-xl mx-auto mb-12 text-lg font-light leading-relaxed">
             Hubungi Dayana sekarang dan dapatkan simulasi kredit dengan bunga 0% untuk 12 bulan pertama dari Dealer Terbaik 2025.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
+            <a
               href={whatsappSimulasiUrl}
               target="_blank"
               rel="noreferrer"
@@ -280,7 +280,7 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
             >
               Minta Simulasi Kredit
             </a>
-            <a 
+            <a
               href={whatsappStokUrl}
               target="_blank"
               rel="noreferrer"

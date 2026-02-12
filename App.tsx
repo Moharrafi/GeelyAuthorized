@@ -75,8 +75,18 @@ function App() {
   }, []);
 
   const navigateTo = useCallback((view: View, sectionId?: string) => {
+    // If we are already on the correct view and just need to scroll
+    if (currentView === view && sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+    }
+
     setCurrentView(view);
 
+    // Short timeout to allow render cycle to complete if view changed
     setTimeout(() => {
       if (sectionId) {
         if (sectionId === 'booking') {
@@ -90,8 +100,8 @@ function App() {
       } else {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-    }, 100);
-  }, []);
+    }, 50); // Reduced from 100ms to 50ms for snappier feel
+  }, [currentView]);
 
   return (
     <div className={`min-h-screen font-sans transition-colors duration-500 ${theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
@@ -108,7 +118,7 @@ function App() {
           <>
             <Hero onDiscoverClick={() => navigateTo('home', 'models')} />
             <Suspense fallback={<div className="min-h-[520px]" />}>
-              <LazySection placeholderClassName="min-h-[520px]">
+              <LazySection id="models" placeholderClassName="min-h-[520px]">
                 <CarShowcase onTestDriveClick={handleTestDriveClick} />
               </LazySection>
             </Suspense>
@@ -118,7 +128,7 @@ function App() {
               </LazySection>
             </Suspense>
             <Suspense fallback={<div className="min-h-[520px]" />}>
-              <LazySection placeholderClassName="min-h-[520px]">
+              <LazySection id="technology" placeholderClassName="min-h-[520px]">
                 <Features />
               </LazySection>
             </Suspense>
@@ -130,7 +140,7 @@ function App() {
             </Suspense>
 
             <Suspense fallback={<div className="min-h-[520px]" />}>
-              <LazySection placeholderClassName="min-h-[520px]">
+              <LazySection id="news" placeholderClassName="min-h-[520px]">
                 <PromoGJAW onConsultClick={handleConsultClick} />
               </LazySection>
             </Suspense>

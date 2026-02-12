@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --light-bg: #f8fafc;
   --light-surface: #f1f5f9;
@@ -295,8 +299,4 @@ html.light .nav-cta {
 html.light .nav-cta:hover {
   background-color: #38bdf8;
   color: #0f172a;
-}
-
-html.light .wa-fab {
-  color: #ffffff;
 }
