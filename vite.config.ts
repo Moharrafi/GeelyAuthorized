@@ -7,7 +7,8 @@ export default defineConfig(({ mode }) => {
     return {
       server: {
         port: 3000,
-        host: '0.0.0.0'
+        host: '0.0.0.0',
+        hmr: { overlay: false }
       },
       plugins: [react()],
       define: {
@@ -18,6 +19,24 @@ export default defineConfig(({ mode }) => {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
+      },
+      build: {
+        target: 'es2020',
+        minify: 'esbuild',
+        cssMinify: true,
+        rollupOptions: {
+          output: {
+            manualChunks: {
+              'vendor-react': ['react', 'react-dom'],
+              'vendor-icons': ['lucide-react'],
+            }
+          }
+        },
+        reportCompressedSize: false,
+        chunkSizeWarningLimit: 600,
+      },
+      optimizeDeps: {
+        include: ['react', 'react-dom', 'lucide-react'],
       }
     };
 });

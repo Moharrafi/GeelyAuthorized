@@ -7,7 +7,7 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
-  
+
   const handleLinkClick = (e: React.MouseEvent, view: 'home' | 'about', sectionId?: string) => {
     e.preventDefault();
     onNavigate(view, sectionId);
@@ -16,23 +16,23 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer id="contact" className="bg-slate-100 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 pt-16 pb-8 text-slate-700 dark:text-slate-100">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-          
-          <div className="col-span-1 md:col-span-1">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12">
+
+          <div className="col-span-2 md:col-span-1">
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Geely_Auto_2023.svg/2560px-Geely_Auto_2023.svg.png"
+              src="https://geelyauto.id/themes/custom/geely/images/logos/logo-geely.svg"
               alt="Geely Auto"
-              className="h-9 md:h-12 mb-6 object-contain invert-0 dark:invert"
+              className="h-4 md:h-4 mb-6 object-contain invert-0 dark:invert"
               loading="lazy"
             />
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
               Redefining the automotive industry with sustainable luxury and artificial intelligence. Join the revolution today.
             </p>
             <div className="flex gap-4">
-              <a 
-                href="https://www.instagram.com/geely_smcibubur/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://www.instagram.com/geely_smcibubur/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-500 transition-colors hover:text-[#E4405F] hover:border-[#E4405F] dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:text-[#E4405F] dark:hover:border-[#E4405F]"
                 aria-label="Instagram"
               >
@@ -46,10 +46,10 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   decoding="async"
                 />
               </a>
-              <a 
-                href="https://www.facebook.com/sales.geely.cibubur" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://www.facebook.com/sales.geely.cibubur"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-500 transition-colors hover:text-[#1877F2] hover:border-[#1877F2] dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:text-[#1877F2] dark:hover:border-[#1877F2]"
                 aria-label="Facebook"
               >
@@ -63,10 +63,10 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   decoding="async"
                 />
               </a>
-              <a 
-                href="https://www.youtube.com/@GeelyAutoCibubur" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://www.youtube.com/@GeelyAutoCibubur"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-500 transition-colors hover:text-[#FF0000] hover:border-[#FF0000] dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:text-[#FF0000] dark:hover:border-[#FF0000]"
                 aria-label="YouTube"
               >
@@ -80,10 +80,10 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   decoding="async"
                 />
               </a>
-              <a 
-                href="https://www.tiktok.com/@geely_smcibubur" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://www.tiktok.com/@geely_smcibubur"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-500 transition-colors hover:text-[#FE2C55] hover:border-[#FE2C55] dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:text-[#FE2C55] dark:hover:border-[#FE2C55]"
                 aria-label="TikTok"
               >
@@ -124,9 +124,9 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <ul className="space-y-4 text-sm text-slate-400">
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-accent mt-0.5 flex-shrink-0" />
-                <a 
-                  href="https://maps.app.goo.gl/FZWs2EdhpdjvJMkRA " 
-                  target="_blank" 
+                <a
+                  href="https://maps.app.goo.gl/FZWs2EdhpdjvJMkRA "
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-accent transition-colors leading-relaxed"
                 >

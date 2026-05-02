@@ -47,14 +47,14 @@ function App() {
     if ('requestIdleCallback' in window) {
       idleId = window.requestIdleCallback(defer, { timeout: 1500 });
     } else {
-      idleId = window.setTimeout(defer, 800);
+      idleId = window.setTimeout(defer, 800) as unknown as number;
     }
     return () => {
-      if (idleId) {
+      if (idleId !== undefined) {
         if ('cancelIdleCallback' in window) {
           window.cancelIdleCallback(idleId);
         } else {
-          window.clearTimeout(idleId);
+          window.clearTimeout(idleId as unknown as number);
         }
       }
     };
@@ -116,7 +116,7 @@ function App() {
       <main>
         {currentView === 'home' ? (
           <>
-            <Hero onDiscoverClick={() => navigateTo('home', 'models')} />
+            <Hero onDiscoverClick={() => navigateTo('home', 'models')} onBookingClick={handleTestDriveClick} />
             <Suspense fallback={<div className="min-h-[520px]" />}>
               <LazySection id="models" placeholderClassName="min-h-[520px]">
                 <CarShowcase onTestDriveClick={handleTestDriveClick} />
@@ -145,7 +145,7 @@ function App() {
               </LazySection>
             </Suspense>
 
-            <section className={`py-32 relative overflow-hidden transition-colors duration-500 ${theme === 'dark' ? 'bg-slate-900' : 'bg-slate-100'}`}>
+            <section className={`py-20 md:py-32 relative overflow-hidden transition-colors duration-500 ${theme === 'dark' ? 'bg-slate-900' : 'bg-slate-100'}`}>
               <div className="absolute inset-0 z-0">
                 <img
                   src="https://geelyauto.id/sites/default/files/2025-10/%E5%9B%BD%E8%B4%B8%E8%B7%AF%E8%B7%91%20%281%29.jpg"
@@ -158,8 +158,8 @@ function App() {
               </div>
 
               <div className="container mx-auto px-6 relative z-10 text-center">
-                <h2 className={`text-4xl md:text-6xl font-bold mb-6 tracking-tighter ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Mulai Perjalanan Anda</h2>
-                <p className={`text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
+                <h2 className={`text-3xl md:text-6xl font-bold mb-4 md:mb-6 tracking-tighter ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Mulai Perjalanan Anda</h2>
+                <p className={`text-base md:text-xl font-light mb-8 md:mb-10 max-w-2xl mx-auto ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
                   Nikmati perpaduan sempurna antara kemewahan dan teknologi. Pesan sesi test drive eksklusif Anda bersama Geely sekarang.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">

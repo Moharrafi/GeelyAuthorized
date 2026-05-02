@@ -15,7 +15,7 @@ interface SpecCategory {
 
 const Specifications: React.FC = () => {
     const [activeCar, setActiveCar] = useState<Car>(CARS[0]);
-    const [openCategory, setOpenCategory] = useState<string | null>("NEW ENERGY");
+    const [openCategory, setOpenCategory] = useState<string | null>("DIMENSIONS EXTRA");
 
     // Helper untuk mendapatkan data dimensi
     const getDimensionValues = () => {
@@ -32,21 +32,34 @@ const Specifications: React.FC = () => {
     // Data Spesifikasi Lengkap untuk Geely EX5
     const ex5TechnicalSpecs: SpecCategory[] = [
         {
+            title: "DIMENSIONS EXTRA",
+            specs: [
+                { label: "Min. Turning Radius", pro: "5.45 m", max: "5.45 m" },
+                { label: "Min. Ground Clearance", pro: "170 mm", max: "170 mm" },
+                { label: "Seats", pro: "5", max: "5" },
+                { label: "Trunk Capacity (Min. / Max.)", pro: "440/1456 L", max: "440/1456 L" },
+                { label: "Kerb Weight", pro: "1870 kg", max: "1920 kg" },
+                { label: "Tyre Specification", pro: "235/50 R18", max: "235/50 R18" },
+            ]
+        },
+        {
             title: "NEW ENERGY",
             specs: [
                 { label: "Drive Type", pro: "Front-Wheel Drive (FWD)", max: "Front-Wheel Drive (FWD)" },
                 { label: "Electrical Motor Type", pro: "Permanent Magnetic Synchronous Machine", max: "Permanent Magnetic Synchronous Machine" },
                 { label: "Electric Drive Type", pro: "11-in-1 Electrical Drive", max: "11-in-1 Electrical Drive" },
-                { label: "Max. Net Power", pro: "160kW", max: "160kW" },
+                { label: "Max. Net Power", pro: "160 kW (214 HP)", max: "160 kW (214 HP)" },
                 { label: "Max. Net Torque", pro: "320 N.m", max: "320 N.m" },
                 { label: "Max. Vehicle Speed", pro: "175 km/h", max: "175 km/h" },
                 { label: "0-100km/h Acceleration", pro: "6.9 s", max: "7.1 s" },
                 { label: "Battery Capacity", pro: "60.22 kWh", max: "60.22 kWh" },
-                { label: "Battery Type", pro: "Lithium Iron Phosphate", max: "Lithium Iron Phosphate" },
+                { label: "Battery Type", pro: "Lithium Iron Phosphate (LFP)", max: "Lithium Iron Phosphate (LFP)" },
                 { label: "NEDC Combined Driving Range", pro: "495 km", max: "490 km" },
+                { label: "NEDC Combined Energy Consumption", pro: "13.3 kWh/100km", max: "13.5 kWh/100km" },
                 { label: "Drive Mode", pro: "Eco/Normal/Sport", max: "Eco/Normal/Sport" },
                 { label: "AC Slow Charging Time (10%-100% SOC)", pro: "6.1 h", max: "6.1 h" },
                 { label: "DC Fast Charging Time (30%-80% SOC)", pro: "20 Min", max: "20 Min" },
+                { label: "MAX DC Charging Power", pro: "115 kW", max: "115 kW" },
                 { label: "Remote Scheduled Charging", pro: true, max: true },
                 { label: "Vehicle to Load (V2L) Power Supply", pro: true, max: true },
                 { label: "Vehicle to Vehicle (V2V) Power Supply", pro: true, max: true },
@@ -127,6 +140,20 @@ const Specifications: React.FC = () => {
                 { label: "6-Speaker Audio System", pro: true, max: false },
                 { label: "16-Speaker FLYME SOUND Premium Audio System", pro: false, max: true },
                 { label: "Wireless Charging", pro: true, max: true },
+                { label: "Android Auto & Apple CarPlay (*)", pro: true, max: true },
+                { label: "4G Network Connectivity", pro: true, max: true },
+                { label: "Remote APP Vehicle Control", pro: false, max: true },
+            ]
+        },
+        {
+            title: "AIR CONDITIONING",
+            specs: [
+                { label: "Automatic Dual-Zone Air Conditioning", pro: true, max: true },
+                { label: "Rear A/C Vent", pro: true, max: true },
+                { label: "Unlock/Delayed Ventilation", pro: true, max: true },
+                { label: "Remote Ventilation", pro: false, max: true },
+                { label: "N95 A/C Filter", pro: true, max: true },
+                { label: "Heat Pump System", pro: true, max: true },
             ]
         },
         {
@@ -141,7 +168,12 @@ const Specifications: React.FC = () => {
                 { label: "Side Impact Airbags", pro: true, max: true },
                 { label: "Rear Occupant Detection System", pro: false, max: true },
                 { label: "360° Topview Surround Parking Vision", pro: true, max: true },
-                { label: "Pure Electric Low Speed Alert", pro: false, max: true },
+                { label: "540° Panoramic View with Transparent Chassis", pro: false, max: true },
+                { label: "Rear Parking Sensor", pro: true, max: true },
+                { label: "Rear Camera", pro: true, max: true },
+                { label: "Tire Pressure Monitoring System (TPMS)", pro: true, max: true },
+                { label: "Pure Electric Low Speed Alert", pro: true, max: true },
+                { label: "ISOFIX Child Seat Anchor", pro: true, max: true },
             ]
         },
         {
@@ -149,7 +181,8 @@ const Specifications: React.FC = () => {
             specs: [
                 { label: "18\" Alloy Wheels", pro: true, max: true },
                 { label: "Ext Color: Snow White", pro: true, max: true },
-                { label: "Ext Color: Turquoise Green / Carbon Black", pro: true, max: true },
+                { label: "Ext Color: Turquoise Green", pro: true, max: true },
+                { label: "Ext Color: Carbon Black", pro: true, max: true },
                 { label: "Int Color: Dark Blue", pro: true, max: true },
                 { label: "Int Color: Ivory White", pro: false, max: true },
             ]
@@ -223,11 +256,13 @@ const Specifications: React.FC = () => {
                 { label: "2-Way Manual Steering Wheel Adjustment", pro: true, max: true },
                 { label: "Front Seat Sun Visors with Mirrors", pro: true, max: true },
                 { label: "One-Touch-Up/Down Four Windows with Clip Guard", pro: true, max: true },
-                { label: "256-Color Urban Starlight Ambient Light", pro: "-", max: "No" },
+                { label: "256-Color Urban Starlight Ambient Light", pro: false, max: true },
                 { label: "Perforated Leatherette Seats", pro: true, max: true },
                 { label: "6-Way Manual Adjustable Driver's Seat", pro: true, max: false },
                 { label: "6-Way Power Adjustable Driver's Seat", pro: false, max: true },
+                { label: "4-Way Manual Co-Driver Seat", pro: true, max: true },
                 { label: "Rear Seat Fold Down in a 4:6 Ratio", pro: true, max: true },
+                { label: "Rear Seat Central Armrest", pro: true, max: true },
             ]
         },
         {
@@ -243,12 +278,14 @@ const Specifications: React.FC = () => {
             title: "ADAS",
             specs: [
                 { label: "Adaptive Cruise Control (ACC)", pro: false, max: true },
-                { label: "Automatic Emergency Breaking (AEB)", pro: false, max: true },
-                { label: "Lane Departure Warning (LDW)", pro: false, max: true },
+                { label: "Automatic Emergency Braking (AEB)", pro: false, max: true },
                 { label: "Forward Collision Warning (FCW)", pro: false, max: true },
-                { label: "Lanes Change Assist (LCA)", pro: false, max: true },
+                { label: "Lane Departure Warning (LDW)", pro: false, max: true },
+                { label: "Lane Change Assist (LCA)", pro: false, max: true },
                 { label: "Blind Spot Detection (BSD)", pro: false, max: true },
-                { label: "Traffic Sign Recignition (TSR)", pro: false, max: true },
+                { label: "Rear Cross Traffic Alert (RCTA)", pro: false, max: true },
+                { label: "Door Open Warning (DOW)", pro: false, max: true },
+                { label: "Traffic Sign Recognition (TSR)", pro: false, max: true },
             ]
         },
         {
@@ -276,6 +313,10 @@ const Specifications: React.FC = () => {
                 { label: "Front Side Airbags", pro: true, max: true },
                 { label: "Side Curtain Airbags", pro: false, max: true },
                 { label: "Tire Pressure Monitoring System", pro: true, max: true },
+                { label: "Rear Parking Sensor", pro: true, max: true },
+                { label: "Rear Camera", pro: true, max: true },
+                { label: "540° Panoramic View", pro: false, max: true },
+                { label: "ISOFIX Child Seat Anchor", pro: true, max: true },
                 { label: "Low Speed Alert For EV Driving", pro: true, max: true },
             ]
         },
@@ -352,8 +393,13 @@ const Specifications: React.FC = () => {
             title: "CHASSIS",
             specs: [
                 { label: "Suspension", pro: "F-MacPherson/R-Multi-link", max: "F-MacPherson/R-Multi-link" },
-                { label: "Steering", pro: "Tilt & Telescopic", max: "Tilt & Telescopic" },
+                { label: "Steering", pro: "Electric Power Steering (EPS)", max: "Electric Power Steering (EPS)" },
+                { label: "Steering Adjustment", pro: "Tilt & Telescopic", max: "Tilt & Telescopic" },
                 { label: "Braking System", pro: "F-Ventilated/R-Solid", max: "F-Ventilated/R-Solid" },
+                { label: "Electronic Parking Brake (EPB)", pro: true, max: true },
+                { label: "Auto Hold", pro: true, max: true },
+                { label: "Braking Energy Recovery System", pro: true, max: true },
+                { label: "Adjustable Energy Recovery System", pro: true, max: true },
             ]
         },
         {
@@ -416,19 +462,29 @@ const Specifications: React.FC = () => {
                 { label: "FLYME AUTO In-Vehicle Infotainment System", pro: true, max: true },
                 { label: "15.4\" HD Central Screen", pro: true, max: true },
                 { label: "10.2\" LCD Dash Display", pro: true, max: true },
-                { label: "16-Speakers FLYME SOUND Audio system", pro: true, max: true },
+                { label: "Dual-Zone Voice Control", pro: true, max: true },
+                { label: "16-Speakers FLYME SOUND Audio System (1000W)", pro: true, max: true },
                 { label: "Wireless Charging", pro: true, max: true },
+                { label: "Android Auto & Apple CarPlay (*)", pro: true, max: true },
+                { label: "4G Network Connectivity", pro: true, max: true },
+                { label: "Remote APP Vehicle Control", pro: true, max: true },
                 { label: "Vehicle-to-Load (V2L) Power Supply", pro: true, max: true },
             ]
         },
         {
             title: "SAFETY",
             specs: [
-                { label: "ESC Stability Control", pro: true, max: true },
+                { label: "Electronic Stability Control (ESC)", pro: true, max: true },
                 { label: "Antilock Brake System (ABS)", pro: true, max: true },
+                { label: "Hill-Start Assist Control (HAC)", pro: true, max: true },
+                { label: "Hill Descent Control (HDC)", pro: true, max: true },
                 { label: "6 Airbags (2 Front, 2 Front Side and 2 Side Curtain)", pro: true, max: true },
                 { label: "540° Panoramic View with Transparent Chassis", pro: true, max: true },
-                { label: "Adjustable Energy Regeneration System", pro: true, max: true },
+                { label: "Rear Parking Sensor", pro: true, max: true },
+                { label: "Rear Camera", pro: true, max: true },
+                { label: "Tire Pressure Monitoring System (TPMS)", pro: true, max: true },
+                { label: "ISOFIX Child Seat Anchor", pro: true, max: true },
+                { label: "Pure Electric Low Speed Alert", pro: true, max: true },
             ]
         },
         {
@@ -492,7 +548,7 @@ const Specifications: React.FC = () => {
                                 key={car.id}
                                 onClick={() => {
                                     setActiveCar(car);
-                                    setOpenCategory(car.id === 'starray' ? "POWERTRAIN" : "NEW ENERGY");
+                                    setOpenCategory("DIMENSIONS EXTRA");
                                 }}
                                 className={`px-4 md:px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 ${activeCar.id === car.id
                                     ? 'bg-white dark:bg-slate-800 text-slate-950 dark:text-white shadow-md'

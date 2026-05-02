@@ -1,5 +1,5 @@
 
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import { CARS } from '../constants';
 import { Car } from '../types';
 import { Gauge, Zap, ArrowRight, SlidersHorizontal, ArrowUpDown, ChevronLeft, ChevronRight, Wind } from 'lucide-react';
@@ -60,13 +60,19 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
     return result;
   }, [selectedCategory, sortBy]);
 
-  const handleScroll = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-      const progress = (scrollLeft / (scrollWidth - clientWidth)) * 100;
-      setScrollProgress(progress || 0);
-    }
-  };
+  const rafRef = useRef<number | null>(null);
+
+  const handleScroll = useCallback(() => {
+    if (rafRef.current !== null) return;
+    rafRef.current = requestAnimationFrame(() => {
+      if (scrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        const progress = (scrollLeft / (scrollWidth - clientWidth)) * 100;
+        setScrollProgress(progress || 0);
+      }
+      rafRef.current = null;
+    });
+  }, []);
 
   const scroll = (direction: 'left' | 'right') => {
     if (!scrollRef.current) return;
@@ -94,24 +100,27 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
   useEffect(() => {
     const el = scrollRef.current;
     if (el) {
-      el.addEventListener('scroll', handleScroll);
-      return () => el.removeEventListener('scroll', handleScroll);
+      el.addEventListener('scroll', handleScroll, { passive: true });
+      return () => {
+        el.removeEventListener('scroll', handleScroll);
+        if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      };
     }
-  }, [filteredAndSortedCars]);
+  }, [filteredAndSortedCars, handleScroll]);
 
   return (
-    <section id="models" className="pt-20 pb-12 md:pt-32 md:pb-16 bg-slate-950 premium-light-surface light-seam-overlap relative overflow-hidden">
+    <section id="models" className="pt-24 pb-12 md:pt-32 md:pb-16 bg-slate-950 premium-light-surface light-seam-overlap relative overflow-hidden">
       {/* Decorative background text */}
       <div className="absolute top-20 md:top-40 left-0 text-[10rem] md:text-[15rem] font-black text-white/[0.02] light-wordmark select-none pointer-events-none whitespace-nowrap leading-none uppercase">
         Masterpiece • 2025
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 md:mb-16 gap-8">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 md:mb-16 gap-6 md:gap-8">
           <div className="max-w-xl">
             <span className="text-accent text-[10px] md:text-sm font-bold tracking-[0.4em] uppercase mb-2 md:mb-4 block">Our Legacy</span>
             <h2 className="text-3xl md:text-7xl font-bold text-white tracking-tighter leading-none">
-              Explore The <br /> <span className="text-slate-500">New Collection</span>
+              Explore The <span className="text-slate-500">New Collection</span>
             </h2>
           </div>
 
@@ -122,22 +131,22 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                 <div className="inline-flex items-center bg-slate-900/60 p-1.5 md:p-2 rounded-full backdrop-blur-md shadow-[0_12px_30px_-12px_rgba(15,23,42,0.28),0_2px_8px_-2px_rgba(15,23,42,0.18)] min-w-max">
                   <button
                     onClick={() => handleCategoryChange(null)}
-                    className={`px-6 py-2.5 rounded-full text-[10px] font-black tracking-widest transition-all duration-500 ease-out whitespace-nowrap ${selectedCategory === null
-                        ? 'bg-white text-slate-950 shadow-[0_10px_20px_-10px_rgba(15,23,42,0.30),0_2px_6px_-2px_rgba(15,23,42,0.18)] scale-[1.02]'
-                        : 'text-slate-500 hover:text-slate-300'
+                    className={`px-5 py-3 md:px-6 md:py-2.5 rounded-full text-[11px] md:text-[10px] font-black tracking-widest transition-all duration-500 ease-out whitespace-nowrap min-h-[44px] md:min-h-0 ${selectedCategory === null
+                      ? 'bg-white text-slate-950 shadow-[0_10px_20px_-10px_rgba(15,23,42,0.30),0_2px_6px_-2px_rgba(15,23,42,0.18)] scale-[1.02]'
+                      : 'text-slate-500 hover:text-slate-300'
                       }`}
                   >
                     ALL MODELS
                   </button>
-                  <div className="w-px h-4 bg-slate-800 mx-3 shrink-0"></div>
+                  <div className="w-px h-4 bg-slate-800 mx-2 md:mx-3 shrink-0"></div>
                   <div className="flex items-center gap-1 pr-2">
                     {categories.map((cat) => (
                       <button
                         key={cat}
                         onClick={() => handleCategoryChange(cat)}
-                        className={`px-6 py-2.5 rounded-full text-[10px] font-black tracking-widest transition-all duration-500 ease-out whitespace-nowrap ${selectedCategory === cat
-                            ? 'bg-accent text-slate-950 shadow-[0_10px_20px_-10px_rgba(15,23,42,0.30),0_2px_6px_-2px_rgba(15,23,42,0.18)] scale-[1.02]'
-                            : 'text-slate-500 hover:text-slate-300'
+                        className={`px-5 py-3 md:px-6 md:py-2.5 rounded-full text-[11px] md:text-[10px] font-black tracking-widest transition-all duration-500 ease-out whitespace-nowrap min-h-[44px] md:min-h-0 ${selectedCategory === cat
+                          ? 'bg-accent text-slate-950 shadow-[0_10px_20px_-10px_rgba(15,23,42,0.30),0_2px_6px_-2px_rgba(15,23,42,0.18)] scale-[1.02]'
+                          : 'text-slate-500 hover:text-slate-300'
                           }`}
                       >
                         {cat}
@@ -174,7 +183,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
         {/* Focused Carousel Container */}
         <div className="relative group/carousel">
 
-          {/* Track Controls */}
+          {/* Track Controls — hidden on mobile, visible on desktop */}
           <div className="hidden lg:flex absolute left-0 right-0 top-1/2 -translate-y-1/2 px-6 md:px-0 -ml-20 -mr-20 items-center justify-between pointer-events-none z-30">
             <button
               onClick={() => scroll('left')}
@@ -205,10 +214,10 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                   {/* <div className="w-full p-2 rounded-[2.5rem] md:rounded-[3rem] shadow-[0_24px_70px_rgba(15,23,42,0.08),0_8px_20px_rgba(15,23,42,0.04)] dark:shadow-2xl"> */}
                   <div
                     onClick={() => setSelectedCar(car)}
-                    className="relative w-full bg-slate-900 rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-slate-700 group/card cursor-pointer flex flex-col lg:flex-row"
+                    className="relative w-full bg-slate-900 rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-slate-700 group/card cursor-pointer flex flex-col lg:flex-row contain-content"
                   >
                     {/* Image Area */}
-                    <div className="w-full lg:w-[60%] relative overflow-hidden h-[320px] sm:h-[400px] lg:h-auto lg:min-h-[600px] bg-slate-800">
+                    <div className="w-full lg:w-[60%] relative overflow-hidden aspect-[16/10] lg:aspect-auto lg:min-h-[600px] bg-slate-800">
                       <div className={`absolute inset-0 bg-slate-800 transition-opacity duration-700 z-10 ${loadedImages[car.id] ? 'opacity-0' : 'opacity-100'}`} />
                       <img
                         src={car.image}
@@ -217,7 +226,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                         decoding="async"
                         fetchPriority="low"
                         onLoad={() => handleImageLoad(car.id)}
-                        className="block w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover/card:scale-110"
+                        className="block w-full h-full object-cover object-center transition-transform duration-[1.5s] ease-out group-hover/card:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-slate-950/80 via-transparent to-transparent"></div>
 
@@ -229,7 +238,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                     </div>
 
                     {/* Details Area */}
-                    <div className="w-full lg:w-[40%] p-10 md:p-16 flex flex-col justify-center">
+                    <div className="w-full lg:w-[40%] p-6 md:p-10 lg:p-16 flex flex-col justify-center">
                       <div className="mb-2">
                         <span className="text-accent text-[9px] md:text-[10px] font-black uppercase tracking-widest">{car.tagline}</span>
                       </div>
@@ -269,8 +278,26 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
 
                       <div className="relative flex items-center border-t border-slate-800 pt-8 pr-14 md:pr-16">
                         <div>
-                          <div className="text-[9px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest">Starting Price</div>
-                          <div className="text-xl md:text-3xl font-bold text-white tracking-tighter">{car.price}</div>
+                          {car.pricePro && car.priceMax ? (
+                            <>
+                              <div className="text-[9px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-2">OTR Jakarta*</div>
+                              <div className="flex flex-col gap-1.5">
+                                <div className="flex items-baseline gap-2">
+                                  <span className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-widest w-8">Pro</span>
+                                  <span className="text-base md:text-2xl font-bold text-white tracking-tighter">{car.pricePro}</span>
+                                </div>
+                                <div className="flex items-baseline gap-2">
+                                  <span className="text-[9px] md:text-[10px] font-black text-accent uppercase tracking-widest w-8">Max</span>
+                                  <span className="text-base md:text-2xl font-bold text-white tracking-tighter">{car.priceMax}</span>
+                                </div>
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              <div className="text-[9px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest">OTR Jakarta*</div>
+                              <div className="text-xl md:text-3xl font-bold text-white tracking-tighter">{car.price}</div>
+                            </>
+                          )}
                         </div>
                         <button className="absolute right-0 top-1/2 -translate-y-1/2 -mt-6 md:mt-0 w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center text-slate-950 shadow-2xl hover:bg-accent transition-all duration-300 group/btn">
                           <ArrowRight size={22} className="md:w-7 md:h-7 group-hover/btn:translate-x-1 transition-transform" />
@@ -298,9 +325,9 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
             )}
           </div>
 
-          {/* Premium Navigation Dots & Progress */}
+          {/* Premium Navigation Dots & Progress — hidden on mobile, visible on desktop */}
           {filteredAndSortedCars.length > 1 && (
-            <div className="mt-8 md:mt-12 flex flex-col md:flex-row items-center justify-between gap-8 max-w-4xl mx-auto">
+            <div className="mt-8 md:mt-12 hidden lg:flex flex-col md:flex-row items-center justify-between gap-8 max-w-4xl mx-auto">
               {/* Dots Navigation */}
               <div className="flex items-center gap-3">
                 {filteredAndSortedCars.map((_, idx) => {

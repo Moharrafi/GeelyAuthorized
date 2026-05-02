@@ -3,6 +3,8 @@ export interface Car {
   name: string;
   tagline: string;
   price: string;
+  pricePro?: string;
+  priceMax?: string;
   category: 'SUV' | 'PHEV';
   image: string;
   description: string;

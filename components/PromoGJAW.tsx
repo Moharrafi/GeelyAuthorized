@@ -19,7 +19,7 @@ const PromoGJAW: React.FC<PromoGJAWProps> = ({ onConsultClick }) => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent rounded-full mb-4 border border-accent/20">
             <Star size={14} fill="currentColor" />
-            <span className="text-[10px] font-black tracking-[0.2em] uppercase">Special Event: GJAW 2025</span>
+            <span className="text-[10px] font-black tracking-[0.2em] uppercase">Special Event: GJAW 2026</span>
           </div>
           <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter">
             Eksklusif <span className="text-accent">GJAW 2026</span>
@@ -35,8 +35,8 @@ const PromoGJAW: React.FC<PromoGJAWProps> = ({ onConsultClick }) => {
           
           <div className="flex flex-col lg:flex-row items-stretch">
             {/* Left Content: The Offer */}
-            <div className="flex-1 p-10 md:p-16 flex flex-col justify-center">
-              <h3 className="text-3xl md:text-5xl font-black text-white mb-8 tracking-tight leading-none uppercase italic">
+            <div className="flex-1 p-8 md:p-16 flex flex-col justify-center">
+              <h3 className="text-2xl sm:text-3xl md:text-5xl font-black text-white mb-6 md:mb-8 tracking-tight leading-none uppercase italic">
                 PENAWARAN <br/>
                 <span className="text-accent">TERBATAS!</span>
               </h3>
@@ -52,7 +52,7 @@ const PromoGJAW: React.FC<PromoGJAWProps> = ({ onConsultClick }) => {
                     <div className="w-10 h-10 rounded-xl bg-slate-950 flex items-center justify-center border border-slate-800 group-hover:border-accent/50 transition-colors">
                       {item.icon}
                     </div>
-                    <span className="text-lg md:text-xl font-bold text-slate-100 group-hover:text-accent transition-colors">{item.text}</span>
+                    <span className="text-base md:text-xl font-bold text-slate-100 group-hover:text-accent transition-colors">{item.text}</span>
                   </div>
                 ))}
               </div>
@@ -62,7 +62,7 @@ const PromoGJAW: React.FC<PromoGJAWProps> = ({ onConsultClick }) => {
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => onConsultClick("Saya ingin mengambil promo GJAW 2026.")}
-                className="px-10 py-5 bg-white text-slate-950 font-black rounded-full hover:bg-accent transition-all flex items-center justify-center gap-3 w-fit shadow-xl shadow-white/5 uppercase tracking-widest text-xs"
+                className="px-10 py-5 bg-white text-slate-950 font-black rounded-full hover:bg-accent transition-all flex items-center justify-center gap-3 w-full sm:w-fit shadow-xl shadow-white/5 uppercase tracking-widest text-xs"
               >
                 Ambil Promo Sekarang
                 <ArrowRight size={18} />
@@ -70,11 +70,13 @@ const PromoGJAW: React.FC<PromoGJAWProps> = ({ onConsultClick }) => {
             </div>
 
             {/* Right Content: The Visual */}
-            <div className="flex-1 relative min-h-[500px] lg:min-h-auto">
+            <div className="flex-1 relative min-h-[380px] lg:min-h-auto">
               <img 
                 src="https://geelyauto.id/sites/default/files/styles/drimage_improved_focal_900_0/public/2025-07/times-asia-pacific-best.png.webp" 
                 alt="Car Delivery Geely" 
                 className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/40 to-transparent lg:bg-gradient-to-r lg:from-slate-900/90 lg:to-transparent"></div>
               

@@ -5,30 +5,53 @@ export const CARS: Car[] = [
   {
     id: 'ex2',
     name: 'Geely EX2',
-    tagline: 'The Ultimate Family SUV',
-    price: 'Rp 233.000.000',
+    tagline: 'Smart Electric City SUV',
+    price: 'Rp 255.000.000',
+    pricePro: 'Rp 255.000.000',
+    priceMax: 'Rp 285.000.000',
     category: 'SUV',
     image: 'https://geelywonder.id/public/domain/g/geelywonder.id/images/exterior_color_ex2_06.jpg',
-    description: 'The Geely EX2 blends compact agility with smart electric sophistication. Built for modern urban life, it delivers a comfortable cabin, intelligent safety technology, and an efficient electric drive that glides effortlessly through city streets while staying ready for everyday adventures.',
-    features: ['double the space', 'All-Wheel Drive', 'double the driving pleasure', 'THE SAFETY AND EASE'],
+    description: 'Geely EX2 adalah SUV listrik kompak yang dirancang untuk kehidupan urban modern. Ditenagai motor listrik 85 kW (114 HP) dengan baterai LFP 40.8 kWh, EX2 mampu menempuh hingga 395 km (NEDC) dalam sekali pengisian. Pengisian cepat DC 30%-80% hanya dalam 25 menit, serta dilengkapi fitur V2L untuk suplai daya eksternal.',
+    features: [
+      'Jangkauan 395 km (NEDC)',
+      'DC Fast Charging 25 Menit',
+      'FLYME AUTO 14.6" Touchscreen',
+      'V2L — Vehicle to Load',
+      'RWD — Rear-Wheel Drive',
+      'Baterai LFP 40.8 kWh',
+      'Frunk 70L + Bagasi 375–1320L',
+      'ADAS Level 2 (Varian Max)',
+    ],
     specs: {
       acceleration: '11.5s',
-      power: '114 HP',
+      power: '85 kW / 114 HP',
+      range: '395 km',
       topSpeed: '130 km/h'
     }
   },
   {
     id: 'ex5',
     name: 'Geely EX5',
-    tagline: 'Pure Electric Elegance',
-    price: 'Rp 515.000.000',
+    tagline: 'Pure Electric Flagship SUV',
+    price: 'Rp 475.000.000',
+    pricePro: 'Rp 475.000.000',
+    priceMax: 'Rp 515.000.000',
     category: 'SUV',
     image: 'https://geelyauto.id/sites/default/files/2025-10/E245_CamFront45_03_CloudCity-leo.jpg',
-    description: 'Geely EX5 merupakan SUV listrik canggih yang menggabungkan performa superior, efisiensi energi, dan inovasi teknologi. Ditenagai motor listrik berkekuatan 160 kW (214 hp) dengan torsi 320 Nm, kendaraan ini mampu menempuh jarak hingga 495 km (NEDC) dalam sekali pengisian. Teknologi pengisian cepat memungkinkan daya terisi dari 30% hingga 80% hanya dalam 20 menit.',
-    features: ['Zero Emissions', 'New Generation Short Blade Battery', 'Advanced Driver Assistance Systems (ADAS)', 'Premium Audio System'],
+    description: 'Geely EX5 adalah SUV listrik premium berbasis platform GEA (Global Electric Architecture). Ditenagai motor 160 kW (214 HP) dengan torsi 320 Nm, EX5 mampu berlari 0–100 km/h dalam 6.9 detik dan menempuh hingga 495 km (NEDC). Teknologi DC fast charging mengisi baterai 60.22 kWh dari 30% ke 80% hanya dalam 20 menit.',
+    features: [
+      'Jangkauan 495 km (NEDC)',
+      'DC Fast Charging 20 Menit',
+      'W-HUD 13.8" Windshield Display',
+      '16-Speaker FLYME SOUND 1000W',
+      'FWD — Platform GEA Geely',
+      'Baterai LFP 60.22 kWh',
+      'ADAS Level 2 — 13 Fungsi',
+      'V2L & V2V Power Supply',
+    ],
     specs: {
       acceleration: '6.9s',
-      power: '160 kW',
+      power: '160 kW / 214 HP',
       range: '495 km',
       topSpeed: '175 km/h'
     }
@@ -36,15 +59,25 @@ export const CARS: Car[] = [
   {
     id: 'starray',
     name: 'Geely Starray EM-i',
-    tagline: 'Born for the Track',
-    price: 'Rp 499.000.000',
+    tagline: 'Thor EM-i Super Hybrid SUV',
+    price: 'Rp 499.800.000',
     category: 'PHEV',
     image: 'https://imgcdn.oto.com/large/gallery/exterior/13/3283/geely-starray-em-i-front-angle-low-view-414009.jpg',
-    description: 'At the heart of the STARRAY EM-i is our advanced EM-i Super Hybrid technology engineered for maximum efficiency. EM-i or E-Motive intelligence is Geely is advanced hybrid technology, combining the benefits of fuel and battery for greater efficiency, capability, and lower emissions.',
-    features: ['Carbon Fiber Body', 'Sport Tuned Suspension', 'Launch Control', 'Active Aerodynamics'],
+    description: 'Geely Starray EM-i menghadirkan teknologi Thor EM-i Super Hybrid yang revolusioner — memadukan mesin 1.5L (73 kW) dengan motor listrik 160 kW untuk total sistem 233 HP. Jangkauan listrik murni 105 km (NEDC), total jangkauan 1.000+ km, dan konsumsi BBM hanya 4.3 L/100km. Pengisian DC 30%–80% dalam kurang dari 20 menit.',
+    features: [
+      'Jangkauan Listrik 105 km (NEDC)',
+      'Total Jangkauan 1.000+ km',
+      'DC Fast Charging < 20 Menit',
+      '16-Speaker FLYME SOUND 1000W',
+      'ADAS Level 2 — 14 Fungsi',
+      'Panoramic Power Sunroof',
+      '540° Panoramic Camera View',
+      'V2L & V2V Power Supply',
+    ],
     specs: {
       acceleration: '8.0s',
-      power: '550 HP',
+      power: '160 kW + 73 kW',
+      range: '105 km (EV) / 1000+ km',
       topSpeed: '170 km/h'
     }
   },
@@ -77,7 +110,7 @@ export const NAV_LINKS = [
 export const HERO_SLIDES = [
   {
     id: 1,
-    image: 'https://geelyprod-static.oss-ap-southeast-5.aliyuncs.com/experience-geely/experience-test-drive.png',
+    image: 'https://geelyauto.id/sites/default/files/2025-06/Mobil%20Geely%20EX5_Spesifikasi%2C%20Fitur%20dan%20Teknologinya.png',
     title: 'Future Driven',
     subtitle: 'Experience the next generation of automotive excellence.',
     cta: 'Discover Models'
@@ -94,7 +127,8 @@ export const HERO_SLIDES = [
     image: 'https://geelyauto.id/sites/default/files/2025-09/%E9%BB%84%E6%98%8F2-12.jpg',
     title: 'Unbound Freedom',
     subtitle: 'Designed to take you further than ever before.',
-    cta: 'Book Test Drive'
+    cta: 'Book Test Drive',
+    ctaTarget: 'booking'
   }
 ];
 

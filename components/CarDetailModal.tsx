@@ -84,19 +84,25 @@ const CarDetailModal: React.FC<CarDetailModalProps> = ({ car, isOpen, onClose, o
 
         {/* Left Side: Image */}
         <div className="w-full lg:w-1/2 relative h-[28rem] lg:h-auto overflow-hidden">
-          {images.map((src, idx) => (
-            <img
-              key={`${src}-${idx}`}
-              src={src}
-              alt={`${car.name} ${idx + 1}`}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${idx === activeImage ? 'opacity-100' : 'opacity-0'
-                }`}
-              loading="lazy"
-              decoding="async"
-            />
-          ))}
+          {images.map((src, idx) => {
+            // Only render active image and adjacent ones for performance
+            const distance = Math.abs(idx - activeImage);
+            const wrappedDistance = Math.min(distance, images.length - distance);
+            if (wrappedDistance > 1) return null;
+            return (
+              <img
+                key={`${src}-${idx}`}
+                src={src}
+                alt={`${car.name} ${idx + 1}`}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${idx === activeImage ? 'opacity-100' : 'opacity-0'
+                  }`}
+                loading={idx === activeImage ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+            );
+          })}
           {images.length > 1 && (
-            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10">
+            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 hidden md:flex items-center gap-2 z-10">
               {images.map((_, idx) => (
                 <button
                   key={`dot-${idx}`}
@@ -126,9 +132,22 @@ const CarDetailModal: React.FC<CarDetailModalProps> = ({ car, isOpen, onClose, o
           </h2>
           <p className="text-xl text-accent font-medium mb-6">{car.tagline}</p>
 
-          <div className="flex items-end gap-2 mb-8 border-b border-slate-800 pb-8">
-            <span className="text-3xl font-bold text-white">{car.price}</span>
-            <span className="text-slate-500 text-sm mb-1.5">Starting Price</span>
+          <div className="flex flex-col gap-1 mb-8 border-b border-slate-800 pb-8">
+            <div className="text-xs text-slate-500 uppercase tracking-widest mb-1">OTR Jakarta*</div>
+            {car.pricePro && car.priceMax ? (
+              <div className="flex flex-col gap-1">
+                <div className="flex items-baseline gap-3">
+                  <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest w-8">Pro</span>
+                  <span className="text-2xl font-bold text-white">{car.pricePro}</span>
+                </div>
+                <div className="flex items-baseline gap-3">
+                  <span className="text-[11px] font-black text-accent uppercase tracking-widest w-8">Max</span>
+                  <span className="text-2xl font-bold text-white">{car.priceMax}</span>
+                </div>
+              </div>
+            ) : (
+              <span className="text-3xl font-bold text-white">{car.price}</span>
+            )}
           </div>
 
           <p className="text-slate-300 leading-relaxed mb-8">
@@ -136,20 +155,29 @@ const CarDetailModal: React.FC<CarDetailModalProps> = ({ car, isOpen, onClose, o
           </p>
 
           {/* Specs Grid */}
-          <div className="grid grid-cols-3 gap-4 mb-8">
+          <div className={`grid gap-4 mb-8 ${car.specs.range ? 'grid-cols-2 sm:grid-cols-4' : 'grid-cols-3'}`}>
             <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700 text-center">
               <Gauge className="text-accent w-6 h-6 mx-auto mb-2" />
-              <div className="font-bold text-white">{car.specs.acceleration}</div>
-              <div className="text-[10px] text-slate-500 uppercase">0-100 km/h</div>
+              <div className="font-bold text-white text-sm">{car.specs.acceleration}</div>
+              <div className="text-[10px] text-slate-500 uppercase">0–100 km/h</div>
             </div>
             <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700 text-center">
               <Zap className="text-accent w-6 h-6 mx-auto mb-2" />
-              <div className="font-bold text-white">{car.specs.power}</div>
+              <div className="font-bold text-white text-sm">{car.specs.power}</div>
               <div className="text-[10px] text-slate-500 uppercase">Power</div>
             </div>
+            {car.specs.range && (
+              <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700 text-center col-span-1">
+                <svg className="text-accent w-6 h-6 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <div className="font-bold text-white text-sm leading-tight">{car.specs.range}</div>
+                <div className="text-[10px] text-slate-500 uppercase">Range</div>
+              </div>
+            )}
             <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700 text-center">
               <Wind className="text-accent w-6 h-6 mx-auto mb-2" />
-              <div className="font-bold text-white">{car.specs.topSpeed}</div>
+              <div className="font-bold text-white text-sm">{car.specs.topSpeed}</div>
               <div className="text-[10px] text-slate-500 uppercase">Top Speed</div>
             </div>
           </div>

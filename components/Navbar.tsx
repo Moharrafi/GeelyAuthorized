@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, CarFront, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { NAV_LINKS } from '../constants';
 
 interface NavbarProps {
@@ -19,7 +19,7 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -62,15 +62,13 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
         {/* Logo */}
         <a href="#" onClick={(e) => handleLinkClick(e, '#hero')} className="flex items-center gap-2 group">
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Geely_Auto_2023.svg/2560px-Geely_Auto_2023.svg.png"
+            src="https://geelyauto.id/themes/custom/geely/images/logos/logo-geely.svg"
             alt="Geely Auto"
-            className={`h-9 md:h-12 w-auto object-contain ${logoClass}`}
+            className={`h-3 md:h-4 w-auto object-contain ${logoClass}`}
+            loading="eager"
+            fetchPriority="high"
           />
-          {/* <span className={`text-2xl font-bold tracking-tighter ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
-            GEELY
-          </span> */}
         </a>
-        {/* <span className="text-accent">AUTO</span> */}
         <div className="hidden lg:flex items-center gap-6 xl:gap-8">
           {NAV_LINKS.map((link) => (
             <a
@@ -138,6 +136,7 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
             )}
           </button>
           <button
+            aria-label="Toggle menu"
             className={`transition-colors p-2 ${theme === 'dark' ? 'text-white hover:text-accent' : 'text-slate-900 hover:text-accent'}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
