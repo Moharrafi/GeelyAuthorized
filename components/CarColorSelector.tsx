@@ -222,7 +222,7 @@ const CarColorSelector: React.FC = () => {
           </div>
           <h2 className="text-4xl sm:text-5xl md:text-8xl font-black text-slate-900 dark:text-white tracking-tighter leading-[0.9] transition-colors">
             Personalize Your{' '}
-            <span className="text-slate-500 dark:text-slate-600 italic">Signature Model.</span>
+            <span className="text-slate-400 dark:text-slate-600 italic">Signature Model.</span>
           </h2>
         </div>
 

@@ -135,7 +135,7 @@ const Features: React.FC = () => {
   const model = MODEL_TECH.find(m => m.id === activeId)!;
 
   return (
-    <section id="technology" className="pt-12 pb-24 md:pt-16 md:pb-32 bg-slate-50 dark:bg-slate-950">
+    <section id="technology" className="pt-12 pb-10 md:pt-16 md:pb-16 bg-slate-50 dark:bg-slate-950">
       <div className="container mx-auto px-6">
 
         {/* ── Header ── */}

@@ -15,6 +15,9 @@ const Features = lazy(() => import('./components/Features'));
 const PromoGJAW = lazy(() => import('./components/PromoGJAW'));
 const SalesProfilePreview = lazy(() => import('./components/SalesProfilePreview'));
 const Footer = lazy(() => import('./components/Footer'));
+const CreditSimulator = lazy(() => import('./components/CreditSimulator'));
+const Testimonials = lazy(() => import('./components/Testimonials'));
+const ModelComparison = lazy(() => import('./components/ModelComparison'));
 
 type View = 'home' | 'about' | 'specifications';
 type Theme = 'dark' | 'light';
@@ -141,6 +144,20 @@ function App() {
               </LazySection>
             </Suspense>
 
+            {/* Model Comparison — Helps decision making */}
+            <Suspense fallback={<div className="min-h-[600px]" />}>
+              <LazySection placeholderClassName="min-h-[600px]">
+                <ModelComparison />
+              </LazySection>
+            </Suspense>
+
+            {/* Credit Simulator — Conversion booster */}
+            <Suspense fallback={<div className="min-h-[600px]" />}>
+              <LazySection id="credit" placeholderClassName="min-h-[600px]" className="scroll-mt-20">
+                <CreditSimulator />
+              </LazySection>
+            </Suspense>
+
             <Suspense fallback={<div className="min-h-[420px]" />}>
               <LazySection placeholderClassName="min-h-[800px]">
                 <SalesProfilePreview onMoreInfoClick={() => navigateTo('about')} />
@@ -150,6 +167,13 @@ function App() {
             <Suspense fallback={<div className="min-h-[520px]" />}>
               <LazySection id="news" placeholderClassName="min-h-[1000px] md:min-h-[800px]" className="scroll-mt-6">
                 <PromoGJAW onConsultClick={handleConsultClick} />
+              </LazySection>
+            </Suspense>
+
+            {/* Testimonials — Social proof */}
+            <Suspense fallback={<div className="min-h-[500px]" />}>
+              <LazySection placeholderClassName="min-h-[500px]">
+                <Testimonials />
               </LazySection>
             </Suspense>
 

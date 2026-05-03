@@ -110,7 +110,7 @@ export const NAV_LINKS = [
 export const HERO_SLIDES = [
   {
     id: 1,
-    image: 'https://geelyauto.id/sites/default/files/2025-06/Mobil%20Geely%20EX5_Spesifikasi%2C%20Fitur%20dan%20Teknologinya.png',
+    image: 'https://geelywonder.id/public/domain/g/geelywonder.id/images/power.webp',
     title: 'Future Driven',
     subtitle: 'Experience the next generation of automotive excellence.',
     cta: 'Discover Models'
