@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://dayana-geelyauthorized.vercel.app/</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://geelyauto.id/sites/default/files/2025-10/%E5%9B%BD%E8%B4%B8%E8%B7%AF%E8%B7%91%20%281%29.jpg</image:loc>
+      <image:title>Geely Indonesia - Dealer Resmi Geely Cibubur</image:title>
+      <image:caption>Geely EX2, EX5, dan Starray EM-i tersedia di Geely SM Cibubur bersama Dayana</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Models Section -->
+  <url>
+    <loc>https://dayana-geelyauthorized.vercel.app/#models</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://geelywonder.id/public/domain/g/geelywonder.id/images/exterior_color_ex2_06.jpg</image:loc>
+      <image:title>Geely EX2 - Smart Electric City SUV</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://geelyauto.id/sites/default/files/2025-10/E245_CamFront45_03_CloudCity-leo.jpg</image:loc>
+      <image:title>Geely EX5 - Pure Electric Flagship SUV</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://imgcdn.oto.com/large/gallery/exterior/13/3283/geely-starray-em-i-front-angle-low-view-414009.jpg</image:loc>
+      <image:title>Geely Starray EM-i - Thor Super Hybrid SUV</image:title>
+    </image:image>
+  </url>
+
+  <!-- Specifications Section -->
+  <url>
+    <loc>https://dayana-geelyauthorized.vercel.app/#specifications</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Technology / Configurator Section -->
+  <url>
+    <loc>https://dayana-geelyauthorized.vercel.app/#technology</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- About / Sales Profile -->
+  <url>
+    <loc>https://dayana-geelyauthorized.vercel.app/#about</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- News / Promo GJAW -->
+  <url>
+    <loc>https://dayana-geelyauthorized.vercel.app/#news</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Booking / Purchase -->
+  <url>
+    <loc>https://dayana-geelyauthorized.vercel.app/#booking</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+</urlset>

@@ -1,0 +1,26 @@
+# robots.txt — Geely Indonesia by Dayana
+# https://dayana-geelyauthorized.vercel.app/
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /test/
+
+# Sitemaps
+Sitemap: https://dayana-geelyauthorized.vercel.app/sitemap.xml
+
+# Crawl-delay (optional, for polite bots)
+Crawl-delay: 1
+
+# Google specific
+User-agent: Googlebot
+Allow: /
+Allow: /img/
+
+# Google Image Bot
+User-agent: Googlebot-Image
+Allow: /img/
+Allow: *.webp
+Allow: *.jpg
+Allow: *.png
