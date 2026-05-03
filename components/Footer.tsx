@@ -16,9 +16,9 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer id="contact" className="bg-slate-100 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 pt-16 pb-8 text-slate-700 dark:text-slate-100">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-8 lg:gap-x-12 mb-12">
 
-          <div className="col-span-2 md:col-span-1">
+          <div className="sm:col-span-2 lg:col-span-1">
             <img
               src="https://geelyauto.id/themes/custom/geely/images/logos/logo-geely.svg"
               alt="Geely Auto"
@@ -119,7 +119,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </ul>
           </div>
 
-          <div>
+          <div className="sm:col-span-2 lg:col-span-1">
             <h4 className="text-white font-bold mb-6 uppercase text-xs tracking-widest">Contact Us</h4>
             <ul className="space-y-4 text-sm text-slate-400">
               <li className="flex items-start gap-3">
@@ -147,7 +147,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         </div>
 
         <div className="border-t border-slate-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600">
-          <p>&copy; 2025 Geely Indonesia. Redefining Automotive Excellence.</p>
+          <p>&copy; {new Date().getFullYear()} Geely Indonesia. Redefining Automotive Excellence.</p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-slate-400 transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-slate-400 transition-colors">Terms of Service</a>

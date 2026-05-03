@@ -47,10 +47,10 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
         </div>
 
         <div className="relative z-10 text-center px-6 mt-12 md:mt-0">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent rounded-full mb-6 border border-accent/20 animate-fade-in-up">
+          {/* <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent rounded-full mb-6 border border-accent/20 animate-fade-in-up">
             <Trophy size={16} />
-            <span className="text-[10px] font-black tracking-widest uppercase">Dealer Award 2025 Winner</span>
-          </div>
+            <span className="text-[10px] font-black tracking-widest uppercase">Dealer Award {new Date().getFullYear()} Winner</span>
+          </div> */}
           <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
             Konsultasi Eksklusif <br />
             <span className="text-accent">Bersama Dayana</span>
@@ -114,15 +114,15 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
               Pelayanan <span className="text-accent">Terbaik</span> dari Dealer Terpercaya
             </h2>
             <p className="text-slate-400 leading-relaxed mb-6 text-lg font-light">
-              Halo, saya Dayana. Sebagai peraih penghargaan <strong className="text-white">Top Sales Geely 2025</strong>, visi saya adalah menghadirkan standar baru dalam pelayanan otomotif di Indonesia.
+              Halo, saya Dayana. Sebagai peraih penghargaan <strong className="text-white">Top Sales Geely 2025</strong>, saya berkomitmen untuk memberikan layanan konsultasi yang jujur dan transparan bagi setiap calon pemilik Geely.
             </p>
             <p className="text-slate-500 leading-relaxed mb-10 font-light">
-              Geely baru saja dinobatkan sebagai <strong className="text-white">Dealer Award 2025</strong> berkat dedikasi kami pada inovasi teknologi dan kepuasan pelanggan yang tak tertandingi.
+              Fokus kami adalah memberikan pengalaman kepemilikan yang memuaskan melalui standar pelayanan yang profesional dan dukungan purna jual yang terpercaya.
             </p>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-4 border-t border-slate-800 pt-10 mb-10">
               <div>
-                <div className="text-4xl font-bold text-white mb-1 tracking-tighter">500+</div>
+                <div className="text-4xl font-bold text-white mb-1 tracking-tighter">100+</div>
                 <div className="text-[10px] text-accent uppercase tracking-[0.2em] font-black">Klien Terpuaskan</div>
               </div>
               <div>
@@ -159,11 +159,11 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
           <div className="flex flex-wrap justify-center md:justify-between items-center gap-12 opacity-40 hover:opacity-100 transition-opacity duration-500">
             <div className="flex items-center gap-3">
               <Award className="w-10 h-10 text-accent" />
-              <div className="text-xs font-bold uppercase tracking-widest text-slate-300">Dealer Excellence 2025</div>
+              <div className="text-xs font-bold uppercase tracking-widest text-slate-300">Dealer Excellence {new Date().getFullYear()}</div>
             </div>
             <div className="flex items-center gap-3">
               <Star className="w-10 h-10 text-accent" />
-              <div className="text-xs font-bold uppercase tracking-widest text-slate-300">Top Sales National 2025</div>
+              <div className="text-xs font-bold uppercase tracking-widest text-slate-300">Top Sales National {new Date().getFullYear()}</div>
             </div>
             <div className="flex items-center gap-3">
               <ShieldCheck className="w-10 h-10 text-accent" />
@@ -268,7 +268,7 @@ const About: React.FC<AboutProps> = ({ onConsultClick }) => {
 
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tighter">Siap Memiliki <span className="text-accent">Geely</span> Anda?</h2>
           <p className="text-slate-400 max-w-xl mx-auto mb-12 text-lg font-light leading-relaxed">
-            Hubungi Dayana sekarang dan dapatkan simulasi kredit dengan bunga 0% untuk 12 bulan pertama dari Dealer Terbaik 2025.
+            Hubungi Dayana untuk mendapatkan simulasi kredit yang transparan serta informasi mengenai program promo dan ketersediaan unit Geely terbaru.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

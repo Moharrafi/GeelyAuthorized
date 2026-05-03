@@ -77,6 +77,10 @@ function App() {
   const navigateTo = useCallback((view: View, sectionId?: string) => {
     // If we are already on the correct view and just need to scroll
     if (currentView === view && sectionId) {
+      if (sectionId === 'booking') {
+        setTestDriveOpen(true);
+        return;
+      }
       const section = document.getElementById(sectionId);
       if (section) {
         section.scrollIntoView({ behavior: 'smooth' });
@@ -94,13 +98,17 @@ function App() {
         } else {
           const section = document.getElementById(sectionId);
           if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
+            section.scrollIntoView({ behavior: 'auto' });
+            // Second attempt after a bit more time to correct for any late layout shifts (especially on mobile)
+            setTimeout(() => {
+              section.scrollIntoView({ behavior: 'auto' });
+            }, 500);
           }
         }
       } else {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-    }, 50); // Reduced from 100ms to 50ms for snappier feel
+    }, currentView === view ? 0 : 300); 
   }, [currentView]);
 
   return (
@@ -118,7 +126,7 @@ function App() {
           <>
             <Hero onDiscoverClick={() => navigateTo('home', 'models')} onBookingClick={handleTestDriveClick} />
             <Suspense fallback={<div className="min-h-[520px]" />}>
-              <LazySection id="models" placeholderClassName="min-h-[520px]">
+              <LazySection id="models" placeholderClassName="min-h-[1500px] md:min-h-[1200px]" className="scroll-mt-20">
                 <CarShowcase onTestDriveClick={handleTestDriveClick} />
               </LazySection>
             </Suspense>
@@ -128,19 +136,19 @@ function App() {
               </LazySection>
             </Suspense>
             <Suspense fallback={<div className="min-h-[520px]" />}>
-              <LazySection id="technology" placeholderClassName="min-h-[520px]">
+              <LazySection id="technology" placeholderClassName="min-h-[1500px] md:min-h-[1000px]" className="scroll-mt-20">
                 <Features />
               </LazySection>
             </Suspense>
 
             <Suspense fallback={<div className="min-h-[420px]" />}>
-              <LazySection placeholderClassName="min-h-[420px]">
+              <LazySection placeholderClassName="min-h-[800px]">
                 <SalesProfilePreview onMoreInfoClick={() => navigateTo('about')} />
               </LazySection>
             </Suspense>
 
             <Suspense fallback={<div className="min-h-[520px]" />}>
-              <LazySection id="news" placeholderClassName="min-h-[520px]">
+              <LazySection id="news" placeholderClassName="min-h-[1000px] md:min-h-[800px]" className="scroll-mt-6">
                 <PromoGJAW onConsultClick={handleConsultClick} />
               </LazySection>
             </Suspense>

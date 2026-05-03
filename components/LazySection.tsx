@@ -4,13 +4,15 @@ interface LazySectionProps {
   children: React.ReactNode;
   rootMargin?: string;
   placeholderClassName?: string;
+  className?: string;
   id?: string;
 }
 
 const LazySection: React.FC<LazySectionProps> = ({
   children,
-  rootMargin = '800px',
+  rootMargin = '2000px',
   placeholderClassName = 'min-h-[200px]',
+  className = '',
   id,
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -37,7 +39,7 @@ const LazySection: React.FC<LazySectionProps> = ({
   }, [rootMargin]);
 
   return (
-    <div ref={containerRef} id={id}>
+    <div ref={containerRef} id={id} className={className}>
       {isVisible ? children : <div className={placeholderClassName} />}
     </div>
   );

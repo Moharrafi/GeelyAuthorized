@@ -102,7 +102,7 @@ const CarDetailModal: React.FC<CarDetailModalProps> = ({ car, isOpen, onClose, o
             );
           })}
           {images.length > 1 && (
-            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 hidden md:flex items-center gap-2 z-10">
+            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 hidden lg:flex items-center gap-2 z-10">
               {images.map((_, idx) => (
                 <button
                   key={`dot-${idx}`}

@@ -144,17 +144,10 @@ const CarColorSelector: React.FC = () => {
         setPrevColorHex(newColor.hex);
         setGlowVisible(false);
         modelTransRef.current = false;
-      }, 600);
+      }, 700);
     };
 
-    if (typeof Image === 'undefined') { execute(); return; }
-    const img = new Image();
-    img.src = newColor.image;
-    if (img.complete && img.naturalWidth > 0) { execute(); return; }
-    let fired = false;
-    const t = setTimeout(() => { if (!fired) { fired = true; execute(); } }, 120);
-    img.onload  = () => { if (!fired) { fired = true; clearTimeout(t); execute(); } };
-    img.onerror = () => { if (!fired) { fired = true; clearTimeout(t); execute(); } };
+    execute();
   };
 
   const changeColor = (color: ColorEntry) => {
@@ -171,7 +164,7 @@ const CarColorSelector: React.FC = () => {
         setPrevColor(null);
         setPrevColorHex(color.hex);
         setGlowVisible(false);
-      }, 500);
+      }, 300);
     };
 
     if (typeof Image === 'undefined') { execute(); return; }
@@ -194,28 +187,30 @@ const CarColorSelector: React.FC = () => {
         prevColorHex fades out, activeColor.hex fades in during transition.
         Using opacity transitions (GPU-composited) instead of transition-colors (re-rasterize).
       */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden>
-        {/* PREV color layer — visible at rest, fades out when transitioning */}
-        <div
-          style={{
-            position: 'absolute', inset: 0,
-            background: `radial-gradient(ellipse 120% 120% at 50% 50%, ${prevColorHex} 0%, transparent 70%)`,
-            opacity: glowVisible ? 0 : 0.55,
-            transition: 'opacity 220ms ease-out',
-          }}
-        />
-        {/* NEXT color layer — hidden at rest, fades in when transitioning */}
-        <div
-          style={{
-            position: 'absolute', inset: 0,
-            background: `radial-gradient(ellipse 120% 120% at 50% 50%, ${activeColor.hex} 0%, transparent 70%)`,
-            opacity: glowVisible ? 0.55 : 0,
-            transition: 'opacity 220ms ease-out',
-          }}
-        />
+        {/* PREMIUM ATMOSPHERIC GLOW — Zero Blur (Ultra Fast) */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden>
+          {/* Previous Color Layer (Fades out) */}
+          <div
+            className="absolute inset-0 transition-opacity duration-500 ease-out"
+            style={{
+              background: `radial-gradient(50% 50% at 50% 50%, ${prevColorHex} 0%, transparent 100%)`,
+              opacity: isColorTransitioning || isModelTransitioning ? 0.3 : 0,
+              transform: 'translateZ(0)',
+            }}
+          />
+          {/* Active Color Layer (Fades in) */}
+          <div
+            className="absolute inset-0 transition-opacity duration-500 ease-out"
+            style={{
+              background: `radial-gradient(50% 50% at 50% 50%, ${activeColor.hex} 0%, transparent 100%)`,
+              opacity: isColorTransitioning || isModelTransitioning ? 0 : 0.3,
+              transform: 'translateZ(0)',
+            }}
+          />
+        </div>
         {/* Stable dark vignette — never changes */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_35%,rgba(0,0,0,0.15)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_35%,rgba(0,0,0,0.5)_100%)]" />
-      </div>
+
 
       <div className="container mx-auto relative z-10">
 
@@ -245,21 +240,21 @@ const CarColorSelector: React.FC = () => {
                     key={model.id}
                     onClick={() => changeModel(model)}
                     onMouseEnter={() => preloadModelOnHover(model)}
-                    className={`relative w-full px-3 py-3 xl:px-10 xl:py-6 rounded-2xl xl:rounded-full text-left transition-all duration-500 overflow-hidden group border ${
+                    className={`relative w-full px-4 py-4 md:px-8 md:py-6 xl:px-10 xl:py-6 rounded-2xl xl:rounded-full text-left transition-all duration-500 overflow-hidden group border ${
                       activeModel.id === model.id
                         ? 'bg-black/85 text-white border-slate-300 shadow-[0_25px_60px_-12px_rgba(15,23,42,0.18)] scale-[1.02] dark:bg-white dark:text-black dark:border-white dark:shadow-[0_25px_60px_-12px_rgba(0,0,0,0.4)]'
-                        : 'bg-slate-100 dark:bg-white/5 backdrop-blur-md border-slate-300 dark:border-white/5 text-slate-400 dark:text-white/40 hover:bg-white hover:border-slate-300 hover:text-slate-700 hover:shadow-[0_12px_30px_-16px_rgba(15,23,42,0.35)] dark:hover:bg-white/10 dark:hover:text-white/70'
+                        : 'bg-slate-100 dark:bg-slate-900 md:dark:bg-white/5 md:backdrop-blur-md border-slate-300 dark:border-white/5 text-slate-400 dark:text-white/40 hover:bg-white hover:border-slate-300 hover:text-slate-700 hover:shadow-[0_12px_30px_-16px_rgba(15,23,42,0.35)] dark:hover:bg-slate-800 dark:md:hover:bg-white/10 dark:hover:text-white/70'
                     }`}
                   >
                     <div className="relative z-10 flex items-center justify-between gap-2">
                       <div className="min-w-0 flex-1">
-                        <div className={`text-[7px] xl:text-[8px] font-black uppercase tracking-widest mb-0.5 truncate ${activeModel.id === model.id ? 'text-white/90 dark:text-black/60' : 'text-slate-400 dark:text-white/40'}`}>{model.series}</div>
-                        <div className={`text-[10px] sm:text-xs xl:text-xl font-black tracking-tighter truncate ${activeModel.id === model.id ? 'text-white/85 dark:text-black' : 'text-slate-700 dark:text-white/90'}`}>{model.name}</div>
+                        <div className={`text-[8px] md:text-[9px] xl:text-[10px] font-black uppercase tracking-widest mb-0.5 truncate ${activeModel.id === model.id ? 'text-white/90 dark:text-black/60' : 'text-slate-400 dark:text-white/40'}`}>{model.series}</div>
+                        <div className={`text-[11px] md:text-base xl:text-xl font-black tracking-tighter truncate ${activeModel.id === model.id ? 'text-white/85 dark:text-black' : 'text-slate-700 dark:text-white/90'}`}>{model.name}</div>
                       </div>
                       {/* Smaller arrow for mobile without background to save space */}
                       <div className={`flex xl:w-9 xl:h-9 rounded-full items-center justify-center flex-shrink-0 transition-all ${activeModel.id === model.id ? 'xl:bg-accent text-accent xl:text-slate-950' : 'text-slate-500 xl:bg-slate-100 dark:xl:bg-white/10'}`}>
-                        <ChevronRight size={14} className="xl:hidden" />
-                        <ChevronRight size={16} className="hidden xl:block" />
+                        <ChevronRight size={16} className="xl:hidden" />
+                        <ChevronRight size={20} className="hidden xl:block" />
                       </div>
                     </div>
                   </button>
@@ -268,9 +263,9 @@ const CarColorSelector: React.FC = () => {
             </div>
 
             {/* Finish Selection */}
-            <div className="bg-white/80 dark:bg-slate-900/40 backdrop-blur-3xl border border-slate-200 dark:border-white/10 rounded-[3rem] p-6 shadow-[0_60px_100px_-20px_rgba(0,0,0,0.15)] relative overflow-hidden group">
+            <div className="bg-white/95 dark:bg-slate-900/95 md:bg-white/80 md:dark:bg-slate-900/40 md:backdrop-blur-3xl border border-slate-200 dark:border-white/10 rounded-[3rem] p-6 shadow-[0_60px_100px_-20px_rgba(0,0,0,0.15)] relative overflow-hidden group">
               <div
-                className="absolute -top-10 -right-10 w-40 h-40 opacity-30 blur-3xl rounded-full transition-colors duration-1000 group-hover:scale-110"
+                className="absolute -top-10 -right-10 w-40 h-40 opacity-30 blur-2xl md:blur-3xl rounded-full transition-colors duration-1000 group-hover:scale-110 hidden md:block"
                 style={{ backgroundColor: activeColor.hex }}
               />
 
@@ -289,15 +284,15 @@ const CarColorSelector: React.FC = () => {
                       onClick={() => changeColor(color)}
                       title={color.name}
                       aria-label={`Select ${color.name}`}
-                      className={`relative w-10 h-10 rounded-full transition-all duration-500 transform ${
+                      className={`relative w-10 h-10 rounded-full transition-all duration-300 transform ${
                         isActive
                           ? 'ring-2 ring-slate-900 dark:ring-white ring-offset-4 ring-offset-white dark:ring-offset-slate-950 scale-110 z-10'
                           : 'opacity-40 hover:opacity-100 hover:scale-105'
                       }`}
-                      style={isActive ? { boxShadow: `0 0 0 4px ${color.hex}40, 0 0 20px 4px ${color.hex}60` } : undefined}
+                      style={isActive ? { boxShadow: `0 0 0 4px ${color.hex}40` } : undefined}
                     >
                       <div
-                        className="w-full h-full rounded-full border border-slate-200 dark:border-white/10 shadow-inner"
+                        className="w-full h-full rounded-full border border-slate-200 dark:border-white/10"
                         style={{ backgroundColor: color.hex }}
                       />
                       {isActive && (
@@ -319,25 +314,21 @@ const CarColorSelector: React.FC = () => {
           {/* ── RIGHT: THE STAGE ── */}
           <div className="flex-1 relative w-full h-[320px] sm:h-[480px] md:h-[580px] xl:h-[760px] flex items-center justify-center order-first xl:order-none">
 
-            {/* Core halo glow — opacity crossfade, no transition-colors */}
-            <div className="absolute inset-0 pointer-events-none" aria-hidden>
+            {/* Core halo glow — neutral studio lighting (Zero blur for performance) */}
+            <div className="absolute inset-0 pointer-events-none opacity-30 dark:opacity-50" aria-hidden>
               <div
                 style={{
                   position: 'absolute', inset: 0,
-                  background: `radial-gradient(ellipse 130% 130% at 50% 50%, ${prevColorHex} 0%, transparent 65%)`,
-                  opacity: glowVisible ? 0 : 0.6,
-                  transition: 'opacity 220ms ease-out',
-                  filter: 'blur(40px)',
+                  background: `radial-gradient(50% 50% at 50% 50%, #94a3b8 0%, transparent 100%)`,
                 }}
+                className="dark:hidden"
               />
               <div
                 style={{
                   position: 'absolute', inset: 0,
-                  background: `radial-gradient(ellipse 130% 130% at 50% 50%, ${activeColor.hex} 0%, transparent 65%)`,
-                  opacity: glowVisible ? 0.6 : 0,
-                  transition: 'opacity 220ms ease-out',
-                  filter: 'blur(40px)',
+                  background: `radial-gradient(50% 50% at 50% 50%, #334155 0%, transparent 100%)`,
                 }}
+                className="hidden dark:block"
               />
             </div>
 
@@ -346,8 +337,21 @@ const CarColorSelector: React.FC = () => {
               <div className="relative group">
 
                 {/* ── Car Image Frame ── */}
-                <div className="car-frame relative overflow-hidden rounded-[2rem] md:rounded-[4rem] border border-white/20 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.2)] md:shadow-[0_40px_100px_rgba(0,0,0,0.3)] dark:shadow-[0_40px_80px_rgba(0,0,0,0.6)] md:dark:shadow-[0_60px_120px_rgba(0,0,0,0.8)]">
-                  {/* Fixed aspect ratio container — prevents layout jumps */}
+                <div 
+                  className="car-frame relative overflow-hidden rounded-[2rem] md:rounded-[4rem] border shadow-2xl transition-colors duration-500"
+                  style={{ 
+                    borderColor: `${activeColor.hex}30`,
+                    backgroundColor: 'rgba(15, 23, 42, 0.05)'
+                  }}
+                >
+                  {/* Internal Rim Light — Hidden on mobile for performance */}
+                  <div 
+                    className="absolute inset-0 pointer-events-none z-10 opacity-20 hidden md:block"
+                    style={{ 
+                      boxShadow: `inset 0 0 60px 0 ${activeColor.hex}20`,
+                    }}
+                  />
+                  {/* Fixed aspect ratio container */}
                   <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
 
                     {/* MODEL EXIT layer */}
@@ -386,7 +390,7 @@ const CarColorSelector: React.FC = () => {
                         alt={activeModel.name}
                         className="car-image"
                         loading="eager"
-                        decoding="async"
+                        decoding="sync"
                       />
                     </div>
 
@@ -395,25 +399,34 @@ const CarColorSelector: React.FC = () => {
                 </div>
 
                 {/* Stats — keyed to model: slide in from right when model changes */}
-                <div key={activeModel.id} className="absolute top-0 right-0 lg:-right-24 space-y-6 hidden md:block stats-enter">
+                <div key={activeModel.id} className="absolute top-4 right-4 lg:top-0 lg:-right-24 space-y-3 lg:space-y-6 hidden md:block stats-enter">
                   {legacyStats.map((stat, i) => (
-                    <div key={i} className="flex items-center gap-6 bg-white/95 dark:bg-slate-900/90 backdrop-blur-3xl border border-white/60 dark:border-white/10 p-6 rounded-full group/stat hover:bg-accent hover:border-accent dark:hover:bg-white dark:hover:border-white/80 transition-all duration-500 hover:-translate-x-3 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] cursor-help">
-                      <div className="text-right pl-4">
-                        <div className="text-[8px] font-black text-accent/70 uppercase tracking-[0.4em] mb-1 group-hover/stat:text-slate-900 dark:group-hover/stat:text-slate-900 transition-colors">{stat.label}</div>
-                        <div className="text-sm font-black text-slate-900 dark:text-white tracking-tighter group-hover/stat:text-slate-950 dark:group-hover/stat:text-slate-950 transition-colors">{stat.value}</div>
+                    <div key={i} className="flex items-center justify-between min-w-[140px] lg:min-w-[240px] bg-white/95 dark:bg-slate-900/90 backdrop-blur-3xl border border-white/60 dark:border-white/10 p-3 lg:p-6 rounded-full group/stat hover:bg-accent hover:border-accent dark:hover:bg-white dark:hover:border-white/80 transition-all duration-500 hover:-translate-x-3 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] cursor-help">
+                      <div className="text-right pl-2 lg:pl-4">
+                        <div className="text-[7px] lg:text-[8px] font-black text-accent/70 uppercase tracking-[0.4em] mb-0.5 lg:mb-1 group-hover/stat:text-slate-900 dark:group-hover/stat:text-slate-900 transition-colors">{stat.label}</div>
+                        <div className="text-xs lg:text-sm font-black text-slate-900 dark:text-white tracking-tighter group-hover/stat:text-slate-950 dark:group-hover/stat:text-slate-950 transition-colors">{stat.value}</div>
                       </div>
-                      <div className="w-14 h-14 rounded-full bg-slate-100 dark:bg-white/10 flex items-center justify-center text-slate-600 dark:text-white/60 group-hover/stat:bg-white group-hover/stat:text-slate-950 dark:group-hover/stat:bg-white dark:group-hover/stat:text-slate-950 transition-all">
-                        <stat.icon size={22} strokeWidth={2.5} />
+                      <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-full bg-slate-100 dark:bg-white/10 flex items-center justify-center text-slate-600 dark:text-white/60 group-hover/stat:bg-white group-hover/stat:text-slate-950 dark:group-hover/stat:bg-white dark:group-hover/stat:text-slate-950 transition-all">
+                        <stat.icon size={18} className="lg:hidden" strokeWidth={2.5} />
+                        <stat.icon size={22} className="hidden lg:block" strokeWidth={2.5} />
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Floor reflection — opacity crossfade */}
-              <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-4/5 h-16 rounded-full pointer-events-none" aria-hidden>
-                <div style={{ position:'absolute', inset:0, backgroundColor: prevColorHex, borderRadius:'9999px', filter:'blur(40px)', opacity: glowVisible ? 0 : 0.5, transition:'opacity 220ms ease-out' }} />
-                <div style={{ position:'absolute', inset:0, backgroundColor: activeColor.hex, borderRadius:'9999px', filter:'blur(40px)', opacity: glowVisible ? 0.5 : 0, transition:'opacity 220ms ease-out' }} />
+              {/* Optimized Floor Reflection */}
+              <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-[90%] h-24 pointer-events-none z-0" aria-hidden>
+                {/* Core Shadow */}
+                <div className="absolute inset-0 bg-black/40 dark:bg-black/60 blur-xl md:blur-2xl rounded-full scale-y-25" />
+                {/* Colored Reflection */}
+                <div 
+                  className="absolute inset-0 blur-xl md:blur-[40px] rounded-full scale-y-50 transition-opacity duration-500"
+                  style={{ 
+                    backgroundColor: activeColor.hex,
+                    opacity: 0.15
+                  }}
+                />
               </div>
             </div>
 
@@ -449,6 +462,7 @@ const CarColorSelector: React.FC = () => {
           width: 100%;
           height: 100%;
           backface-visibility: hidden;
+          transform: translateZ(0);
           z-index: 1;
         }
 
@@ -470,11 +484,11 @@ const CarColorSelector: React.FC = () => {
         /* COLOR TRANSITION — smooth crossfade */
         .car-layer.is-enter {
           z-index: 3;
-          animation: img-reveal 450ms cubic-bezier(0.4, 0, 0.2, 1) both;
+          animation: img-reveal 350ms cubic-bezier(0.4, 0, 0.2, 1) both;
         }
         .car-layer.is-exit {
           z-index: 2;
-          animation: img-dismiss 500ms cubic-bezier(0.4, 0, 0.2, 1) both;
+          animation: img-dismiss 350ms cubic-bezier(0.4, 0, 0.2, 1) both;
         }
 
         @keyframes img-reveal {
@@ -486,14 +500,23 @@ const CarColorSelector: React.FC = () => {
           to   { opacity: 0; }
         }
 
-        /* MODEL TRANSITION — smooth crossfade */
+        /* MODEL TRANSITION — Fluid dynamic slide */
         .car-layer.model-enter {
           z-index: 3;
-          animation: img-reveal 500ms cubic-bezier(0.4, 0, 0.2, 1) both;
+          animation: slide-in-right 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
         }
         .car-layer.model-exit {
           z-index: 2;
-          animation: img-dismiss 550ms cubic-bezier(0.4, 0, 0.2, 1) both;
+          animation: slide-out-left 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        
+        @keyframes slide-in-right {
+          from { opacity: 0; transform: translate3d(120px, 0, 0) scale(0.96); }
+          to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+        }
+        @keyframes slide-out-left {
+          from { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+          to   { opacity: 0; transform: translate3d(-120px, 0, 0) scale(0.96); }
         }
 
         /* Color name slide-up */
@@ -514,10 +537,12 @@ const CarColorSelector: React.FC = () => {
           to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* Stats sidebar */
-        .stats-enter {
-          animation: stats-slide-in 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
-          animation-delay: 60ms;
+        /* Stats sidebar — Disabled on mobile for performance */
+        @media (min-width: 768px) {
+          .stats-enter {
+            animation: stats-slide-in 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
+            animation-delay: 60ms;
+          }
         }
         @keyframes stats-slide-in {
           from { opacity: 0; transform: translateX(8px); }

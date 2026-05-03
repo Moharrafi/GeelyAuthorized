@@ -112,7 +112,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
     <section id="models" className="pt-24 pb-12 md:pt-32 md:pb-16 bg-slate-950 premium-light-surface light-seam-overlap relative overflow-hidden">
       {/* Decorative background text */}
       <div className="absolute top-20 md:top-40 left-0 text-[10rem] md:text-[15rem] font-black text-white/[0.02] light-wordmark select-none pointer-events-none whitespace-nowrap leading-none uppercase">
-        Masterpiece • 2025
+        Masterpiece • {new Date().getFullYear()}
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -202,14 +202,14 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
           {/* Single Item Track */}
           <div
             ref={scrollRef}
-            className={`flex overflow-x-auto no-scrollbar snap-x snap-mandatory -mx-6 px-6 md:px-0 scroll-pl-10 scroll-pr-10 transition-all duration-500 ease-in-out ${isChanging ? 'opacity-0 translate-y-4 scale-[0.98]' : 'opacity-100 translate-y-0 scale-100'
+            className={`flex overflow-x-auto no-scrollbar snap-x snap-mandatory -mx-6 px-6 md:px-0 scroll-px-6 transition-all duration-500 ease-in-out ${isChanging ? 'opacity-0 translate-y-4 scale-[0.98]' : 'opacity-100 translate-y-0 scale-100'
               }`}
           >
             {filteredAndSortedCars.length > 0 ? (
               filteredAndSortedCars.map((car) => (
                 <div
                   key={car.id}
-                  className="flex-shrink-0 w-[85vw] md:w-full snap-center px-3 md:px-4"
+                  className="flex-shrink-0 w-full snap-center px-4 md:px-4"
                 >
                   {/* <div className="w-full p-2 rounded-[2.5rem] md:rounded-[3rem] shadow-[0_24px_70px_rgba(15,23,42,0.08),0_8px_20px_rgba(15,23,42,0.04)] dark:shadow-2xl"> */}
                   <div
@@ -325,9 +325,9 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
             )}
           </div>
 
-          {/* Premium Navigation Dots & Progress — hidden on mobile, visible on desktop */}
+          {/* Premium Navigation Dots & Progress — visible on all devices */}
           {filteredAndSortedCars.length > 1 && (
-            <div className="mt-8 md:mt-12 hidden lg:flex flex-col md:flex-row items-center justify-between gap-8 max-w-4xl mx-auto">
+            <div className="mt-8 md:mt-12 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 max-w-4xl mx-auto px-4 md:px-0">
               {/* Dots Navigation */}
               <div className="flex items-center gap-3">
                 {filteredAndSortedCars.map((_, idx) => {
@@ -352,7 +352,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
               </div>
 
               {/* Progress Bar & Counter */}
-              <div className="flex items-center gap-6 flex-1 w-full md:w-auto">
+              <div className="flex items-center gap-4 md:gap-6 flex-1 w-full md:w-auto">
                 <span className="text-[9px] md:text-[10px] font-black text-slate-600 uppercase tracking-widest whitespace-nowrap">Discovery Mode</span>
                 <div className="flex-1 h-px bg-slate-900 relative">
                   <div

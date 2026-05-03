@@ -149,7 +149,7 @@ const TestDriveModal: React.FC<TestDriveModalProps> = ({ isOpen, onClose }) => {
             <div className="flex flex-col lg:flex-row bg-slate-950/50 min-h-[500px]">
                 
                 {/* Left: Image (Cleaned from flickering elements) */}
-                <div className="w-full lg:w-1/2 relative overflow-hidden h-64 lg:h-auto order-1 lg:order-1">
+                <div className="w-full lg:w-1/2 relative overflow-hidden h-72 md:h-[400px] lg:h-auto order-1 lg:order-1">
                     <div className="absolute inset-0 bg-slate-900 z-0"></div>
                     <img 
                         src={content.image} 
@@ -159,10 +159,10 @@ const TestDriveModal: React.FC<TestDriveModalProps> = ({ isOpen, onClose }) => {
                         referrerPolicy="no-referrer"
                     />
                     {/* Fixed text container with backdrop blur instead of full image gradient */}
-                    <div className="absolute bottom-6 left-6 right-6 z-10">
-                        <div className="bg-slate-950/25 md:bg-slate-950/60 md:backdrop-blur-md border border-white/5 p-6 rounded-3xl">
-                            <h3 className="text-2xl font-bold text-white mb-1">{content.title}</h3>
-                            <p className="text-slate-300/70 md:text-slate-300 text-sm leading-relaxed">{content.desc}</p>
+                    <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-6 z-10">
+                        <div className="bg-gradient-to-t from-slate-950/80 to-transparent lg:bg-slate-950/60 lg:backdrop-blur-md border-0 lg:border border-white/5 p-4 md:p-6 rounded-2xl md:rounded-3xl">
+                            <h3 className="text-xl md:text-2xl font-bold text-white mb-1">{content.title}</h3>
+                            <p className="text-slate-300 text-xs md:text-sm leading-relaxed line-clamp-2 lg:line-clamp-none">{content.desc}</p>
                         </div>
                     </div>
                 </div>
@@ -312,8 +312,8 @@ const TestDriveModal: React.FC<TestDriveModalProps> = ({ isOpen, onClose }) => {
 
                             <button 
                                 type="submit"
-                                disabled={status === 'submitting'}
-                                className="w-full py-4 bg-white text-slate-950 font-bold uppercase tracking-widest rounded-full hover:bg-accent transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-4"
+                                disabled={status === 'submitting' || !formData.consent}
+                                className="w-full py-4 bg-white text-slate-950 font-bold uppercase tracking-widest rounded-full hover:bg-accent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-4"
                             >
                                 {status === 'submitting' ? 'Processing...' : content.btnText}
                                 {!status && <ChevronRight size={18} />}
