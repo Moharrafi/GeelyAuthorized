@@ -101,6 +101,7 @@ const TestDriveModal: React.FC<TestDriveModalProps> = ({ isOpen, onClose }) => {
         <button 
             onClick={onClose} 
             className="absolute top-4 right-4 z-20 w-10 h-10 bg-black/30 hover:bg-white text-white hover:text-slate-900 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300"
+            aria-label="Close booking modal"
         >
             <X size={20} />
         </button>

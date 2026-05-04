@@ -133,7 +133,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                     onClick={() => handleCategoryChange(null)}
                     className={`px-5 py-3 md:px-6 md:py-2.5 rounded-full text-[11px] md:text-[10px] font-black tracking-widest transition-all duration-500 ease-out whitespace-nowrap min-h-[44px] md:min-h-0 ${selectedCategory === null
                       ? 'bg-white text-slate-950 shadow-[0_10px_20px_-10px_rgba(15,23,42,0.30),0_2px_6px_-2px_rgba(15,23,42,0.18)] scale-[1.02]'
-                      : 'text-slate-500 hover:text-slate-300'
+                      : 'text-slate-400 hover:text-slate-200'
                       }`}
                   >
                     ALL MODELS
@@ -146,7 +146,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                         onClick={() => handleCategoryChange(cat)}
                         className={`px-5 py-3 md:px-6 md:py-2.5 rounded-full text-[11px] md:text-[10px] font-black tracking-widest transition-all duration-500 ease-out whitespace-nowrap min-h-[44px] md:min-h-0 ${selectedCategory === cat
                           ? 'bg-accent text-slate-950 shadow-[0_10px_20px_-10px_rgba(15,23,42,0.30),0_2px_6px_-2px_rgba(15,23,42,0.18)] scale-[1.02]'
-                          : 'text-slate-500 hover:text-slate-300'
+                          : 'text-slate-400 hover:text-slate-200'
                           }`}
                       >
                         {cat}
@@ -165,6 +165,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
+                aria-label="Sort models by"
                 className="w-full appearance-none bg-slate-900/60 border border-slate-800 text-slate-300 text-[10px] font-black uppercase tracking-widest rounded-full pl-12 pr-12 py-4 outline-none focus:border-accent transition-all cursor-pointer hover:bg-slate-800 shadow-xl"
               >
                 <option value="featured">Featured First</option>
@@ -187,12 +188,14 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
           <div className="hidden lg:flex absolute left-0 right-0 top-1/2 -translate-y-1/2 px-6 md:px-0 -ml-20 -mr-20 items-center justify-between pointer-events-none z-30">
             <button
               onClick={() => scroll('left')}
+              aria-label="Scroll to previous model"
               className="w-16 h-16 rounded-full border border-slate-800 flex items-center justify-center text-white hover:bg-accent hover:text-slate-950 transition-all active:scale-90 bg-slate-950/50 backdrop-blur-xl pointer-events-auto"
             >
               <ChevronLeft size={32} />
             </button>
             <button
               onClick={() => scroll('right')}
+              aria-label="Scroll to next model"
               className="w-16 h-16 rounded-full border border-slate-800 flex items-center justify-center text-white hover:bg-accent hover:text-slate-950 transition-all active:scale-90 bg-slate-950/50 backdrop-blur-xl pointer-events-auto"
             >
               <ChevronRight size={32} />
@@ -222,6 +225,9 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                       <img
                         src={car.image}
                         alt={car.name}
+                        width={1200}
+                        height={750}
+                        sizes="(max-width: 768px) 100vw, 60vw"
                         loading="lazy"
                         decoding="async"
                         fetchPriority="low"
@@ -252,7 +258,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                             <Gauge size={20} className="md:w-6 md:h-6" />
                           </div>
                           <div className="flex flex-col">
-                            <span className="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-0.5">Accel</span>
+                            <span className="text-[8px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">Accel</span>
                             <span className="text-sm md:text-2xl font-bold text-white">{car.specs.acceleration}</span>
                           </div>
                         </div>
@@ -261,7 +267,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                             <Zap size={20} className="md:w-6 md:h-6" />
                           </div>
                           <div className="flex flex-col">
-                            <span className="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-0.5">Power</span>
+                            <span className="text-[8px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">Power</span>
                             <span className="text-sm md:text-2xl font-bold text-white">{car.specs.power}</span>
                           </div>
                         </div>
@@ -270,7 +276,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                             <Wind size={20} className="md:w-6 md:h-6" />
                           </div>
                           <div className="flex flex-col">
-                            <span className="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-0.5">Speed</span>
+                            <span className="text-[8px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">Speed</span>
                             <span className="text-sm md:text-2xl font-bold text-white">{car.specs.topSpeed}</span>
                           </div>
                         </div>
@@ -280,7 +286,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                         <div>
                           {car.pricePro && car.priceMax ? (
                             <>
-                              <div className="text-[9px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-2">OTR Jakarta*</div>
+                              <div className="text-[9px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-2">OTR Jakarta*</div>
                               <div className="flex flex-col gap-1.5">
                                 <div className="flex items-baseline gap-2">
                                   <span className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-widest w-8">Pro</span>
@@ -294,12 +300,12 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                             </>
                           ) : (
                             <>
-                              <div className="text-[9px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest">OTR Jakarta*</div>
+                              <div className="text-[9px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest">OTR Jakarta*</div>
                               <div className="text-xl md:text-3xl font-bold text-white tracking-tighter">{car.price}</div>
                             </>
                           )}
                         </div>
-                        <button className="absolute right-0 top-1/2 -translate-y-1/2 -mt-6 md:mt-0 w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center text-slate-950 shadow-2xl hover:bg-accent transition-all duration-300 group/btn">
+                        <button aria-label="View car details" className="absolute right-0 top-1/2 -translate-y-1/2 -mt-6 md:mt-0 w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center text-slate-950 shadow-2xl hover:bg-accent transition-all duration-300 group/btn">
                           <ArrowRight size={22} className="md:w-7 md:h-7 group-hover/btn:translate-x-1 transition-transform" />
                         </button>
                       </div>
@@ -336,6 +342,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                   return (
                     <button
                       key={idx}
+                      aria-label={`Go to model ${idx + 1}`}
                       onClick={() => {
                         if (scrollRef.current) {
                           scrollRef.current.scrollTo({
@@ -353,14 +360,14 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
 
               {/* Progress Bar & Counter */}
               <div className="flex items-center gap-4 md:gap-6 flex-1 w-full md:w-auto">
-                <span className="text-[9px] md:text-[10px] font-black text-slate-600 uppercase tracking-widest whitespace-nowrap">Discovery Mode</span>
+                <span className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">Discovery Mode</span>
                 <div className="flex-1 h-px bg-slate-900 relative">
                   <div
                     className="absolute inset-y-0 left-0 bg-accent transition-all duration-300 shadow-[0_0_10px_rgba(56,189,248,0.3)]"
                     style={{ width: `${scrollProgress}%`, height: '2px', top: '-0.5px' }}
                   />
                 </div>
-                <span className="text-[9px] md:text-[10px] font-black text-slate-600 uppercase tracking-widest whitespace-nowrap">Model {Math.min(filteredAndSortedCars.length, Math.max(1, Math.round((scrollProgress / 100) * (filteredAndSortedCars.length - 1)) + 1))} of {filteredAndSortedCars.length}</span>
+                <span className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">Model {Math.min(filteredAndSortedCars.length, Math.max(1, Math.round((scrollProgress / 100) * (filteredAndSortedCars.length - 1)) + 1))} of {filteredAndSortedCars.length}</span>
               </div>
             </div>
           )}

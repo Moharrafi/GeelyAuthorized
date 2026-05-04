@@ -99,17 +99,16 @@ const CarColorSelector: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Preload every color of EVERY model so switching feels instant
+  // Preload colors for the ACTIVE model only to save bandwidth
   useEffect(() => {
     if (!shouldPreload || typeof Image === 'undefined') return;
     const preload = () => {
-      CAR_MODELS.forEach((model) => {
-        model.colors.forEach((c) => {
-          const img = new Image();
-          img.src = c.image;
-        });
+      activeModel.colors.forEach((c) => {
+        const img = new Image();
+        img.src = c.image;
       });
     };
+    
     if ('requestIdleCallback' in window) {
       const id = window.requestIdleCallback(preload, { timeout: 800 });
       return () => window.cancelIdleCallback(id);
@@ -117,10 +116,16 @@ const CarColorSelector: React.FC = () => {
       const id = window.setTimeout(preload, 300) as unknown as number;
       return () => window.clearTimeout(id);
     }
-  }, [shouldPreload]);
+  }, [shouldPreload, activeModel.id]);
 
-  // no-op — preload already handled above
-  const preloadModelOnHover = (_model: CarModel) => {};
+  // Preload a model's colors when hovering its button
+  const preloadModelOnHover = (model: CarModel) => {
+    if (model.id === activeModel.id || typeof Image === 'undefined') return;
+    model.colors.forEach((c) => {
+      const img = new Image();
+      img.src = c.image;
+    });
+  };
 
   const changeModel = (model: CarModel) => {
     if (model.id === activeModel.id || modelTransRef.current) return;
@@ -218,7 +223,7 @@ const CarColorSelector: React.FC = () => {
         <div className="mb-10 md:mb-20">
           <div className="flex items-center gap-4 mb-4 md:mb-6">
             <div className="h-px w-16 bg-accent" />
-            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-accent animate-pulse">Studio Configurator</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-accent">Studio Configurator</span>
           </div>
           <h2 className="text-4xl sm:text-5xl md:text-8xl font-black text-slate-900 dark:text-white tracking-tighter leading-[0.9] transition-colors">
             Personalize Your{' '}

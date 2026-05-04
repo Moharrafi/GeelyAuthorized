@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState, useCallback } from 'react';
 
 export interface ChatAssistantHandle {
   openWithPrompt: (prompt: string) => void;
@@ -12,6 +12,8 @@ const buildWhatsappUrl = (message: string) =>
 
 const ChatAssistant = forwardRef<ChatAssistantHandle>((_props, ref) => {
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const lastKnown = useRef(false);
+  const ticking = useRef(false);
   const whatsappUrl = buildWhatsappUrl(defaultMessage);
 
   useImperativeHandle(ref, () => ({
@@ -20,15 +22,30 @@ const ChatAssistant = forwardRef<ChatAssistantHandle>((_props, ref) => {
     },
   }));
 
+  const updateBackToTop = useCallback(() => {
+    const shouldShow = window.scrollY > 300;
+    if (shouldShow !== lastKnown.current) {
+      lastKnown.current = shouldShow;
+      setShowBackToTop(shouldShow);
+    }
+    ticking.current = false;
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 300);
+      if (!ticking.current) {
+        ticking.current = true;
+        requestAnimationFrame(updateBackToTop);
+      }
     };
 
-    handleScroll();
+    // Check initial state
+    updateBackToTop();
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [updateBackToTop]);
 
   return (
     <div className="fixed bottom-5 md:bottom-6 right-5 md:right-6 z-50 flex flex-col items-end gap-3">
@@ -58,7 +75,7 @@ const ChatAssistant = forwardRef<ChatAssistantHandle>((_props, ref) => {
           aria-label="Chat via WhatsApp"
           className="relative w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#25D366] text-white shadow-[0_10px_25px_-5px_rgba(37,211,102,0.4)] transition-all duration-300 hover:scale-110 flex items-center justify-center overflow-hidden"
         >
-          <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20"></span>
+          <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20" style={{ animationIterationCount: 3 }}></span>
           
           <svg
             width="28"

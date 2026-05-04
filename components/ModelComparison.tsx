@@ -120,7 +120,7 @@ const ModelComparison: React.FC = () => {
             Perbandingan Model
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tighter mb-4">
-            Temukan yang <span className="text-slate-400 dark:text-slate-600 italic">Tepat.</span>
+            Temukan yang <span className="text-slate-400 dark:text-slate-500 italic">Tepat.</span>
           </h2>
           <p className="text-slate-500 dark:text-slate-400 max-w-lg mx-auto text-sm md:text-base font-light">
             Tiga pilihan luar biasa. Satu keputusan sempurna untuk Anda.
@@ -131,8 +131,8 @@ const ModelComparison: React.FC = () => {
         {/* MOBILE: Swipeable Premium Cards         */}
         {/* ═══════════════════════════════════════ */}
         <div className="md:hidden relative">
-          <button onClick={mobilePrev} className="absolute left-0 top-[45%] -translate-y-1/2 -translate-x-1 z-20 w-9 h-9 rounded-full bg-white/90 dark:bg-slate-800/90 border border-slate-200 dark:border-white/10 flex items-center justify-center shadow-xl text-slate-500"><ChevronLeft size={16} /></button>
-          <button onClick={mobileNext} className="absolute right-0 top-[45%] -translate-y-1/2 translate-x-1 z-20 w-9 h-9 rounded-full bg-white/90 dark:bg-slate-800/90 border border-slate-200 dark:border-white/10 flex items-center justify-center shadow-xl text-slate-500"><ChevronRight size={16} /></button>
+          <button onClick={mobilePrev} aria-label="Previous car model" className="absolute left-0 top-[45%] -translate-y-1/2 -translate-x-1 z-20 w-9 h-9 rounded-full bg-white/90 dark:bg-slate-800/90 border border-slate-200 dark:border-white/10 flex items-center justify-center shadow-xl text-slate-500"><ChevronLeft size={16} /></button>
+          <button onClick={mobileNext} aria-label="Next car model" className="absolute right-0 top-[45%] -translate-y-1/2 translate-x-1 z-20 w-9 h-9 rounded-full bg-white/90 dark:bg-slate-800/90 border border-slate-200 dark:border-white/10 flex items-center justify-center shadow-xl text-slate-500"><ChevronRight size={16} /></button>
 
           {activeCars.map((car, i) => {
             if (i !== mobileIndex) return null;
@@ -141,7 +141,7 @@ const ModelComparison: React.FC = () => {
 
           <div className="flex justify-center gap-2 mt-6">
             {activeCars.map((_, i) => (
-              <button key={i} onClick={() => setMobileIndex(i)} className={`h-2 rounded-full transition-all duration-300 ${i === mobileIndex ? 'w-8 bg-accent' : 'w-2 bg-slate-300 dark:bg-slate-700'}`} />
+              <button key={i} onClick={() => setMobileIndex(i)} aria-label={`Go to car ${i + 1}`} className={`h-2 rounded-full transition-all duration-300 ${i === mobileIndex ? 'w-8 bg-accent' : 'w-2 bg-slate-300 dark:bg-slate-700'}`} />
             ))}
           </div>
         </div>
@@ -182,20 +182,23 @@ const CarCard: React.FC<{ car: typeof CARS[0]; whatsapp: (name: string) => strin
             <img
               src={car.image}
               alt={car.name}
+              width={800}
+              height={450}
               className="w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-700"
               loading="lazy"
+              decoding="async"
             />
             {/* Bottom fade only */}
             <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white dark:from-[#111827] to-transparent" />
           </div>
           <div className="text-[9px] font-black uppercase tracking-[0.25em] mb-1 text-accent">{car.category}</div>
           <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">{car.name}</h3>
-          <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-1">{car.tagline}</p>
+          <p className="text-xs text-slate-400 dark:text-slate-400 font-medium mt-1">{car.tagline}</p>
         </div>
 
         {/* ── Price ── */}
         <div className="text-center pb-6">
-          <div className="text-[10px] text-slate-400 dark:text-slate-600 font-bold uppercase tracking-widest mb-1">Mulai Dari</div>
+          <div className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest mb-1">Mulai Dari</div>
           <div className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">
             {data.price as string}
           </div>
@@ -218,8 +221,8 @@ const CarCard: React.FC<{ car: typeof CARS[0]; whatsapp: (name: string) => strin
                 <div className={`text-xl font-black tracking-tight leading-none ${isBest ? 'text-accent' : 'text-slate-900 dark:text-white'}`}>
                   {spec.value}
                 </div>
-                {spec.sub && <div className="text-[9px] text-slate-400 dark:text-slate-600 font-bold mt-0.5">{spec.sub}</div>}
-                <div className="text-[9px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest mt-2">{spec.label}</div>
+                {spec.sub && <div className="text-[9px] text-slate-400 dark:text-slate-500 font-bold mt-0.5">{spec.sub}</div>}
+                <div className="text-[9px] text-slate-400 dark:text-slate-400 font-bold uppercase tracking-widest mt-2">{spec.label}</div>
               </div>
             );
           })}
@@ -235,7 +238,7 @@ const CarCard: React.FC<{ car: typeof CARS[0]; whatsapp: (name: string) => strin
             const isBest = BEST_IN[spec.key] === car.id;
             return (
               <div key={spec.key} className="flex items-center justify-between py-3 border-b border-slate-50 dark:border-white/[0.03] last:border-0">
-                <span className="text-[12px] text-slate-500 dark:text-slate-500 font-medium">{spec.label}</span>
+                <span className="text-[12px] text-slate-500 dark:text-slate-400 font-medium">{spec.label}</span>
                 {typeof val === 'boolean' ? (
                   val ? (
                     <span className="w-5 h-5 rounded-full flex items-center justify-center bg-accent/10">

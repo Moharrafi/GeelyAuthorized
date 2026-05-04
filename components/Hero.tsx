@@ -65,6 +65,7 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick, onBookingClick }) => {
         const isActive = index === currentSlide;
         const isExiting = index === prevSlide;
         const actKey = activationKeys[index]; // changes → restarts animations
+        const shouldRender = isActive || isExiting;
 
         // Determine animation for the slide container
         let slideAnim: string;
@@ -86,6 +87,7 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick, onBookingClick }) => {
             {/*
               Key = actKey forces the div to remount when this slide activates,
               which restarts the ken-burns animation cleanly every time.
+              Only render img for active/exiting slides to save bandwidth.
             */}
             <div
               key={actKey}
@@ -97,14 +99,18 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick, onBookingClick }) => {
                     : 'none',
               }}
             >
-              <img
-                src={slide.image}
-                alt={slide.title}
-                className="w-full h-full object-cover"
-                loading={index === 0 ? 'eager' : 'lazy'}
-                decoding="async"
-                fetchPriority={index === 0 ? 'high' : 'low'}
-              />
+              {shouldRender && (
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  width={1920}
+                  height={1080}
+                  className="w-full h-full object-cover"
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                  decoding={index === 0 ? 'sync' : 'async'}
+                  fetchPriority={index === 0 ? 'high' : 'low'}
+                />
+              )}
             </div>
 
             {/* Dark overlays */}

@@ -74,7 +74,7 @@
       "telephone": "+62-831-9748-3984",
       "email": "dayana.geely@gmail.com",
       "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Geely_Auto_2023.svg/2560px-Geely_Auto_2023.svg.png",
-      "image": "https://geelyauto.id/sites/default/files/2025-10/%E5%9B%BD%E8%B4%B8%E8%B7%AF%E8%B7%91%20%281%29.jpg",
+      "image": "https://geelywonder.id/public/domain/g/geelywonder.id/images/exterior_starray_04.jpg",
       "description": "Dealer resmi Geely SM Cibubur. Jual mobil listrik Geely EX2, EX5, dan Starray EM-i dengan harga promo terbaik, simulasi kredit, dan test drive gratis bersama sales Dayana.",
       "priceRange": "Rp 255.000.000 - Rp 515.000.000",
       "currenciesAccepted": "IDR",
@@ -314,21 +314,32 @@
   <!-- ═══════════════════════════════════════════════════════════ -->
   <!-- PERFORMANCE OPTIMIZATIONS                                   -->
   <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- Critical preconnects (max 3 for optimal performance) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://geelyprod-static.oss-ap-southeast-5.aliyuncs.com" />
   <link rel="preconnect" href="https://geelywonder.id" />
-  <link rel="preconnect" href="https://geelyauto.id" />
+  <!-- Non-critical origins: dns-prefetch only -->
+  <link rel="dns-prefetch" href="https://geelyprod-static.oss-ap-southeast-5.aliyuncs.com" />
+  <link rel="dns-prefetch" href="https://geelyauto.id" />
   <link rel="dns-prefetch" href="https://upload.wikimedia.org" />
   <link rel="dns-prefetch" href="https://imgcdn.oto.com" />
+  <link rel="dns-prefetch" href="https://appliedleasing.co.uk" />
+  <link rel="dns-prefetch" href="https://cdn.am-online.com" />
+
+  <!-- Preload Geely logo (LCP element on some viewports) -->
   <link rel="preload" as="image"
-    href="https://geelyprod-static.oss-ap-southeast-5.aliyuncs.com/experience-geely/experience-test-drive.png"
+    href="https://geelyauto.id/themes/custom/geely/images/logos/logo-geely.svg"
     fetchpriority="high" />
+
+  <!-- Preload LCP hero image (first slide) -->
   <link rel="preload" as="image"
-    href="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Geely_Auto_2023.svg/2560px-Geely_Auto_2023.svg.png"
+    href="https://geelywonder.id/public/domain/g/geelywonder.id/images/power.webp"
     fetchpriority="high" />
 
   <style>
+    /* System font fallback while Outfit loads */
+    body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+
     /* Hide scrollbar for Chrome, Safari and Opera */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
@@ -349,10 +360,10 @@
     }
   </style>
 
-  <!-- Non-render-blocking font load -->
-  <link rel="preload" as="style"
+  <!-- Non-render-blocking font load (media=print swap pattern) -->
+  <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
-    onload="this.onload=null;this.rel='stylesheet'" />
+    media="print" onload="this.media='all'" />
   <noscript>
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" />

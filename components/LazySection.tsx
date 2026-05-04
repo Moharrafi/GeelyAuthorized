@@ -10,7 +10,7 @@ interface LazySectionProps {
 
 const LazySection: React.FC<LazySectionProps> = ({
   children,
-  rootMargin = '2000px',
+  rootMargin = '600px',
   placeholderClassName = 'min-h-[200px]',
   className = '',
   id,

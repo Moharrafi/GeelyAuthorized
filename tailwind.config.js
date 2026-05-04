@@ -3,8 +3,8 @@ export default {
     content: [
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
-        "./components/**/*.{js,ts,jsx,tsx}", // In this project, components seem to be in root/components
-        "./**/*.{js,ts,jsx,tsx}", // Catch-all for flat structures if needed
+        "./components/**/*.{js,ts,jsx,tsx}",
+        "./*.tsx",
     ],
     darkMode: 'class',
     theme: {

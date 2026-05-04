@@ -23,7 +23,7 @@ const SalesProfilePreview: React.FC<SalesProfilePreviewProps> = ({ onMoreInfoCli
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
               
               {/* Floating Badge */}
-              <div className="absolute top-8 left-8 bg-accent/20 backdrop-blur-md border border-accent/30 p-4 rounded-3xl flex items-center gap-3 animate-pulse">
+              <div className="absolute top-8 left-8 bg-accent/20 backdrop-blur-md border border-accent/30 p-4 rounded-3xl flex items-center gap-3">
                 <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-slate-950">
                   <Star size={20} fill="currentColor" />
                 </div>

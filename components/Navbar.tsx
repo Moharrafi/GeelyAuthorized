@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { NAV_LINKS } from '../constants';
 
@@ -14,14 +14,29 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentView, theme, onToggleTheme }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const ticking = useRef(false);
+  const lastScrolled = useRef(false);
+
+  const updateScroll = useCallback(() => {
+    const scrolled = window.scrollY > 20;
+    if (scrolled !== lastScrolled.current) {
+      lastScrolled.current = scrolled;
+      setIsScrolled(scrolled);
+    }
+    ticking.current = false;
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      if (!ticking.current) {
+        ticking.current = true;
+        requestAnimationFrame(updateScroll);
+      }
     };
+    updateScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [updateScroll]);
 
   const handleLinkClick = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
@@ -64,6 +79,8 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
           <img
             src="https://geelyauto.id/themes/custom/geely/images/logos/logo-geely.svg"
             alt="Geely Auto"
+            width={120}
+            height={16}
             className={`h-3 md:h-4 w-auto object-contain ${logoClass}`}
             loading="eager"
             fetchPriority="high"

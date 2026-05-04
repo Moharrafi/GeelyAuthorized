@@ -24,6 +24,8 @@ export default defineConfig(({ mode }) => {
         target: 'es2020',
         minify: 'esbuild',
         cssMinify: true,
+        cssCodeSplit: true,
+        sourcemap: false,
         rollupOptions: {
           output: {
             manualChunks: {

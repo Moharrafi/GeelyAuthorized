@@ -111,7 +111,7 @@ function App() {
       } else {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-    }, currentView === view ? 0 : 300); 
+    }, currentView === view ? 0 : 300);
   }, [currentView]);
 
   return (
@@ -180,11 +180,13 @@ function App() {
             <section className={`py-20 md:py-32 relative overflow-hidden transition-colors duration-500 ${theme === 'dark' ? 'bg-slate-900' : 'bg-slate-100'}`}>
               <div className="absolute inset-0 z-0">
                 <img
-                  src="https://geelyauto.id/sites/default/files/2025-10/%E5%9B%BD%E8%B4%B8%E8%B7%AF%E8%B7%91%20%281%29.jpg"
+                  src="https://cdn.am-online.com/media/1/root/the-motor-ombudsman-expands-ncc-portfolio-with-geely-auto-uk-2_w960.jpg"
                   className="w-full h-full object-cover opacity-20"
-                  alt="Driving"
+                  alt=""
                   loading="lazy"
                   decoding="async"
+                  width={960}
+                  height={540}
                 />
                 <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-gradient-to-t from-slate-950 via-slate-900/80 to-transparent' : 'bg-gradient-to-t from-slate-50 via-white/80 to-transparent'}`}></div>
               </div>

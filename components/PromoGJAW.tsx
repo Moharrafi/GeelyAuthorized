@@ -31,7 +31,7 @@ const PromoGJAW: React.FC<PromoGJAWProps> = ({ onConsultClick }) => {
 
         <div className="bg-slate-900 rounded-[2.5rem] border border-slate-800 overflow-hidden shadow-2xl relative isolate">
           {/* Subtle pattern overlay */}
-          <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='4' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1' fill='%23fff'/%3E%3C/svg%3E\")", backgroundSize: '4px 4px' }}></div>
           
           <div className="flex flex-col lg:flex-row items-stretch">
             {/* Left Content: The Offer */}

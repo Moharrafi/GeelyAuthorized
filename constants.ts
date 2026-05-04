@@ -124,7 +124,7 @@ export const HERO_SLIDES = [
   },
   {
     id: 3,
-    image: 'https://geelyauto.id/sites/default/files/2025-09/%E9%BB%84%E6%98%8F2-12.jpg',
+    image: 'https://appliedleasing.co.uk/uploads/geely-starray_desert-1.jpg',
     title: 'Unbound Freedom',
     subtitle: 'Designed to take you further than ever before.',
     cta: 'Book Test Drive',
