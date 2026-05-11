@@ -119,7 +119,7 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick, onBookingClick }) => {
 
             {/* ── Text content — staggered rise ── */}
             <div className="container mx-auto px-6 h-full flex items-center relative z-30">
-              <div className="max-w-3xl -mt-4 sm:-mt-4 md:mt-0 px-0">
+              <div className="w-full max-w-3xl -mt-4 sm:-mt-4 md:mt-0 px-0">
 
                 {/* Badge */}
                   {/* Badge removed as per user request */}
@@ -165,7 +165,7 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick, onBookingClick }) => {
                 >
                   <button
                     onClick={slide.ctaTarget === 'booking' ? onBookingClick : onDiscoverClick}
-                    className="px-10 py-4 bg-white text-slate-950 font-bold text-sm uppercase tracking-widest hover:bg-accent transition-colors duration-300 flex items-center justify-center gap-2 group rounded-full"
+                    className="w-full sm:w-auto px-10 py-4 bg-white text-slate-950 font-bold text-sm uppercase tracking-widest hover:bg-accent transition-colors duration-300 flex items-center justify-center gap-2 group rounded-full"
                   >
                     {slide.cta}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -173,7 +173,7 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick, onBookingClick }) => {
                   <button
                     type="button"
                     onClick={() => setIsFilmOpen(true)}
-                    className="px-10 py-4 border border-white/30 text-white font-bold text-sm uppercase tracking-widest hover:bg-white/10 backdrop-blur-sm transition-colors duration-300 rounded-full text-center"
+                    className="w-full sm:w-auto px-10 py-4 border border-white/30 text-white font-bold text-sm uppercase tracking-widest hover:bg-white/10 backdrop-blur-sm transition-colors duration-300 rounded-full text-center"
                   >
                     Watch Film
                   </button>

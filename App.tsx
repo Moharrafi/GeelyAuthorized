@@ -50,14 +50,14 @@ function App() {
     if ('requestIdleCallback' in window) {
       idleId = window.requestIdleCallback(defer, { timeout: 1500 });
     } else {
-      idleId = window.setTimeout(defer, 800) as unknown as number;
+      idleId = globalThis.setTimeout(defer, 800) as unknown as number;
     }
     return () => {
       if (idleId !== undefined) {
         if ('cancelIdleCallback' in window) {
           window.cancelIdleCallback(idleId);
         } else {
-          window.clearTimeout(idleId as unknown as number);
+          globalThis.clearTimeout(idleId as unknown as number);
         }
       }
     };

@@ -113,8 +113,8 @@ const CarColorSelector: React.FC = () => {
       const id = window.requestIdleCallback(preload, { timeout: 800 });
       return () => window.cancelIdleCallback(id);
     } else {
-      const id = window.setTimeout(preload, 300) as unknown as number;
-      return () => window.clearTimeout(id);
+      const id = globalThis.setTimeout(preload, 300) as unknown as number;
+      return () => globalThis.clearTimeout(id);
     }
   }, [shouldPreload, activeModel.id]);
 
@@ -149,7 +149,7 @@ const CarColorSelector: React.FC = () => {
         setPrevColorHex(newColor.hex);
         setGlowVisible(false);
         modelTransRef.current = false;
-      }, 700);
+      }, 760);
     };
 
     execute();
@@ -245,21 +245,31 @@ const CarColorSelector: React.FC = () => {
                     key={model.id}
                     onClick={() => changeModel(model)}
                     onMouseEnter={() => preloadModelOnHover(model)}
-                    className={`relative w-full px-4 py-4 md:px-8 md:py-6 xl:px-10 xl:py-6 rounded-2xl xl:rounded-full text-left transition-all duration-500 overflow-hidden group border ${
+                    className={`relative w-full px-4 py-4 md:px-8 md:py-6 xl:px-10 xl:py-6 rounded-2xl xl:rounded-full text-left transition-[background-color,border-color,box-shadow,color,opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden group border will-change-transform ${
                       activeModel.id === model.id
-                        ? 'bg-black/85 text-white border-slate-300 shadow-[0_25px_60px_-12px_rgba(15,23,42,0.18)] scale-[1.02] dark:bg-white dark:text-black dark:border-white dark:shadow-[0_25px_60px_-12px_rgba(0,0,0,0.4)]'
+                        ? 'bg-black/85 text-white border-slate-300 shadow-[0_25px_60px_-12px_rgba(15,23,42,0.18)] dark:bg-white dark:text-black dark:border-white dark:shadow-[0_25px_60px_-12px_rgba(0,0,0,0.4)]'
                         : 'bg-slate-100 dark:bg-slate-900 md:dark:bg-white/5 md:backdrop-blur-md border-slate-300 dark:border-white/5 text-slate-400 dark:text-white/40 hover:bg-white hover:border-slate-300 hover:text-slate-700 hover:shadow-[0_12px_30px_-16px_rgba(15,23,42,0.35)] dark:hover:bg-slate-800 dark:md:hover:bg-white/10 dark:hover:text-white/70'
                     }`}
                   >
-                    <div className="relative z-10 flex items-center justify-between gap-2">
+                    <span
+                      className={`pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                        activeModel.id === model.id ? 'opacity-100' : 'group-hover:opacity-60'
+                      }`}
+                      style={{
+                        background: activeModel.id === model.id
+                          ? `radial-gradient(circle at 85% 50%, ${activeColor.hex}30 0%, transparent 42%)`
+                          : 'radial-gradient(circle at 85% 50%, rgba(255,255,255,0.12) 0%, transparent 46%)',
+                      }}
+                    />
+                    <div className="relative z-10 flex items-center justify-between gap-2 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5">
                       <div className="min-w-0 flex-1">
                         <div className={`text-[8px] md:text-[9px] xl:text-[10px] font-black uppercase tracking-widest mb-0.5 truncate ${activeModel.id === model.id ? 'text-white/90 dark:text-black/60' : 'text-slate-400 dark:text-white/40'}`}>{model.series}</div>
                         <div className={`text-[11px] md:text-base xl:text-xl font-black tracking-tighter truncate ${activeModel.id === model.id ? 'text-white/85 dark:text-black' : 'text-slate-700 dark:text-white/90'}`}>{model.name}</div>
                       </div>
                       {/* Smaller arrow for mobile without background to save space */}
-                      <div className={`flex xl:w-9 xl:h-9 rounded-full items-center justify-center flex-shrink-0 transition-all ${activeModel.id === model.id ? 'xl:bg-accent text-accent xl:text-slate-950' : 'text-slate-500 xl:bg-slate-100 dark:xl:bg-white/10'}`}>
+                      <div className={`flex xl:w-9 xl:h-9 rounded-full items-center justify-center flex-shrink-0 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${activeModel.id === model.id ? 'xl:bg-accent text-accent xl:text-slate-950' : 'text-slate-500 xl:bg-slate-100 dark:xl:bg-white/10'}`}>
                         <ChevronRight size={16} className="xl:hidden" />
-                        <ChevronRight size={20} className="hidden xl:block" />
+                        <ChevronRight size={20} className={`hidden xl:block transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${activeModel.id === model.id ? 'translate-x-0.5' : ''}`} />
                       </div>
                     </div>
                   </button>
@@ -483,7 +493,7 @@ const CarColorSelector: React.FC = () => {
         .car-layer.is-exit,
         .car-layer.model-enter,
         .car-layer.model-exit {
-          will-change: opacity;
+          will-change: opacity, transform;
         }
 
         /* COLOR TRANSITION — smooth crossfade */
@@ -508,20 +518,20 @@ const CarColorSelector: React.FC = () => {
         /* MODEL TRANSITION — Fluid dynamic slide */
         .car-layer.model-enter {
           z-index: 3;
-          animation: slide-in-right 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+          animation: slide-in-right 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         .car-layer.model-exit {
           z-index: 2;
-          animation: slide-out-left 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+          animation: slide-out-left 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         
         @keyframes slide-in-right {
-          from { opacity: 0; transform: translate3d(120px, 0, 0) scale(0.96); }
+          from { opacity: 0; transform: translate3d(88px, 0, 0) scale(0.985); }
           to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
         }
         @keyframes slide-out-left {
           from { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-          to   { opacity: 0; transform: translate3d(-120px, 0, 0) scale(0.96); }
+          to   { opacity: 0; transform: translate3d(-88px, 0, 0) scale(0.985); }
         }
 
         /* Color name slide-up */
