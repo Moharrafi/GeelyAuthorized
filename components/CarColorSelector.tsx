@@ -44,7 +44,7 @@ const CAR_MODELS: CarModel[] = [
     colors: [
       { id: 'ex5-01', name: 'Teal',   material: 'Teal',   hex: '#7aa4ad', image: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_teal-3.webp'   },
       { id: 'ex5-02', name: 'Ash',    material: 'Ash',    hex: '#cbd5e1', image: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_silver-3.webp'  },
-      { id: 'ex5-03', name: 'Silver', material: 'Silver', hex: '#9ca3af', image: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_ash-3.webp '   },
+      { id: 'ex5-03', name: 'Silver', material: 'Silver', hex: '#9ca3af', image: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_ash-3.webp'   },
       { id: 'ex5-04', name: 'Black',  material: 'Black',  hex: '#0b0b0f', image: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_black-3.webp'  },
       { id: 'ex5-05', name: 'White',  material: 'White',  hex: '#f8fafc', image: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_white-3.webp'  },
     ],

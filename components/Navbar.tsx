@@ -77,11 +77,11 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
         {/* Logo */}
         <a href="#" onClick={(e) => handleLinkClick(e, '#hero')} className="flex items-center gap-2 group">
           <img
-            src="https://geelyauto.id/themes/custom/geely/images/logos/logo-geely.svg"
+            src="/img/logo-secondary.svg"
             alt="Geely Auto"
-            width={120}
-            height={16}
-            className={`h-3 md:h-4 w-auto object-contain ${logoClass}`}
+            width={140}
+            height={13}
+            className={`h-3.5 md:h-5 w-auto object-contain ${logoClass}`}
             loading="eager"
             fetchPriority="high"
           />

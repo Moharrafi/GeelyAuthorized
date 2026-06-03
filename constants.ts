@@ -37,8 +37,8 @@ export const CARS: Car[] = [
     pricePro: 'Rp 475.000.000',
     priceMax: 'Rp 515.000.000',
     category: 'SUV',
-    image: 'https://geelyauto.id/sites/default/files/2025-10/E245_CamFront45_03_CloudCity-leo.jpg',
-    description: 'Geely EX5 adalah SUV listrik premium berbasis platform GEA (Global Electric Architecture). Ditenagai motor 160 kW (214 HP) dengan torsi 320 Nm, EX5 mampu berlari 0–100 km/h dalam 6.9 detik dan menempuh hingga 495 km (NEDC). Teknologi DC fast charging mengisi baterai 60.22 kWh dari 30% ke 80% hanya dalam 20 menit.',
+    image: 'https://promogeelyofficial.id/wp-content/uploads/2025/09/exterior-01-768x432.webp',
+    description: 'Geely EX5 adalah SUV listrik premium berbasis platform GEA (Global Electric Architecture). Ditenagai motor 160 kW (214 HP) dengan torsi 320 Nm, EX5 mampu berlari 0–100 km/h dalam 6.9 detik and menempuh hingga 495 km (NEDC). Teknologi DC fast charging mengisi baterai 60.22 kWh dari 30% ke 80% hanya dalam 20 menit.',
     features: [
       'Jangkauan 495 km (NEDC)',
       'DC Fast Charging 20 Menit',
@@ -80,22 +80,7 @@ export const CARS: Car[] = [
       range: '105 km (EV) / 1000+ km',
       topSpeed: '170 km/h'
     }
-  },
-  // {
-  //   id: '4',
-  //   name: 'Geely Prime',
-  //   tagline: 'Executive Sedan',
-  //   price: 'Rp 520.000.000',
-  //   category: 'Sedan',
-  //   image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=1200',
-  //   description: 'Geely Prime sets the standard for executive travel. With a focus on rear-seat comfort, noise isolation, and seamless connectivity, it is your personal sanctuary on wheels.',
-  //   features: ['Massage Seats', 'Privacy Glass', 'Premium Sound System', 'Heads-Up Display'],
-  //   specs: {
-  //     acceleration: '5.9s',
-  //     power: '300 HP',
-  //     topSpeed: '230 km/h'
-  //   }
-  // }
+  }
 ];
 
 export const NAV_LINKS = [

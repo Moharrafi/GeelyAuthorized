@@ -72,7 +72,7 @@ const PromoGJAW: React.FC<PromoGJAWProps> = ({ onConsultClick }) => {
             {/* Right Content: The Visual */}
             <div className="flex-1 relative min-h-[380px] lg:min-h-auto">
               <img 
-                src="https://geelyauto.id/sites/default/files/styles/drimage_improved_focal_900_0/public/2025-07/times-asia-pacific-best.png.webp" 
+                src="/img/promo_gjaw_2026.png" 
                 alt="Car Delivery Geely" 
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"

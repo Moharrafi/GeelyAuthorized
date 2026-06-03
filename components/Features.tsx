@@ -82,7 +82,7 @@ const MODEL_TECH = [
       'Parking Sensors Front & Rear',
     ],
     safetyBadges: ['★★★★★ Euro NCAP', 'ABS + EBD', 'ESC', 'TPMS', 'EPB + Auto Hold', 'HAC + HDC'],
-    extraImage: 'https://geelyauto.id/themes/custom/geely/images/technology-section/image-1.png',
+    extraImage: '/img/short_blade_battery.png',
     extraTitle: 'New Generation Short Blade Battery',
     extraDesc: 'Baterai LFP 60.22 kWh generasi baru dengan densitas energi tinggi, tahan api, dan garansi 8 tahun / seumur hidup.',
   },
