@@ -371,9 +371,35 @@ const CarColorSelector: React.FC = () => {
                   {/* Fixed aspect ratio container */}
                   <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
 
-                    {/* MODEL EXIT layer */}
+                    {/* Pre-mounted color layers of the active model for instant hardware-accelerated opacity transition */}
+                    {activeModel.colors.map((color) => {
+                      const isActive = activeColor.id === color.id;
+                      return (
+                        <div
+                          key={color.id}
+                          className={`car-layer transition-opacity duration-300 ease-in-out ${
+                            isActive && isModelTransitioning ? 'model-enter' : ''
+                          }`}
+                          style={{
+                            opacity: isActive ? 1 : 0,
+                            zIndex: isActive ? 3 : 1,
+                            pointerEvents: isActive ? 'auto' : 'none',
+                          }}
+                        >
+                          <img
+                            src={color.image}
+                            alt={`${activeModel.name} ${color.name}`}
+                            className="car-image"
+                            loading="eager"
+                            decoding="async"
+                          />
+                        </div>
+                      );
+                    })}
+
+                    {/* MODEL EXIT layer (only active during model swaps) */}
                     {exitImageSrc && (
-                      <div key={`model-exit-${exitImageSrc}`} className="car-layer model-exit">
+                      <div key={`model-exit-${exitImageSrc}`} className="car-layer model-exit" style={{ zIndex: 4 }}>
                         <img
                           src={exitImageSrc}
                           alt="previous model"
@@ -382,34 +408,6 @@ const CarColorSelector: React.FC = () => {
                         />
                       </div>
                     )}
-
-                    {/* COLOR EXIT layer */}
-                    {prevColor && !exitImageSrc && (
-                      <div key={`color-exit-${prevColor.id}`} className="car-layer is-exit">
-                        <img
-                          src={prevColor.image}
-                          alt={activeModel.name}
-                          className="car-image"
-                          decoding="async"
-                        />
-                      </div>
-                    )}
-
-                    {/* ACTIVE image layer */}
-                    <div
-                      key={`active-${activeModel.id}-${activeColor.id}`}
-                      className={`car-layer ${
-                        isModelTransitioning ? 'model-enter' : isColorTransitioning ? 'is-enter' : ''
-                      }`}
-                    >
-                      <img
-                        src={activeColor.image}
-                        alt={activeModel.name}
-                        className="car-image"
-                        loading="eager"
-                        decoding="sync"
-                      />
-                    </div>
 
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 to-transparent pointer-events-none z-[5]" />
                   </div>
