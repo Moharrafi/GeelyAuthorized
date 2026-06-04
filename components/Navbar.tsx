@@ -79,9 +79,9 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
           <img
             src="/img/logo-secondary.svg"
             alt="Geely Auto"
-            width={140}
-            height={13}
-            className={`h-3.5 md:h-5 w-auto object-contain ${logoClass}`}
+            width={120}
+            height={11}
+            className={`h-3 md:h-4 w-auto object-contain ${logoClass}`}
             loading="eager"
             fetchPriority="high"
           />

@@ -22,7 +22,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <img
               src="/img/logo-secondary.svg"
               alt="Geely Auto"
-              className="h-5 md:h-5 mb-6 object-contain invert-0 dark:invert"
+              className="h-4 md:h-4 mb-6 object-contain invert-0 dark:invert"
               loading="lazy"
             />
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
