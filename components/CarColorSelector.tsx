@@ -71,12 +71,11 @@ const CarColorSelector: React.FC = () => {
   const [activeColor, setActiveColor] = useState(CAR_MODELS[0].colors[0]);
   const [prevColorHex, setPrevColorHex] = useState<string>(CAR_MODELS[0].colors[0].hex);
   const [glowVisible, setGlowVisible] = useState(false);
+  const [exitImageSrc, setExitImageSrc] = useState<string | null>(null);
   const [isModelTransitioning, setIsModelTransitioning] = useState(false);
   const [isColorTransitioning, setIsColorTransitioning] = useState(false);
   const [prevColor, setPrevColor] = useState<ColorEntry | null>(null);
   const [shouldPreload, setShouldPreload] = useState(false);
-  const [prevModelId, setPrevModelId] = useState<string | null>(null);
-  const [prevActiveColorId, setPrevActiveColorId] = useState<string | null>(null);
 
   const modelTransRef = useRef(false);
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -132,13 +131,13 @@ const CarColorSelector: React.FC = () => {
     if (model.id === activeModel.id || modelTransRef.current) return;
 
     const newColor = model.colors[0];
+    const exitSrc = activeColor.image;
 
     const execute = () => {
       modelTransRef.current = true;
       setPrevColorHex(activeColor.hex);
       setGlowVisible(true);
-      setPrevModelId(activeModel.id);
-      setPrevActiveColorId(activeColor.id);
+      setExitImageSrc(exitSrc);
       setActiveModel(model);
       setActiveColor(newColor);
       setPrevColor(null);
@@ -146,12 +145,11 @@ const CarColorSelector: React.FC = () => {
       setIsModelTransitioning(true);
       setTimeout(() => {
         setIsModelTransitioning(false);
-        setPrevModelId(null);
-        setPrevActiveColorId(null);
+        setExitImageSrc(null);
         setPrevColorHex(newColor.hex);
         setGlowVisible(false);
         modelTransRef.current = false;
-      }, 500);
+      }, 760);
     };
 
     execute();
@@ -250,8 +248,8 @@ const CarColorSelector: React.FC = () => {
                     onClick={() => changeModel(model)}
                     onMouseEnter={() => preloadModelOnHover(model)}
                     className={`relative w-full px-4 py-4 md:px-8 md:py-6 xl:px-10 xl:py-6 rounded-2xl xl:rounded-full text-left transition-[background-color,border-color,box-shadow,color,opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden group border will-change-transform ${activeModel.id === model.id
-                      ? 'bg-black/85 text-white border-slate-300 shadow-[0_25px_60px_-12px_rgba(15,23,42,0.18)] dark:bg-white dark:text-black dark:border-white dark:shadow-[0_25px_60px_-12px_rgba(0,0,0,0.4)]'
-                      : 'bg-slate-100 dark:bg-slate-900 md:dark:bg-white/5 md:backdrop-blur-md border-slate-300 dark:border-white/5 text-slate-400 dark:text-white/40 hover:bg-white hover:border-slate-300 hover:text-slate-700 hover:shadow-[0_12px_30px_-16px_rgba(15,23,42,0.35)] dark:hover:bg-slate-800 dark:md:hover:bg-white/10 dark:hover:text-white/70'
+                        ? 'bg-black/85 text-white border-slate-300 shadow-[0_25px_60px_-12px_rgba(15,23,42,0.18)] dark:bg-white dark:text-black dark:border-white dark:shadow-[0_25px_60px_-12px_rgba(0,0,0,0.4)]'
+                        : 'bg-slate-100 dark:bg-slate-900 md:dark:bg-white/5 md:backdrop-blur-md border-slate-300 dark:border-white/5 text-slate-400 dark:text-white/40 hover:bg-white hover:border-slate-300 hover:text-slate-700 hover:shadow-[0_12px_30px_-16px_rgba(15,23,42,0.35)] dark:hover:bg-slate-800 dark:md:hover:bg-white/10 dark:hover:text-white/70'
                       }`}
                   >
                     <span
@@ -302,8 +300,8 @@ const CarColorSelector: React.FC = () => {
                       title={color.name}
                       aria-label={`Select ${color.name}`}
                       className={`relative w-10 h-10 rounded-full transition-all duration-300 transform ${isActive
-                        ? 'ring-2 ring-slate-900 dark:ring-white ring-offset-4 ring-offset-white dark:ring-offset-slate-950 scale-110 z-10'
-                        : 'opacity-40 hover:opacity-100 hover:scale-105'
+                          ? 'ring-2 ring-slate-900 dark:ring-white ring-offset-4 ring-offset-white dark:ring-offset-slate-950 scale-110 z-10'
+                          : 'opacity-40 hover:opacity-100 hover:scale-105'
                         }`}
                       style={isActive ? { boxShadow: `0 0 0 4px ${color.hex}40` } : undefined}
                     >
@@ -370,69 +368,44 @@ const CarColorSelector: React.FC = () => {
                   {/* Fixed aspect ratio container */}
                   <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
 
-                    {/* Pre-mount all models and their colors for 100% hardware-accelerated animations */}
-                    {CAR_MODELS.map((model) => {
-                      const isCurrentModel = activeModel.id === model.id;
-                      const wasCurrentModel = prevModelId === model.id;
-                      const isVisible = isCurrentModel || (isModelTransitioning && wasCurrentModel);
+                    {/* MODEL EXIT layer */}
+                    {exitImageSrc && (
+                      <div key={`model-exit-${exitImageSrc}`} className="car-layer model-exit">
+                        <img
+                          src={exitImageSrc}
+                          alt="previous model"
+                          className="car-image"
+                          decoding="async"
+                        />
+                      </div>
+                    )}
 
-                      if (!isVisible) return null;
+                    {/* COLOR EXIT layer */}
+                    {prevColor && !exitImageSrc && (
+                      <div key={`color-exit-${prevColor.id}`} className="car-layer is-exit">
+                        <img
+                          src={prevColor.image}
+                          alt={activeModel.name}
+                          className="car-image"
+                          decoding="async"
+                        />
+                      </div>
+                    )}
 
-                      // Transition class for slide animations
-                      let transitionClass = '';
-                      if (isModelTransitioning) {
-                        if (isCurrentModel) {
-                          transitionClass = 'model-enter';
-                        } else if (wasCurrentModel) {
-                          transitionClass = 'model-exit';
-                        }
-                      }
-
-                      // Opacity, Z-Index and pointer events
-                      const opacity = isCurrentModel ? 1 : (wasCurrentModel && isModelTransitioning ? 1 : 0);
-                      const zIndex = isCurrentModel ? 3 : (wasCurrentModel && isModelTransitioning ? 2 : 1);
-                      const pointerEvents = isCurrentModel ? 'auto' : 'none';
-
-                      const activeColorIdInModel = model.id === activeModel.id
-                        ? activeColor.id
-                        : prevActiveColorId;
-
-                      return (
-                        <div
-                          key={model.id}
-                          className={`car-layer ${transitionClass}`}
-                          style={{
-                            opacity,
-                            zIndex,
-                            pointerEvents,
-                            willChange: 'transform, opacity',
-                          }}
-                        >
-                          {model.colors.map((color) => {
-                            const isActiveColor = activeColorIdInModel === color.id;
-                            return (
-                              <div
-                                key={color.id}
-                                className="car-layer transition-opacity duration-300 ease-in-out"
-                                style={{
-                                  opacity: isActiveColor ? 1 : 0,
-                                  zIndex: isActiveColor ? 3 : 1,
-                                  pointerEvents: isActiveColor ? 'auto' : 'none',
-                                }}
-                              >
-                                <img
-                                  src={color.image}
-                                  alt={`${model.name} ${color.name}`}
-                                  className="car-image"
-                                  loading="eager"
-                                  decoding="async"
-                                />
-                              </div>
-                            );
-                          })}
-                        </div>
-                      );
-                    })}
+                    {/* ACTIVE image layer */}
+                    <div
+                      key={`active-${activeModel.id}-${activeColor.id}`}
+                      className={`car-layer ${isModelTransitioning ? 'model-enter' : isColorTransitioning ? 'is-enter' : ''
+                        }`}
+                    >
+                      <img
+                        src={activeColor.image}
+                        alt={activeModel.name}
+                        className="car-image"
+                        loading="eager"
+                        decoding="sync"
+                      />
+                    </div>
 
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 to-transparent pointer-events-none z-[5]" />
                   </div>
@@ -543,11 +516,11 @@ const CarColorSelector: React.FC = () => {
         /* MODEL TRANSITION — Fluid dynamic slide */
         .car-layer.model-enter {
           z-index: 3;
-          animation: slide-in-right 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+          animation: slide-in-right 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         .car-layer.model-exit {
           z-index: 2;
-          animation: slide-out-left 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+          animation: slide-out-left 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         
         @keyframes slide-in-right {
