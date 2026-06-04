@@ -27,12 +27,12 @@ const CAR_MODELS: CarModel[] = [
     tagline: 'The Ultimate Family SUV',
     description: 'The Geely EX2 blends compact agility with smart electric sophistication.',
     colors: [
-      { id: 'ex2-01', name: 'Rose',     material: 'Rose',     hex: '#d8b4b7', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(pink).webp'   },
-      { id: 'ex2-02', name: 'Sky',      material: 'Sky',      hex: '#8fb4e8', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(biru).webp'   },
-      { id: 'ex2-03', name: 'Lemon',    material: 'Lemon',    hex: '#fef3c7', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(kuning).webp' },
-      { id: 'ex2-04', name: 'Cloud',    material: 'Cloud',    hex: '#f8fafc', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(putih).webp' },
-      { id: 'ex2-05', name: 'Steel',    material: 'Steel',    hex: '#6b7280', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(abu).webp'   },
-      { id: 'ex2-06', name: 'Graphite', material: 'Graphite', hex: '#27272a', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(abu2).webp'  },
+      { id: 'ex2-01', name: 'Rose', material: 'Rose', hex: '#d8b4b7', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(pink).webp' },
+      { id: 'ex2-02', name: 'Sky', material: 'Sky', hex: '#8fb4e8', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(biru).webp' },
+      { id: 'ex2-03', name: 'Lemon', material: 'Lemon', hex: '#fef3c7', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(kuning).webp' },
+      { id: 'ex2-04', name: 'Cloud', material: 'Cloud', hex: '#f8fafc', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(putih).webp' },
+      { id: 'ex2-05', name: 'Steel', material: 'Steel', hex: '#6b7280', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(abu).webp' },
+      { id: 'ex2-06', name: 'Graphite', material: 'Graphite', hex: '#27272a', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(abu2).webp' },
     ],
   },
   {
@@ -42,11 +42,11 @@ const CAR_MODELS: CarModel[] = [
     tagline: 'Pure Electric Elegance',
     description: 'Geely EX5 merupakan SUV listrik canggih yang menggabungkan performa superior, efisiensi energi, dan inovasi teknologi.',
     colors: [
-      { id: 'ex5-01', name: 'Teal',   material: 'Teal',   hex: '#7aa4ad', image: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_teal-3.webp'   },
-      { id: 'ex5-02', name: 'Ash',    material: 'Ash',    hex: '#cbd5e1', image: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_silver-3.webp'  },
-      { id: 'ex5-03', name: 'Silver', material: 'Silver', hex: '#9ca3af', image: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_ash-3.webp'   },
-      { id: 'ex5-04', name: 'Black',  material: 'Black',  hex: '#0b0b0f', image: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_black-3.webp'  },
-      { id: 'ex5-05', name: 'White',  material: 'White',  hex: '#f8fafc', image: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_white-3.webp'  },
+      { id: 'ex5-01', name: 'Teal', material: 'Teal', hex: '#7aa4ad', image: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_teal-3.webp' },
+      { id: 'ex5-02', name: 'Ash', material: 'Ash', hex: '#cbd5e1', image: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_silver-3.webp' },
+      { id: 'ex5-03', name: 'Silver', material: 'Silver', hex: '#9ca3af', image: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_ash-3.webp' },
+      { id: 'ex5-04', name: 'Black', material: 'Black', hex: '#0b0b0f', image: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_black-3.webp' },
+      { id: 'ex5-05', name: 'White', material: 'White', hex: '#f8fafc', image: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_white-3.webp' },
     ],
   },
   {
@@ -56,35 +56,36 @@ const CAR_MODELS: CarModel[] = [
     tagline: 'Born for the Track',
     description: 'At the heart of the STARRAY EM-i is our advanced EM-i Super Hybrid technology engineered for maximum efficiency.',
     colors: [
-      { id: 'st-01', name: 'Glacier Blue',     material: 'Glacier Blue',     hex: '#5b6f8e', image: '/img/GEELY%20STARRAY%20EM-I%20_%20Geely%20Auto%20Indonesia/imgi_4_glacier-blue3.webp'      },
-      { id: 'st-02', name: 'Alpine White',     material: 'Alpine White',     hex: '#f8fafc', image: '/img/GEELY%20STARRAY%20EM-I%20_%20Geely%20Auto%20Indonesia/imgi_4_alphine-white3.webp'     },
+      { id: 'st-01', name: 'Glacier Blue', material: 'Glacier Blue', hex: '#5b6f8e', image: '/img/GEELY%20STARRAY%20EM-I%20_%20Geely%20Auto%20Indonesia/imgi_4_glacier-blue3.webp' },
+      { id: 'st-02', name: 'Alpine White', material: 'Alpine White', hex: '#f8fafc', image: '/img/GEELY%20STARRAY%20EM-I%20_%20Geely%20Auto%20Indonesia/imgi_4_alphine-white3.webp' },
       { id: 'st-03', name: 'Cloudveil Silver', material: 'Cloudveil Silver', hex: '#cbd5e1', image: '/img/GEELY%20STARRAY%20EM-I%20_%20Geely%20Auto%20Indonesia/imgi_4_cloundveil-silver3.webp' },
-      { id: 'st-04', name: 'Jungle Green',     material: 'Jungle Green',     hex: '#1f3a2b', image: '/img/GEELY%20STARRAY%20EM-I%20_%20Geely%20Auto%20Indonesia/imgi_4_jungle-green3.webp'      },
-      { id: 'st-05', name: 'Volcanic Grey',    material: 'Volcanic Grey',    hex: '#6b7280', image: '/img/GEELY%20STARRAY%20EM-I%20_%20Geely%20Auto%20Indonesia/imgi_4_volcanic-grey3.webp'     },
-      { id: 'st-06', name: 'Polar Black',      material: 'Polar Black',      hex: '#0b0b0f', image: '/img/GEELY%20STARRAY%20EM-I%20_%20Geely%20Auto%20Indonesia/imgi_4_polar-black3.webp'       },
+      { id: 'st-04', name: 'Jungle Green', material: 'Jungle Green', hex: '#1f3a2b', image: '/img/GEELY%20STARRAY%20EM-I%20_%20Geely%20Auto%20Indonesia/imgi_4_jungle-green3.webp' },
+      { id: 'st-05', name: 'Volcanic Grey', material: 'Volcanic Grey', hex: '#6b7280', image: '/img/GEELY%20STARRAY%20EM-I%20_%20Geely%20Auto%20Indonesia/imgi_4_volcanic-grey3.webp' },
+      { id: 'st-06', name: 'Polar Black', material: 'Polar Black', hex: '#0b0b0f', image: '/img/GEELY%20STARRAY%20EM-I%20_%20Geely%20Auto%20Indonesia/imgi_4_polar-black3.webp' },
     ],
   },
 ];
 
 const CarColorSelector: React.FC = () => {
-  const [activeModel, setActiveModel]           = useState(CAR_MODELS[0]);
-  const [activeColor, setActiveColor]           = useState(CAR_MODELS[0].colors[0]);
-  const [prevColorHex, setPrevColorHex]         = useState<string>(CAR_MODELS[0].colors[0].hex);
-  const [glowVisible, setGlowVisible]           = useState(false);
-  const [exitImageSrc, setExitImageSrc]         = useState<string | null>(null);
+  const [activeModel, setActiveModel] = useState(CAR_MODELS[0]);
+  const [activeColor, setActiveColor] = useState(CAR_MODELS[0].colors[0]);
+  const [prevColorHex, setPrevColorHex] = useState<string>(CAR_MODELS[0].colors[0].hex);
+  const [glowVisible, setGlowVisible] = useState(false);
   const [isModelTransitioning, setIsModelTransitioning] = useState(false);
   const [isColorTransitioning, setIsColorTransitioning] = useState(false);
-  const [prevColor, setPrevColor]               = useState<ColorEntry | null>(null);
-  const [shouldPreload, setShouldPreload]       = useState(false);
+  const [prevColor, setPrevColor] = useState<ColorEntry | null>(null);
+  const [shouldPreload, setShouldPreload] = useState(false);
+  const [prevModelId, setPrevModelId] = useState<string | null>(null);
+  const [prevActiveColorId, setPrevActiveColorId] = useState<string | null>(null);
 
-  const modelTransRef   = useRef(false);
-  const sectionRef      = useRef<HTMLElement | null>(null);
+  const modelTransRef = useRef(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   const legacyCar = CARS.find((car) => car.name === activeModel.name);
   const legacyStats = [
     { icon: Gauge, label: 'ACCEL', value: legacyCar?.specs.acceleration ?? '—' },
-    { icon: Zap,   label: 'POWER', value: legacyCar?.specs.power        ?? '—' },
-    { icon: Wind,  label: 'SPEED', value: legacyCar?.specs.topSpeed     ?? '—' },
+    { icon: Zap, label: 'POWER', value: legacyCar?.specs.power ?? '—' },
+    { icon: Wind, label: 'SPEED', value: legacyCar?.specs.topSpeed ?? '—' },
   ];
 
   // Eagerly preload ALL images for all models once section is near viewport
@@ -108,7 +109,7 @@ const CarColorSelector: React.FC = () => {
         img.src = c.image;
       });
     };
-    
+
     if ('requestIdleCallback' in window) {
       const id = window.requestIdleCallback(preload, { timeout: 800 });
       return () => window.cancelIdleCallback(id);
@@ -131,13 +132,13 @@ const CarColorSelector: React.FC = () => {
     if (model.id === activeModel.id || modelTransRef.current) return;
 
     const newColor = model.colors[0];
-    const exitSrc  = activeColor.image;
 
     const execute = () => {
       modelTransRef.current = true;
       setPrevColorHex(activeColor.hex);
       setGlowVisible(true);
-      setExitImageSrc(exitSrc);
+      setPrevModelId(activeModel.id);
+      setPrevActiveColorId(activeColor.id);
       setActiveModel(model);
       setActiveColor(newColor);
       setPrevColor(null);
@@ -145,7 +146,8 @@ const CarColorSelector: React.FC = () => {
       setIsModelTransitioning(true);
       setTimeout(() => {
         setIsModelTransitioning(false);
-        setExitImageSrc(null);
+        setPrevModelId(null);
+        setPrevActiveColorId(null);
         setPrevColorHex(newColor.hex);
         setGlowVisible(false);
         modelTransRef.current = false;
@@ -178,7 +180,7 @@ const CarColorSelector: React.FC = () => {
     if (img.complete && img.naturalWidth > 0) { execute(); return; }
     let fired = false;
     const t = setTimeout(() => { if (!fired) { fired = true; execute(); } }, 120);
-    img.onload  = () => { if (!fired) { fired = true; clearTimeout(t); execute(); } };
+    img.onload = () => { if (!fired) { fired = true; clearTimeout(t); execute(); } };
     img.onerror = () => { if (!fired) { fired = true; clearTimeout(t); execute(); } };
   };
 
@@ -192,31 +194,31 @@ const CarColorSelector: React.FC = () => {
         prevColorHex fades out, activeColor.hex fades in during transition.
         Using opacity transitions (GPU-composited) instead of transition-colors (re-rasterize).
       */}
-        {/* PREMIUM ATMOSPHERIC DUAL-TONE AURORA GLOW */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden>
-          {/* Primary Glow Blob (Centered behind the car) */}
-          <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-[1200ms] ease-out opacity-25 dark:opacity-35 will-change-[background-color]"
-            style={{
-              width: '60vw',
-              height: '60vw',
-              backgroundColor: activeColor.hex,
-              filter: 'blur(130px)',
-            }}
-          />
-          {/* Secondary Offset Accent Blob (Shifts hue dynamically to create a gorgeous mesh effect) */}
-          <div
-            className="absolute top-[35%] left-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-[1600ms] ease-out opacity-15 dark:opacity-25 will-change-[background-color]"
-            style={{
-              width: '40vw',
-              height: '40vw',
-              backgroundColor: activeColor.hex,
-              filter: 'hue-rotate(30deg) saturate(1.2) blur(100px)',
-            }}
-          />
-        </div>
-        {/* Stable dark vignette — never changes */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_35%,rgba(0,0,0,0.15)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_35%,rgba(0,0,0,0.5)_100%)]" />
+      {/* PREMIUM ATMOSPHERIC DUAL-TONE AURORA GLOW */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden>
+        {/* Primary Glow Blob (Centered behind the car) */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-[1200ms] ease-out opacity-25 dark:opacity-35 will-change-[background-color]"
+          style={{
+            width: '60vw',
+            height: '60vw',
+            backgroundColor: activeColor.hex,
+            filter: 'blur(130px)',
+          }}
+        />
+        {/* Secondary Offset Accent Blob (Shifts hue dynamically to create a gorgeous mesh effect) */}
+        <div
+          className="absolute top-[35%] left-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-[1600ms] ease-out opacity-15 dark:opacity-25 will-change-[background-color]"
+          style={{
+            width: '40vw',
+            height: '40vw',
+            backgroundColor: activeColor.hex,
+            filter: 'hue-rotate(30deg) saturate(1.2) blur(100px)',
+          }}
+        />
+      </div>
+      {/* Stable dark vignette — never changes */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_35%,rgba(0,0,0,0.15)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_35%,rgba(0,0,0,0.5)_100%)]" />
 
 
       <div className="container mx-auto relative z-10">
@@ -247,16 +249,14 @@ const CarColorSelector: React.FC = () => {
                     key={model.id}
                     onClick={() => changeModel(model)}
                     onMouseEnter={() => preloadModelOnHover(model)}
-                    className={`relative w-full px-4 py-4 md:px-8 md:py-6 xl:px-10 xl:py-6 rounded-2xl xl:rounded-full text-left transition-[background-color,border-color,box-shadow,color,opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden group border will-change-transform ${
-                      activeModel.id === model.id
+                    className={`relative w-full px-4 py-4 md:px-8 md:py-6 xl:px-10 xl:py-6 rounded-2xl xl:rounded-full text-left transition-[background-color,border-color,box-shadow,color,opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden group border will-change-transform ${activeModel.id === model.id
                         ? 'bg-black/85 text-white border-slate-300 shadow-[0_25px_60px_-12px_rgba(15,23,42,0.18)] dark:bg-white dark:text-black dark:border-white dark:shadow-[0_25px_60px_-12px_rgba(0,0,0,0.4)]'
                         : 'bg-slate-100 dark:bg-slate-900 md:dark:bg-white/5 md:backdrop-blur-md border-slate-300 dark:border-white/5 text-slate-400 dark:text-white/40 hover:bg-white hover:border-slate-300 hover:text-slate-700 hover:shadow-[0_12px_30px_-16px_rgba(15,23,42,0.35)] dark:hover:bg-slate-800 dark:md:hover:bg-white/10 dark:hover:text-white/70'
-                    }`}
+                      }`}
                   >
                     <span
-                      className={`pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                        activeModel.id === model.id ? 'opacity-100' : 'group-hover:opacity-60'
-                      }`}
+                      className={`pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${activeModel.id === model.id ? 'opacity-100' : 'group-hover:opacity-60'
+                        }`}
                       style={{
                         background: activeModel.id === model.id
                           ? `radial-gradient(circle at 85% 50%, ${activeColor.hex}30 0%, transparent 42%)`
@@ -301,11 +301,10 @@ const CarColorSelector: React.FC = () => {
                       onClick={() => changeColor(color)}
                       title={color.name}
                       aria-label={`Select ${color.name}`}
-                      className={`relative w-10 h-10 rounded-full transition-all duration-300 transform ${
-                        isActive
+                      className={`relative w-10 h-10 rounded-full transition-all duration-300 transform ${isActive
                           ? 'ring-2 ring-slate-900 dark:ring-white ring-offset-4 ring-offset-white dark:ring-offset-slate-950 scale-110 z-10'
                           : 'opacity-40 hover:opacity-100 hover:scale-105'
-                      }`}
+                        }`}
                       style={isActive ? { boxShadow: `0 0 0 4px ${color.hex}40` } : undefined}
                     >
                       <div
@@ -354,60 +353,86 @@ const CarColorSelector: React.FC = () => {
               <div className="relative group">
 
                 {/* ── Car Image Frame ── */}
-                <div 
+                <div
                   className="car-frame relative overflow-hidden rounded-[2rem] md:rounded-[4rem] border shadow-2xl transition-colors duration-500"
-                  style={{ 
+                  style={{
                     borderColor: `${activeColor.hex}30`,
                     backgroundColor: 'rgba(15, 23, 42, 0.05)'
                   }}
                 >
                   {/* Internal Rim Light — Hidden on mobile for performance */}
-                  <div 
+                  <div
                     className="absolute inset-0 pointer-events-none z-10 opacity-20 hidden md:block"
-                    style={{ 
+                    style={{
                       boxShadow: `inset 0 0 60px 0 ${activeColor.hex}20`,
                     }}
                   />
                   {/* Fixed aspect ratio container */}
                   <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
 
-                    {/* Pre-mounted color layers of the active model for instant hardware-accelerated opacity transition */}
-                    {activeModel.colors.map((color) => {
-                      const isActive = activeColor.id === color.id;
+                    {/* Pre-mount all models and their colors for 100% hardware-accelerated animations */}
+                    {CAR_MODELS.map((model) => {
+                      const isCurrentModel = activeModel.id === model.id;
+                      const wasCurrentModel = prevModelId === model.id;
+                      const isVisible = isCurrentModel || (isModelTransitioning && wasCurrentModel);
+
+                      if (!isVisible) return null;
+
+                      // Transition class for slide animations
+                      let transitionClass = '';
+                      if (isModelTransitioning) {
+                        if (isCurrentModel) {
+                          transitionClass = 'model-enter';
+                        } else if (wasCurrentModel) {
+                          transitionClass = 'model-exit';
+                        }
+                      }
+
+                      // Opacity, Z-Index and pointer events
+                      const opacity = isCurrentModel ? 1 : (wasCurrentModel && isModelTransitioning ? 1 : 0);
+                      const zIndex = isCurrentModel ? 3 : (wasCurrentModel && isModelTransitioning ? 2 : 1);
+                      const pointerEvents = isCurrentModel ? 'auto' : 'none';
+
+                      const activeColorIdInModel = model.id === activeModel.id
+                        ? activeColor.id
+                        : prevActiveColorId;
+
                       return (
                         <div
-                          key={color.id}
-                          className={`car-layer transition-opacity duration-300 ease-in-out ${
-                            isActive && isModelTransitioning ? 'model-enter' : ''
-                          }`}
+                          key={model.id}
+                          className={`absolute inset-0 w-full h-full ${transitionClass}`}
                           style={{
-                            opacity: isActive ? 1 : 0,
-                            zIndex: isActive ? 3 : 1,
-                            pointerEvents: isActive ? 'auto' : 'none',
+                            opacity,
+                            zIndex,
+                            pointerEvents,
+                            willChange: 'transform, opacity',
                           }}
                         >
-                          <img
-                            src={color.image}
-                            alt={`${activeModel.name} ${color.name}`}
-                            className="car-image"
-                            loading="eager"
-                            decoding="async"
-                          />
+                          {model.colors.map((color) => {
+                            const isActiveColor = activeColorIdInModel === color.id;
+                            return (
+                              <div
+                                key={color.id}
+                                className="car-layer transition-opacity duration-300 ease-in-out"
+                                style={{
+                                  opacity: isActiveColor ? 1 : 0,
+                                  zIndex: isActiveColor ? 3 : 1,
+                                  pointerEvents: isActiveColor ? 'auto' : 'none',
+                                }}
+                              >
+                                <img
+                                  src={color.image}
+                                  alt={`${model.name} ${color.name}`}
+                                  className="car-image"
+                                  loading="eager"
+                                  decoding="async"
+                                />
+                              </div>
+                            );
+                          })}
                         </div>
                       );
                     })}
-
-                    {/* MODEL EXIT layer (only active during model swaps) */}
-                    {exitImageSrc && (
-                      <div key={`model-exit-${exitImageSrc}`} className="car-layer model-exit" style={{ zIndex: 4 }}>
-                        <img
-                          src={exitImageSrc}
-                          alt="previous model"
-                          className="car-image"
-                          decoding="async"
-                        />
-                      </div>
-                    )}
 
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 to-transparent pointer-events-none z-[5]" />
                   </div>
@@ -435,9 +460,9 @@ const CarColorSelector: React.FC = () => {
                 {/* Core Shadow */}
                 <div className="absolute inset-0 bg-black/40 dark:bg-black/60 blur-xl md:blur-2xl rounded-full scale-y-25" />
                 {/* Colored Reflection */}
-                <div 
+                <div
                   className="absolute inset-0 blur-xl md:blur-[40px] rounded-full scale-y-50 transition-opacity duration-500"
-                  style={{ 
+                  style={{
                     backgroundColor: activeColor.hex,
                     opacity: 0.15
                   }}
