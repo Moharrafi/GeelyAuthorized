@@ -192,24 +192,26 @@ const CarColorSelector: React.FC = () => {
         prevColorHex fades out, activeColor.hex fades in during transition.
         Using opacity transitions (GPU-composited) instead of transition-colors (re-rasterize).
       */}
-        {/* PREMIUM ATMOSPHERIC GLOW — Zero Blur (Ultra Fast) */}
+        {/* PREMIUM ATMOSPHERIC DUAL-TONE AURORA GLOW */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden>
-          {/* Previous Color Layer (Fades out) */}
+          {/* Primary Glow Blob (Centered behind the car) */}
           <div
-            className="absolute inset-0 transition-opacity duration-500 ease-out"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-[1200ms] ease-out opacity-25 dark:opacity-35 will-change-[background-color]"
             style={{
-              background: `radial-gradient(50% 50% at 50% 50%, ${prevColorHex} 0%, transparent 100%)`,
-              opacity: isColorTransitioning || isModelTransitioning ? 0.3 : 0,
-              transform: 'translateZ(0)',
+              width: '60vw',
+              height: '60vw',
+              backgroundColor: activeColor.hex,
+              filter: 'blur(130px)',
             }}
           />
-          {/* Active Color Layer (Fades in) */}
+          {/* Secondary Offset Accent Blob (Shifts hue dynamically to create a gorgeous mesh effect) */}
           <div
-            className="absolute inset-0 transition-opacity duration-500 ease-out"
+            className="absolute top-[35%] left-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-[1600ms] ease-out opacity-15 dark:opacity-25 will-change-[background-color]"
             style={{
-              background: `radial-gradient(50% 50% at 50% 50%, ${activeColor.hex} 0%, transparent 100%)`,
-              opacity: isColorTransitioning || isModelTransitioning ? 0 : 0.3,
-              transform: 'translateZ(0)',
+              width: '40vw',
+              height: '40vw',
+              backgroundColor: activeColor.hex,
+              filter: 'hue-rotate(30deg) saturate(1.2) blur(100px)',
             }}
           />
         </div>
