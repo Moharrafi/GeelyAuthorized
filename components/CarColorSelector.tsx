@@ -151,7 +151,7 @@ const CarColorSelector: React.FC = () => {
         setPrevColorHex(newColor.hex);
         setGlowVisible(false);
         modelTransRef.current = false;
-      }, 760);
+      }, 500);
     };
 
     execute();
@@ -250,8 +250,8 @@ const CarColorSelector: React.FC = () => {
                     onClick={() => changeModel(model)}
                     onMouseEnter={() => preloadModelOnHover(model)}
                     className={`relative w-full px-4 py-4 md:px-8 md:py-6 xl:px-10 xl:py-6 rounded-2xl xl:rounded-full text-left transition-[background-color,border-color,box-shadow,color,opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden group border will-change-transform ${activeModel.id === model.id
-                        ? 'bg-black/85 text-white border-slate-300 shadow-[0_25px_60px_-12px_rgba(15,23,42,0.18)] dark:bg-white dark:text-black dark:border-white dark:shadow-[0_25px_60px_-12px_rgba(0,0,0,0.4)]'
-                        : 'bg-slate-100 dark:bg-slate-900 md:dark:bg-white/5 md:backdrop-blur-md border-slate-300 dark:border-white/5 text-slate-400 dark:text-white/40 hover:bg-white hover:border-slate-300 hover:text-slate-700 hover:shadow-[0_12px_30px_-16px_rgba(15,23,42,0.35)] dark:hover:bg-slate-800 dark:md:hover:bg-white/10 dark:hover:text-white/70'
+                      ? 'bg-black/85 text-white border-slate-300 shadow-[0_25px_60px_-12px_rgba(15,23,42,0.18)] dark:bg-white dark:text-black dark:border-white dark:shadow-[0_25px_60px_-12px_rgba(0,0,0,0.4)]'
+                      : 'bg-slate-100 dark:bg-slate-900 md:dark:bg-white/5 md:backdrop-blur-md border-slate-300 dark:border-white/5 text-slate-400 dark:text-white/40 hover:bg-white hover:border-slate-300 hover:text-slate-700 hover:shadow-[0_12px_30px_-16px_rgba(15,23,42,0.35)] dark:hover:bg-slate-800 dark:md:hover:bg-white/10 dark:hover:text-white/70'
                       }`}
                   >
                     <span
@@ -302,8 +302,8 @@ const CarColorSelector: React.FC = () => {
                       title={color.name}
                       aria-label={`Select ${color.name}`}
                       className={`relative w-10 h-10 rounded-full transition-all duration-300 transform ${isActive
-                          ? 'ring-2 ring-slate-900 dark:ring-white ring-offset-4 ring-offset-white dark:ring-offset-slate-950 scale-110 z-10'
-                          : 'opacity-40 hover:opacity-100 hover:scale-105'
+                        ? 'ring-2 ring-slate-900 dark:ring-white ring-offset-4 ring-offset-white dark:ring-offset-slate-950 scale-110 z-10'
+                        : 'opacity-40 hover:opacity-100 hover:scale-105'
                         }`}
                       style={isActive ? { boxShadow: `0 0 0 4px ${color.hex}40` } : undefined}
                     >
@@ -400,7 +400,7 @@ const CarColorSelector: React.FC = () => {
                       return (
                         <div
                           key={model.id}
-                          className={`absolute inset-0 w-full h-full ${transitionClass}`}
+                          className={`car-layer ${transitionClass}`}
                           style={{
                             opacity,
                             zIndex,
@@ -543,11 +543,11 @@ const CarColorSelector: React.FC = () => {
         /* MODEL TRANSITION — Fluid dynamic slide */
         .car-layer.model-enter {
           z-index: 3;
-          animation: slide-in-right 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
+          animation: slide-in-right 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         .car-layer.model-exit {
           z-index: 2;
-          animation: slide-out-left 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
+          animation: slide-out-left 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         
         @keyframes slide-in-right {
