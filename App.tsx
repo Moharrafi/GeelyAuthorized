@@ -1,5 +1,6 @@
 
 import React, { useState, useRef, useEffect, useCallback, Suspense, lazy } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import LazySection from './components/LazySection';
@@ -248,6 +249,7 @@ function App() {
           />
         </Suspense>
       ) : null}
+      <Analytics />
     </div>
   );
 }
