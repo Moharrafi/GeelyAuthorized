@@ -195,26 +195,63 @@ const CarColorSelector: React.FC = () => {
       */}
       {/* PREMIUM ATMOSPHERIC DUAL-TONE AURORA GLOW */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden>
-        {/* Primary Glow Blob (Centered behind the car) */}
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-[1200ms] ease-out opacity-25 dark:opacity-35 will-change-[background-color]"
-          style={{
-            width: '60vw',
-            height: '60vw',
-            backgroundColor: activeColor.hex,
-            filter: 'blur(130px)',
-          }}
-        />
-        {/* Secondary Offset Accent Blob (Shifts hue dynamically to create a gorgeous mesh effect) */}
-        <div
-          className="absolute top-[35%] left-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-[1600ms] ease-out opacity-15 dark:opacity-25 will-change-[background-color]"
-          style={{
-            width: '40vw',
-            height: '40vw',
-            backgroundColor: activeColor.hex,
-            filter: 'hue-rotate(30deg) saturate(1.2) blur(100px)',
-          }}
-        />
+        {/* Previous Glow Layer (Fades Out) */}
+        {glowVisible && prevColorHex && (
+          <div className="absolute inset-0 transition-opacity duration-[760ms] ease-out opacity-100 animate-[fade-out_760ms_ease-out_forwards]">
+            {/* Primary Glow Blob */}
+            <div
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+              style={{
+                width: '60vw',
+                height: '60vw',
+                backgroundColor: prevColorHex,
+                filter: 'blur(130px)',
+                opacity: 0.25,
+              }}
+            />
+            {/* Secondary Offset Accent Blob */}
+            <div
+              className="absolute top-[35%] left-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full"
+              style={{
+                width: '40vw',
+                height: '40vw',
+                backgroundColor: prevColorHex,
+                filter: 'hue-rotate(30deg) saturate(1.2) blur(100px)',
+                opacity: 0.15,
+              }}
+            />
+          </div>
+        )}
+
+        {/* Active Glow Layer (Fades In) */}
+        <div 
+          className={`absolute inset-0 transition-all duration-[760ms] ease-out ${
+            glowVisible ? 'animate-[fade-in_760ms_ease-out_both]' : ''
+          }`}
+        >
+          {/* Primary Glow Blob */}
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              width: '60vw',
+              height: '60vw',
+              backgroundColor: activeColor.hex,
+              filter: 'blur(130px)',
+              opacity: 0.25,
+            }}
+          />
+          {/* Secondary Offset Accent Blob */}
+          <div
+            className="absolute top-[35%] left-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              width: '40vw',
+              height: '40vw',
+              backgroundColor: activeColor.hex,
+              filter: 'hue-rotate(30deg) saturate(1.2) blur(100px)',
+              opacity: 0.15,
+            }}
+          />
+        </div>
       </div>
       {/* Stable dark vignette — never changes */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_35%,rgba(0,0,0,0.15)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_35%,rgba(0,0,0,0.5)_100%)]" />
@@ -414,7 +451,7 @@ const CarColorSelector: React.FC = () => {
                         alt={activeModel.name}
                         className="car-image"
                         loading="eager"
-                        decoding="sync"
+                        decoding="async"
                       />
                     </div>
 
@@ -520,6 +557,14 @@ const CarColorSelector: React.FC = () => {
           to   { opacity: 1; }
         }
         @keyframes img-dismiss {
+          from { opacity: 1; }
+          to   { opacity: 0; }
+        }
+        @keyframes fade-in {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        @keyframes fade-out {
           from { opacity: 1; }
           to   { opacity: 0; }
         }

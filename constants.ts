@@ -10,7 +10,7 @@ export const CARS: Car[] = [
     pricePro: 'Rp 255.000.000',
     priceMax: 'Rp 285.000.000',
     category: 'SUV',
-    image: 'https://global.geely.com/-/media/project/web-portal/2026/news/march/geely-ex2-world-number-1/geely-ex2---cover-picture.jpg',
+    image: 'https://geely.com.uy/wp-content/uploads/2025/12/315%C2%B0-scaled.jpg',
     description: 'Geely EX2 adalah SUV listrik kompak yang dirancang untuk kehidupan urban modern. Ditenagai motor listrik 85 kW (114 HP) dengan baterai LFP 40.8 kWh, EX2 mampu menempuh hingga 395 km (NEDC) dalam sekali pengisian. Pengisian cepat DC 30%-80% hanya dalam 25 menit, serta dilengkapi fitur V2L untuk suplai daya eksternal.',
     features: [
       'Jangkauan 395 km (NEDC)',
