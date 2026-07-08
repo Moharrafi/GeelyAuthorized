@@ -8,6 +8,7 @@ interface ColorEntry {
   material: string;
   hex: string;
   image: string;
+  isNew?: boolean;
 }
 
 interface CarModel {
@@ -28,7 +29,7 @@ const CAR_MODELS: CarModel[] = [
     description: 'The Geely EX2 blends compact agility with smart electric sophistication.',
     colors: [
       { id: 'ex2-01', name: 'Rose', material: 'Rose', hex: '#d8b4b7', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(pink).webp' },
-      { id: 'ex2-02', name: 'Sky', material: 'Sky', hex: '#8fb4e8', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(biru).webp' },
+      { id: 'ex2-02', name: 'Aether Green', material: 'Aether Green', hex: '#aedcc0', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(hijau).png', isNew: true },
       { id: 'ex2-03', name: 'Lemon', material: 'Lemon', hex: '#fef3c7', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(kuning).webp' },
       { id: 'ex2-04', name: 'Cloud', material: 'Cloud', hex: '#f8fafc', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(putih).webp' },
       { id: 'ex2-05', name: 'Steel', material: 'Steel', hex: '#6b7280', image: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(abu).webp' },
@@ -312,6 +313,11 @@ const CarColorSelector: React.FC = () => {
                       {isActive && (
                         <span className="absolute inset-0 rounded-full swatch-pulse-ring" style={{ borderColor: color.hex }} />
                       )}
+                      {color.isNew && (
+                        <span className="absolute -top-1 -right-1 w-3 h-3 bg-accent border border-white dark:border-slate-950 rounded-full flex items-center justify-center" title="New Color">
+                          <span className="w-1.5 h-1.5 bg-slate-950 dark:bg-white rounded-full" />
+                        </span>
+                      )}
                     </button>
                   );
                 })}
@@ -319,7 +325,12 @@ const CarColorSelector: React.FC = () => {
 
               {/* Color name — key triggers remount + slide-up on every change */}
               <div key={activeColor.id} className="color-info-enter pt-6 border-t border-slate-400 dark:border-white/6">
-                <div className="text-slate-900 dark:text-white font-black text-2xl tracking-tighter mb-1">{activeColor.name}</div>
+                <div className="flex items-center gap-2.5 mb-1">
+                  <div className="text-slate-900 dark:text-white font-black text-2xl tracking-tighter">{activeColor.name}</div>
+                  {activeColor.isNew && (
+                    <span className="px-2 py-0.5 text-[9px] font-black uppercase tracking-wider bg-accent text-slate-950 rounded-full">New</span>
+                  )}
+                </div>
                 <div className="text-[11px] text-slate-400 dark:text-white/40 font-bold uppercase tracking-widest">{activeColor.material}</div>
               </div>
             </div>

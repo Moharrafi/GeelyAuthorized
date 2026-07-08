@@ -217,7 +217,7 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                   {/* <div className="w-full p-2 rounded-[2.5rem] md:rounded-[3rem] shadow-[0_24px_70px_rgba(15,23,42,0.08),0_8px_20px_rgba(15,23,42,0.04)] dark:shadow-2xl"> */}
                   <div
                     onClick={() => setSelectedCar(car)}
-                    className="relative w-full bg-slate-900 rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-slate-700 group/card cursor-pointer flex flex-col lg:flex-row contain-content"
+                    className="relative w-full bg-gradient-to-br from-slate-900 to-slate-950 rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-slate-800/80 hover:border-slate-700/80 transition-all duration-500 group/card cursor-pointer flex flex-col lg:flex-row contain-content shadow-2xl shadow-black/40"
                   >
                     {/* Image Area */}
                     <div className="w-full lg:w-[60%] relative overflow-hidden aspect-[16/10] lg:aspect-auto lg:min-h-[600px] bg-slate-800">
@@ -234,79 +234,85 @@ const CarShowcase: React.FC<CarShowcaseProps> = ({ onTestDriveClick }) => {
                         onLoad={() => handleImageLoad(car.id)}
                         className="block w-full h-full object-cover object-center transition-transform duration-[1.5s] ease-out group-hover/card:scale-110"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-slate-950/80 via-transparent to-transparent"></div>
+                      {/* Unified blending gradient separator */}
+                      <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-slate-900/90 via-slate-900/20 to-transparent lg:from-transparent lg:via-slate-900/10 lg:to-slate-900 z-20"></div>
 
-                      <div className="absolute top-6 left-6 md:top-10 md:left-10">
-                        <span className="px-4 md:px-6 py-2 bg-accent text-slate-950 text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] rounded-full shadow-xl">
+                      <div className="absolute top-6 left-6 md:top-10 md:left-10 z-25">
+                        <span className="px-3.5 py-1.5 bg-accent text-slate-950 text-[8px] md:text-[9px] font-black uppercase tracking-[0.25em] rounded-full shadow-xl">
                           {car.category} Collection
                         </span>
                       </div>
                     </div>
 
                     {/* Details Area */}
-                    <div className="w-full lg:w-[40%] p-6 md:p-10 lg:p-16 flex flex-col justify-center">
-                      <div className="mb-2">
-                        <span className="text-accent text-[9px] md:text-[10px] font-black uppercase tracking-widest">{car.tagline}</span>
+                    <div className="w-full lg:w-[40%] p-6 md:p-10 lg:p-14 flex flex-col justify-center bg-slate-950/20 lg:bg-slate-950/10 relative z-30">
+                      {/* Tagline Pill */}
+                      <div className="mb-4">
+                        <span className="inline-block px-3 py-1 bg-accent/10 border border-accent/25 text-accent text-[8px] md:text-[9px] font-bold uppercase tracking-[0.2em] rounded-full">
+                          {car.tagline}
+                        </span>
                       </div>
-                      <h3 className="font-bold text-white mb-8 md:mb-6 tracking-tighter leading-none text-2xl md:text-5xl">
+                      
+                      {/* Car Name */}
+                      <h3 className="font-bold text-white mb-6 md:mb-8 tracking-tighter leading-none text-2xl md:text-[2.75rem] group-hover/card:text-accent transition-colors duration-300">
                         {car.name}
                       </h3>
 
-                      <div className="grid grid-cols-3 lg:flex lg:flex-col gap-6 md:gap-8 mb-10 md:mb-12">
-                        <div className="flex flex-col lg:flex-row items-center lg:items-center gap-3 lg:gap-6 text-center lg:text-left">
-                          <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-slate-800 flex items-center justify-center text-accent shadow-inner">
-                            <Gauge size={20} className="md:w-6 md:h-6" />
+                      {/* Specs Row */}
+                      <div className="grid grid-cols-3 gap-3 md:gap-4 mb-8 md:mb-10">
+                        <div className="flex flex-col items-center p-3 bg-slate-950/60 border border-slate-800/60 rounded-2xl hover:bg-slate-950/90 hover:border-slate-700/60 transition-all duration-300 shadow-md">
+                          <div className="w-8 h-8 rounded-xl bg-slate-900/80 border border-slate-800/60 flex items-center justify-center text-accent mb-2">
+                            <Gauge size={16} />
                           </div>
-                          <div className="flex flex-col">
-                            <span className="text-[8px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">Accel</span>
-                            <span className="text-sm md:text-2xl font-bold text-white">{car.specs.acceleration}</span>
-                          </div>
+                          <span className="text-[8px] md:text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-0.5">Accel</span>
+                          <span className="text-xs md:text-sm font-bold text-white">{car.specs.acceleration}</span>
                         </div>
-                        <div className="flex flex-col lg:flex-row items-center lg:items-center gap-3 lg:gap-6 text-center lg:text-left">
-                          <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-slate-800 flex items-center justify-center text-accent shadow-inner">
-                            <Zap size={20} className="md:w-6 md:h-6" />
+
+                        <div className="flex flex-col items-center p-3 bg-slate-950/60 border border-slate-800/60 rounded-2xl hover:bg-slate-950/90 hover:border-slate-700/60 transition-all duration-300 shadow-md">
+                          <div className="w-8 h-8 rounded-xl bg-slate-900/80 border border-slate-800/60 flex items-center justify-center text-accent mb-2">
+                            <Zap size={16} />
                           </div>
-                          <div className="flex flex-col">
-                            <span className="text-[8px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">Power</span>
-                            <span className="text-sm md:text-2xl font-bold text-white">{car.specs.power}</span>
-                          </div>
+                          <span className="text-[8px] md:text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-0.5">Power</span>
+                          <span className="text-xs md:text-sm font-bold text-white truncate max-w-full">{car.specs.power.split('/')[0]}</span>
                         </div>
-                        <div className="flex flex-col lg:flex-row items-center lg:items-center gap-3 lg:gap-6 text-center lg:text-left">
-                          <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-slate-800 flex items-center justify-center text-accent shadow-inner">
-                            <Wind size={20} className="md:w-6 md:h-6" />
+
+                        <div className="flex flex-col items-center p-3 bg-slate-950/60 border border-slate-800/60 rounded-2xl hover:bg-slate-950/90 hover:border-slate-700/60 transition-all duration-300 shadow-md">
+                          <div className="w-8 h-8 rounded-xl bg-slate-900/80 border border-slate-800/60 flex items-center justify-center text-accent mb-2">
+                            <Wind size={16} />
                           </div>
-                          <div className="flex flex-col">
-                            <span className="text-[8px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">Speed</span>
-                            <span className="text-sm md:text-2xl font-bold text-white">{car.specs.topSpeed}</span>
-                          </div>
+                          <span className="text-[8px] md:text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-0.5">Speed</span>
+                          <span className="text-xs md:text-sm font-bold text-white">{car.specs.topSpeed}</span>
                         </div>
                       </div>
 
-                      <div className="relative flex items-center border-t border-slate-800 pt-8 pr-14 md:pr-16">
-                        <div>
-                          {car.pricePro && car.priceMax ? (
-                            <>
-                              <div className="text-[9px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-2">OTR Jakarta*</div>
-                              <div className="flex flex-col gap-1.5">
-                                <div className="flex items-baseline gap-2">
-                                  <span className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-widest w-8">Pro</span>
-                                  <span className="text-base md:text-2xl font-bold text-white tracking-tighter">{car.pricePro}</span>
+                      {/* Price Section */}
+                      <div className="relative flex items-center justify-between border-t border-slate-800/85 pt-6 md:pt-8">
+                        <div className="flex flex-col gap-1">
+                          <div className="text-[8px] md:text-[9px] text-slate-500 font-bold uppercase tracking-widest">Harga OTR Jakarta</div>
+                          <div className="flex flex-wrap items-center gap-3 mt-1.5">
+                            {car.pricePro && car.priceMax ? (
+                              <>
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[7.5px] font-black text-slate-400 bg-slate-800/80 border border-slate-700/40 px-1.5 py-0.5 rounded uppercase tracking-wider">Pro</span>
+                                  <span className="text-sm md:text-lg lg:text-xl font-bold text-white tracking-tight">{car.pricePro}</span>
                                 </div>
-                                <div className="flex items-baseline gap-2">
-                                  <span className="text-[9px] md:text-[10px] font-black text-accent uppercase tracking-widest w-8">Max</span>
-                                  <span className="text-base md:text-2xl font-bold text-white tracking-tighter">{car.priceMax}</span>
+                                <div className="w-px h-3.5 bg-slate-800" />
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[7.5px] font-black text-accent bg-accent/15 border border-accent/25 px-1.5 py-0.5 rounded uppercase tracking-wider">Max</span>
+                                  <span className="text-sm md:text-lg lg:text-xl font-bold text-white tracking-tight">{car.priceMax}</span>
                                 </div>
-                              </div>
-                            </>
-                          ) : (
-                            <>
-                              <div className="text-[9px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest">OTR Jakarta*</div>
-                              <div className="text-xl md:text-3xl font-bold text-white tracking-tighter">{car.price}</div>
-                            </>
-                          )}
+                              </>
+                            ) : (
+                              <span className="text-base md:text-xl lg:text-2xl font-bold text-white tracking-tighter">{car.price}</span>
+                            )}
+                          </div>
                         </div>
-                        <button aria-label="View car details" className="absolute right-0 top-1/2 -translate-y-1/2 -mt-6 md:mt-0 w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center text-slate-950 shadow-2xl hover:bg-accent transition-all duration-300 group/btn">
-                          <ArrowRight size={22} className="md:w-7 md:h-7 group-hover/btn:translate-x-1 transition-transform" />
+
+                        <button 
+                          aria-label="View car details" 
+                          className="w-10 h-10 md:w-12 md:h-12 bg-white text-slate-950 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:bg-accent hover:scale-105 active:scale-95 group/btn ml-4 shrink-0"
+                        >
+                          <ArrowRight size={18} className="md:w-5 md:h-5 group-hover/btn:translate-x-1 transition-transform" />
                         </button>
                       </div>
                     </div>

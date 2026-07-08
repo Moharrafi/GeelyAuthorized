@@ -10,7 +10,7 @@ export const CARS: Car[] = [
     pricePro: 'Rp 255.000.000',
     priceMax: 'Rp 285.000.000',
     category: 'SUV',
-    image: 'https://geelywonder.id/public/domain/g/geelywonder.id/images/exterior_color_ex2_06.jpg',
+    image: 'https://global.geely.com/-/media/project/web-portal/2026/news/march/geely-ex2-world-number-1/geely-ex2---cover-picture.jpg',
     description: 'Geely EX2 adalah SUV listrik kompak yang dirancang untuk kehidupan urban modern. Ditenagai motor listrik 85 kW (114 HP) dengan baterai LFP 40.8 kWh, EX2 mampu menempuh hingga 395 km (NEDC) dalam sekali pengisian. Pengisian cepat DC 30%-80% hanya dalam 25 menit, serta dilengkapi fitur V2L untuk suplai daya eksternal.',
     features: [
       'Jangkauan 395 km (NEDC)',
@@ -37,7 +37,7 @@ export const CARS: Car[] = [
     pricePro: 'Rp 475.000.000',
     priceMax: 'Rp 515.000.000',
     category: 'SUV',
-    image: 'https://promogeelyofficial.id/wp-content/uploads/2025/09/exterior-01-768x432.webp',
+    image: 'https://i0.wp.com/geely.premiumgroup.co.id/wp-content/uploads/2025/05/produk1.jpg?ssl=1',
     description: 'Geely EX5 adalah SUV listrik premium berbasis platform GEA (Global Electric Architecture). Ditenagai motor 160 kW (214 HP) dengan torsi 320 Nm, EX5 mampu berlari 0–100 km/h dalam 6.9 detik and menempuh hingga 495 km (NEDC). Teknologi DC fast charging mengisi baterai 60.22 kWh dari 30% ke 80% hanya dalam 20 menit.',
     features: [
       'Jangkauan 495 km (NEDC)',

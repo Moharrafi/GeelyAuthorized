@@ -15,17 +15,15 @@ const Features = lazy(() => import('./components/Features'));
 const PromoGJAW = lazy(() => import('./components/PromoGJAW'));
 const SalesProfilePreview = lazy(() => import('./components/SalesProfilePreview'));
 const Footer = lazy(() => import('./components/Footer'));
-const CreditSimulator = lazy(() => import('./components/CreditSimulator'));
 const Testimonials = lazy(() => import('./components/Testimonials'));
 const ModelComparison = lazy(() => import('./components/ModelComparison'));
 
 type View = 'home' | 'about' | 'specifications';
-type Theme = 'dark' | 'light';
 
 function App() {
   const [isTestDriveOpen, setTestDriveOpen] = useState(false);
   const [currentView, setCurrentView] = useState<View>('home');
-  const [theme, setTheme] = useState<Theme>('dark');
+  const theme = 'dark';
   const [isChatReady, setIsChatReady] = useState(false);
   const chatRef = useRef<ChatAssistantHandle>(null);
   const whatsappNumber = "6283197483984";
@@ -35,14 +33,9 @@ function App() {
 
   useEffect(() => {
     const root = window.document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-      root.classList.remove('light');
-    } else {
-      root.classList.add('light');
-      root.classList.remove('dark');
-    }
-  }, [theme]);
+    root.classList.add('dark');
+    root.classList.remove('light');
+  }, []);
 
   useEffect(() => {
     let idleId: number | undefined;
@@ -63,9 +56,7 @@ function App() {
     };
   }, []);
 
-  const toggleTheme = useCallback(() => {
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  }, []);
+
 
   const handleTestDriveClick = useCallback(() => {
     setTestDriveOpen(true);
@@ -121,7 +112,6 @@ function App() {
         onNavigate={navigateTo}
         currentView={currentView}
         theme={theme}
-        onToggleTheme={toggleTheme}
       />
 
       <main>
@@ -148,13 +138,6 @@ function App() {
             <Suspense fallback={<div className="min-h-[600px]" />}>
               <LazySection placeholderClassName="min-h-[600px]">
                 <ModelComparison />
-              </LazySection>
-            </Suspense>
-
-            {/* Credit Simulator — Conversion booster */}
-            <Suspense fallback={<div className="min-h-[600px]" />}>
-              <LazySection id="credit" placeholderClassName="min-h-[600px]" className="scroll-mt-20">
-                <CreditSimulator />
               </LazySection>
             </Suspense>
 

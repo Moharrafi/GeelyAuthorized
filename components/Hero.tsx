@@ -114,48 +114,48 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick, onBookingClick }) => {
             </div>
 
             {/* Dark overlays */}
-            <div className="absolute inset-0 bg-slate-950/40 light-hero-overlay" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent light-hero-gradient" />
+            <div className="absolute inset-0 bg-slate-950/30 md:bg-slate-950/40 light-hero-overlay" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/15 to-transparent md:from-slate-950 md:via-slate-950/20 md:to-transparent light-hero-gradient" />
 
             {/* ── Text content — staggered rise ── */}
-            <div className="container mx-auto px-6 h-full flex items-center relative z-30">
-              <div className="w-full max-w-3xl -mt-4 sm:-mt-4 md:mt-0 px-0">
+            <div className="container mx-auto px-6 h-full flex flex-col md:flex-row md:items-center relative z-30">
+              <div className="w-full max-w-3xl h-full flex flex-col justify-between pt-28 pb-28 md:justify-center md:h-auto md:py-0 px-0">
 
-                {/* Badge */}
-                  {/* Badge removed as per user request */}
+                {/* Top content (Title & Subtitle) on Mobile */}
+                <div className="text-center md:text-left flex flex-col items-center md:items-start pt-4 sm:pt-8 md:pt-0">
+                  {/* Heading */}
+                  <h1
+                    key={`h1-${actKey}`}
+                    className="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-bold leading-tight mb-3 md:mb-6 text-white tracking-tight"
+                    style={{
+                      opacity: 0,
+                      animation: isActive
+                        ? `hero-text-rise 700ms 260ms cubic-bezier(0.4,0,0.2,1) forwards`
+                        : 'none',
+                    }}
+                  >
+                    {slide.title}
+                  </h1>
 
-                {/* Heading */}
-                <h1
-                  key={`h1-${actKey}`}
-                  className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-4 md:mb-6 text-white tracking-tight"
-                  style={{
-                    opacity: 0,
-                    animation: isActive
-                      ? `hero-text-rise 700ms 260ms cubic-bezier(0.4,0,0.2,1) forwards`
-                      : 'none',
-                  }}
-                >
-                  {slide.title}
-                </h1>
+                  {/* Subtitle */}
+                  <p
+                    key={`sub-${actKey}`}
+                    className="text-sm sm:text-base md:text-xl text-slate-200/90 leading-relaxed max-w-md md:max-w-xl font-light"
+                    style={{
+                      opacity: 0,
+                      animation: isActive
+                        ? `hero-text-rise 700ms 400ms cubic-bezier(0.4,0,0.2,1) forwards`
+                        : 'none',
+                    }}
+                  >
+                    {slide.subtitle}
+                  </p>
+                </div>
 
-                {/* Subtitle */}
-                <p
-                  key={`sub-${actKey}`}
-                  className="text-base md:text-xl text-slate-200 mb-8 md:mb-10 leading-relaxed max-w-xl font-light"
-                  style={{
-                    opacity: 0,
-                    animation: isActive
-                      ? `hero-text-rise 700ms 400ms cubic-bezier(0.4,0,0.2,1) forwards`
-                      : 'none',
-                  }}
-                >
-                  {slide.subtitle}
-                </p>
-
-                {/* Buttons */}
+                {/* Bottom content (Buttons) on Mobile */}
                 <div
                   key={`btns-${actKey}`}
-                  className="flex flex-col sm:flex-row gap-4"
+                  className="flex flex-col sm:flex-row gap-3 w-full items-center justify-end md:justify-start mt-auto md:mt-10"
                   style={{
                     opacity: 0,
                     animation: isActive
@@ -165,7 +165,7 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick, onBookingClick }) => {
                 >
                   <button
                     onClick={slide.ctaTarget === 'booking' ? onBookingClick : onDiscoverClick}
-                    className="w-full sm:w-auto px-10 py-4 bg-white text-slate-950 font-bold text-sm uppercase tracking-widest hover:bg-accent transition-colors duration-300 flex items-center justify-center gap-2 group rounded-full"
+                    className="w-full sm:w-auto px-8 py-3.5 bg-white text-slate-950 font-bold text-xs uppercase tracking-widest hover:bg-accent transition-colors duration-300 flex items-center justify-center gap-2 group rounded-full"
                   >
                     {slide.cta}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -173,8 +173,11 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick, onBookingClick }) => {
                   <button
                     type="button"
                     onClick={() => setIsFilmOpen(true)}
-                    className="w-full sm:w-auto px-10 py-4 border border-white/30 text-white font-bold text-sm uppercase tracking-widest hover:bg-white/10 backdrop-blur-sm transition-colors duration-300 rounded-full text-center"
+                    className="w-full sm:w-auto px-8 py-3.5 border border-white/30 text-white font-bold text-xs uppercase tracking-widest hover:bg-white/10 backdrop-blur-sm transition-colors duration-300 rounded-full text-center flex items-center justify-center gap-2"
                   >
+                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
                     Watch Film
                   </button>
                 </div>

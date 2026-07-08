@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
 import { NAV_LINKS } from '../constants';
 
 interface NavbarProps {
@@ -8,10 +8,9 @@ interface NavbarProps {
   onNavigate: (view: 'home' | 'about' | 'specifications', sectionId?: string) => void;
   currentView: 'home' | 'about' | 'specifications';
   theme: 'dark' | 'light';
-  onToggleTheme: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentView, theme, onToggleTheme }) => {
+const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentView, theme }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const ticking = useRef(false);
@@ -106,23 +105,6 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
           ))}
 
           <div className="flex items-center gap-4 ml-4">
-            {/* Theme Toggle */}
-            <button
-              onClick={onToggleTheme}
-              className={`p-2.5 rounded-full transition-all duration-300 border ring-1 ring-transparent hover:ring-accent/40 hover:scale-[1.03] active:scale-100 ${theme === 'dark'
-                ? 'bg-slate-900 border-slate-800 text-accent hover:bg-slate-800'
-                : 'bg-white border-slate-200 text-slate-900 hover:bg-slate-100'
-                }`}
-              aria-label="Toggle Theme"
-              title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-              {theme === 'dark' ? (
-                <Sun size={18} className="transition-transform duration-300 rotate-0" />
-              ) : (
-                <Moon size={18} className="transition-transform duration-300 -rotate-12" />
-              )}
-            </button>
-
             <button
               onClick={onTestDriveClick}
               className={`flex items-center gap-2 px-6 py-2.5 font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl ${theme === 'dark'
@@ -138,21 +120,6 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
         {/* Mobile Toggle & Mobile Theme Toggle */}
         <div className="flex items-center gap-2 lg:hidden">
           <button
-            onClick={onToggleTheme}
-            className={`p-2 rounded-full border transition-all duration-300 ring-1 ring-transparent hover:ring-accent/40 hover:scale-[1.03] active:scale-100 ${theme === 'dark'
-              ? 'bg-slate-900 border-slate-800 text-accent hover:bg-slate-800'
-              : 'bg-white border-slate-200 text-slate-900 hover:bg-slate-100'
-              }`}
-            aria-label="Toggle Theme"
-            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-          >
-            {theme === 'dark' ? (
-              <Sun size={18} className="transition-transform duration-300 rotate-0" />
-            ) : (
-              <Moon size={18} className="transition-transform duration-300 -rotate-12" />
-            )}
-          </button>
-          <button
             aria-label="Toggle menu"
             className={`transition-colors p-2 ${theme === 'dark' ? 'text-white hover:text-accent' : 'text-slate-900 hover:text-accent'}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -164,21 +131,30 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
 
       {/* Mobile Menu */}
       <div
-        className={`lg:hidden absolute top-full left-0 w-full transition-all duration-500 overflow-hidden border-b ${theme === 'dark' ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'
-          } ${isMobileMenuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}
+        className={`lg:hidden absolute top-full left-0 w-full transition-all duration-500 overflow-hidden border-b ${
+          theme === 'dark' ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'
+        } ${isMobileMenuOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}`}
       >
-        <div className="flex flex-col p-8 gap-6 items-center">
-          {NAV_LINKS.map((link) => (
+        <div className="flex flex-col w-full max-w-sm mx-auto p-8 gap-4">
+          {NAV_LINKS.map((link, idx) => (
             <a
               key={link.name}
               href={link.href}
-              className={`text-lg font-medium hover:text-accent transition-colors ${(currentView === 'about' && link.href === '#about') || (currentView === 'specifications' && link.href === '#specifications')
-                ? 'text-accent'
-                : (theme === 'dark' ? 'text-slate-300' : 'text-slate-600')
-                }`}
+              className={`group w-full flex items-center justify-between py-3.5 text-xs font-bold uppercase tracking-[0.2em] border-b transition-all duration-300 ${
+                theme === 'dark'
+                  ? 'border-slate-800/40 text-slate-300 hover:text-white'
+                  : 'border-slate-100 text-slate-600 hover:text-slate-950'
+              } ${(currentView === 'about' && link.href === '#about') || (currentView === 'specifications' && link.href === '#specifications')
+                ? 'text-accent border-accent/20'
+                : ''
+              }`}
               onClick={(e) => handleLinkClick(e, link.href)}
             >
-              {link.name}
+              <span className="flex items-center gap-3">
+                <span className="text-[9px] text-accent font-mono opacity-80">0{idx + 1}</span>
+                {link.name}
+              </span>
+              <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-accent" />
             </a>
           ))}
           <button
@@ -186,7 +162,7 @@ const Navbar: React.FC<NavbarProps> = ({ onTestDriveClick, onNavigate, currentVi
               onTestDriveClick();
               setIsMobileMenuOpen(false);
             }}
-            className="w-full py-4 bg-accent text-slate-950 font-bold uppercase tracking-wide rounded-full mt-4"
+            className="w-full py-3.5 bg-accent hover:bg-accent/90 text-slate-950 font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 mt-6 shadow-lg shadow-accent/15 active:scale-98"
           >
             Book Test Drive
           </button>

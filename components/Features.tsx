@@ -1,9 +1,5 @@
-import React, { useState } from 'react';
-import {
-  ShieldCheck, BatteryCharging, Speaker, Radar,
-  Zap, Eye, MonitorSmartphone,
-  CheckCircle2, Star,
-} from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Radar, CheckCircle2, Star } from 'lucide-react';
 
 /* ─── Per-model technology data ─────────────────────────────────── */
 const MODEL_TECH = [
@@ -12,20 +8,20 @@ const MODEL_TECH = [
     label: 'Geely EX2',
     series: 'Urban EV',
     accentColor: '#3b82f6',
-    heroImage: '/img/inovation/Gambar1.png',
+    heroImage: 'https://geelypremiumgroup.co.id/wp-content/uploads/2026/01/202512417%E5%AE%8C%E7%A8%BF-scaled.jpg',
     heroAlt: 'Geely EX2 Technology',
     heroTitle: 'Smart Urban Electric',
     heroDesc: 'Platform listrik cerdas dengan FLYME AUTO — ekosistem digital yang menghubungkan Anda dengan dunia di setiap perjalanan.',
     gallery: [
-      { src: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(biru).webp',   caption: 'EX2 Exterior' },
-      { src: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(pink).webp',   caption: 'EX2 Rose Edition' },
+      { src: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(biru).webp', caption: 'EX2 Exterior' },
+      { src: '/img/GEELY%20EX2%20_%20Geely%20Auto%20Indonesia/imgi_27_EX2.23(pink).webp', caption: 'EX2 Rose Edition' },
       { src: 'https://geelywonder.id/public/domain/g/geelywonder.id/images/interior_ex2_02.jpg', caption: 'EX2 Interior' },
     ],
     highlights: [
-      { icon: MonitorSmartphone, color: 'text-blue-400',  title: 'FLYME AUTO 14.6"',      desc: 'Layar sentuh besar dengan sistem operasi cerdas terintegrasi penuh.' },
-      { icon: BatteryCharging,   color: 'text-green-400', title: 'DC Fast Charge 25 min', desc: 'Pengisian cepat 30%→80% hanya 25 menit. Jangkauan hingga 395 km (NEDC).' },
-      { icon: Zap,               color: 'text-yellow-400',title: 'V2L — Vehicle to Load',  desc: 'Suplai daya listrik ke perangkat eksternal hingga 3.3 kW langsung dari mobil.' },
-      { icon: ShieldCheck,       color: 'text-purple-400',title: '6 Airbag System',        desc: 'Perlindungan menyeluruh dengan 6 kantung udara, termasuk airbag samping.' },
+      { image: 'https://geelypremiumgroup.co.id/wp-content/uploads/2026/01/Rear-Trunk-4%E5%90%8E%E5%A4%87%E7%AE%B1_46%E6%94%BE%E5%80%92_00175-%E6%8B%B7%E8%B4%9D4-scaled.jpg', title: 'Double The Space', desc: 'Desain bagasi depan (Frunk) dan bagasi belakang serbaguna yang lapang, cerdas, dan fleksibel.' },
+      { image: 'https://geelypremiumgroup.co.id/wp-content/uploads/2026/01/4.95m-nimble-turning-radius-scaled.png', title: 'Double the Driving Pleasure', desc: 'Lincah dan menyenangkan dengan radius putar minimum 4.95m untuk kenyamanan bermanuver di perkotaan.' },
+      { image: 'https://geelypremiumgroup.co.id/wp-content/uploads/2026/01/LCA%E5%8F%98%E9%81%93%E8%BE%85%E5%8A%A9-scaled.jpg', title: 'Double The Safety & Ease', desc: 'Perlindungan aktif cerdas dengan sistem Lane Change Assist (LCA) dan DOW untuk keselamatan maksimal.' },
+      { image: 'https://geelypremiumgroup.co.id/wp-content/uploads/2026/01/01-Whole-Interior-scaled.jpg', title: 'Double The Tech Joy', desc: 'Layar sentuh HD tengah 14.6 inci dan panel instrumen LCD 8.8 inci yang terintegrasi secara cerdas.' },
     ],
     adasTitle: 'ADAS Level 2 — 10 Fungsi (Varian Max)',
     adasItems: [
@@ -40,8 +36,9 @@ const MODEL_TECH = [
       'TSI — Traffic Sign Information',
       'IHBC — Intelligent High Beam Control',
     ],
+    adasVideo: 'https://geelypremiumgroup.co.id/wp-content/uploads/2025/09/adas-starray.mp4',
     safetyBadges: ['ABS + EBD + BA', 'ESC', 'TPMS', 'EPB + Auto Hold', 'Rear Camera', '540° View (Max)'],
-    extraImage: 'https://geelywonder.id/public/domain/g/geelywonder.id/images/lp_ex2_05.jpg',
+    extraImage: 'https://geelypremiumgroup.co.id/wp-content/uploads/2026/01/Frunk-scaled.jpg',
     extraTitle: 'Frunk 70L + Bagasi 375–1.320L',
     extraDesc: 'Ruang penyimpanan ekstra di depan (frunk 70L) dan bagasi yang bisa dilipat hingga 1.320 liter.',
   },
@@ -55,15 +52,15 @@ const MODEL_TECH = [
     heroTitle: '540° Panoramic Intelligence',
     heroDesc: 'Platform GEA generasi baru — arsitektur listrik global yang menyatukan keselamatan, performa, dan kecerdasan dalam satu paket premium.',
     gallery: [
-      { src: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_teal-3.webp',   caption: 'EX5 Teal' },
-      { src: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_white-3.webp',  caption: 'EX5 White' },
+      { src: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_teal-3.webp', caption: 'EX5 Teal' },
+      { src: '/img/EX5%20_%20Geely%20Auto%20Indonesia/imgi_6_white-3.webp', caption: 'EX5 White' },
       { src: 'https://geelywonder.id/public/domain/g/geelywonder.id/images/interior-01.webp', caption: 'EX5 Interior' },
     ],
     highlights: [
-      { icon: Eye,               color: 'text-green-400',  title: 'W-HUD 13.8" Windshield', desc: 'Head-Up Display lebar di kaca depan — informasi penting selalu dalam pandangan.' },
-      { icon: Speaker,           color: 'text-blue-400',   title: 'FLYME SOUND 1000W',       desc: '16 speaker Dolby Atmos premium — konser di dalam kabin Anda.' },
-      { icon: BatteryCharging,   color: 'text-yellow-400', title: 'DC Fast Charge 20 min',   desc: 'Pengisian ultra-cepat 30%→80% dalam 20 menit. Jangkauan 495 km NEDC.' },
-      { icon: Zap,               color: 'text-purple-400', title: 'V2L & V2V',               desc: 'Suplai daya ke perangkat luar (V2L) dan berbagi energi antar kendaraan (V2V).' },
+      { image: 'https://geelypremiumgroup.co.id/wp-content/uploads/2025/05/img1.jpg', title: 'GEA — Electric Architecture', desc: 'Platform cerdas GEA generasi baru mengoptimalkan ruang, efisiensi energi, keamanan, kecerdasan buatan (AI), dan performa.' },
+      { image: 'https://geelypremiumgroup.co.id/wp-content/uploads/2025/05/img2.jpg', title: 'Short Blade Battery', desc: 'Baterai LFP generasi terbaru yang mendukung pengisian daya cepat (fast charging) untuk meminimalkan waktu tunggu.' },
+      { image: 'https://geely.premiumgroup.co.id/wp-content/uploads/2025/05/vid3.mp4', title: '11-in-1 Electric Drive', desc: 'Unit penggerak listrik terintegrasi 11-in-1 menghasilkan daya puncak 160 kW dengan efisiensi tinggi dan performa bertenaga.' },
+      { image: 'https://geelypremiumgroup.co.id/wp-content/uploads/2025/09/flyme-sound-starray.png', title: 'FLYME SOUND Audio', desc: 'Sistem audio Dolby Atmos dengan amplifier independen 1000W dan 16 speaker untuk kualitas suara murni sekelas konser.' },
     ],
     adasTitle: 'ADAS Level 2 — 13 Fungsi',
     adasItems: [
@@ -81,30 +78,31 @@ const MODEL_TECH = [
       '540° Panoramic Camera System',
       'Parking Sensors Front & Rear',
     ],
+    adasVideo: 'https://geelypremiumgroup.co.id/wp-content/uploads/2025/09/adas-starray.mp4',
     safetyBadges: ['★★★★★ Euro NCAP', 'ABS + EBD', 'ESC', 'TPMS', 'EPB + Auto Hold', 'HAC + HDC'],
-    extraImage: '/img/short_blade_battery.png',
-    extraTitle: 'New Generation Short Blade Battery',
-    extraDesc: 'Baterai LFP 60.22 kWh generasi baru dengan densitas energi tinggi, tahan api, dan garansi 8 tahun / seumur hidup.',
+    extraImage: 'https://geelypremiumgroup.co.id/wp-content/uploads/2025/05/img4-scaled.jpg',
+    extraTitle: 'Optimized Space for Ultimate Comfort',
+    extraDesc: 'Dengan tingkat utilisasi ruang hingga 67.2%, GEELY EX5 memberikan efisiensi ruang kabin terbaik di kelasnya untuk perjalanan yang nyaman dan menyenangkan.',
   },
   {
     id: 'starray',
     label: 'Starray EM-i',
     series: 'Super Hybrid',
     accentColor: '#f59e0b',
-    heroImage: '/img/inovation/Gambar2.png',
+    heroImage: 'https://geelypremiumgroup.co.id/wp-content/uploads/2025/09/02-Exterior-Geely-Starray-EM-i-Geely-Ambara-Group-2.webp',
     heroAlt: 'Geely Starray EM-i Technology',
     heroTitle: 'Thor EM-i Super Hybrid',
     heroDesc: 'Teknologi hybrid revolusioner — mesin 1.5L efisiensi termal 44.5% + motor listrik 160 kW. Total jangkauan 1.000+ km, EV murni 105 km.',
     gallery: [
-      { src: '/img/GEELY%20STARRAY%20EM-I%20_%20Geely%20Auto%20Indonesia/imgi_4_glacier-blue3.webp',   caption: 'Starray Glacier Blue' },
-      { src: '/img/GEELY%20STARRAY%20EM-I%20_%20Geely%20Auto%20Indonesia/imgi_4_polar-black3.webp',    caption: 'Starray Polar Black' },
+      { src: '/img/GEELY%20STARRAY%20EM-I%20_%20Geely%20Auto%20Indonesia/imgi_4_glacier-blue3.webp', caption: 'Starray Glacier Blue' },
+      { src: '/img/GEELY%20STARRAY%20EM-I%20_%20Geely%20Auto%20Indonesia/imgi_4_polar-black3.webp', caption: 'Starray Polar Black' },
       { src: 'https://geelywonder.id/public/domain/g/geelywonder.id/images/starray/interior_starray_01.png', caption: 'Starray Interior' },
     ],
     highlights: [
-      { icon: Zap,               color: 'text-yellow-400', title: 'Eleven-in-One E-Drive',   desc: 'Sistem penggerak listrik terintegrasi — motor, inverter, gearbox dalam satu unit kompak.' },
-      { icon: Speaker,           color: 'text-blue-400',   title: 'FLYME SOUND 1000W',        desc: '16 speaker premium — sistem audio terbaik di kelasnya.' },
-      { icon: Eye,               color: 'text-green-400',  title: 'Dual 15.4" + 10.25" HUD', desc: 'Kokpit digital penuh: dual layar besar plus windshield HUD untuk navigasi.' },
-      { icon: BatteryCharging,   color: 'text-purple-400', title: 'DC Fast Charge < 20 min', desc: 'Pengisian baterai PHEV 30%→80% dalam kurang dari 20 menit.' },
+      { image: 'https://geelypremiumgroup.co.id/wp-content/uploads/2025/09/GEELY-STARRAY-EM-I-Geely-Auto-Indonesia.mp4', title: 'EM-i Super Hybrid', desc: 'Teknologi hybrid canggih Geely menggabungkan efisiensi bahan bakar dan baterai untuk jangkauan lebih jauh.' },
+      { image: 'https://geelypremiumgroup.co.id/wp-content/uploads/2025/09/interior-3-scaled.webp', title: '15.4" HD Central Screen', desc: 'Layar sentuh resolusi tinggi 15.4 inci yang terintegrasi secara cerdas untuk navigasi dan hiburan.' },
+      { image: 'https://geelypremiumgroup.co.id/wp-content/uploads/2025/09/interior-2-scaled.webp', title: '256-Color Ambient Lights', desc: 'Pencahayaan kabin ambient 256 warna dinamis yang melengkapi kemewahan interior berkendara Anda.' },
+      { image: 'https://geelypremiumgroup.co.id/wp-content/uploads/2025/09/flyme-sound-starray.png', title: 'FLYME SOUND Audio', desc: 'Nikmati kualitas audio sejernih kristal dari konfigurasi 16 speaker dengan amplifier bertenaga 1000W.' },
     ],
     adasTitle: 'ADAS Level 2 — 14 Fungsi',
     adasItems: [
@@ -123,16 +121,27 @@ const MODEL_TECH = [
       'Parking Sensors Front & Rear',
       'HAC + HDC — Hill Assist & Descent Control',
     ],
+    adasVideo: 'https://geelypremiumgroup.co.id/wp-content/uploads/2025/09/adas-starray.mp4',
     safetyBadges: ['★★★★★ Euro NCAP', '★★★★★ ANCAP', 'ABS + EBD', 'ESC', 'EPB + Auto Hold', 'HAC + HDC'],
-    extraImage: 'https://geelywonder.id/public/domain/g/geelywonder.id/images/exterior_starray_03.jpg',
-    extraTitle: 'Panoramic Power Sunroof + 6 Airbags',
-    extraDesc: 'Atap panoramik elektrik lebar disertai sistem 6 airbag — perlindungan total di setiap perjalanan.',
+    extraImage: 'https://geelypremiumgroup.co.id/wp-content/uploads/2025/09/interior-7-scaled.webp',
+    extraTitle: '528L Trunk Capacity',
+    extraDesc: 'Bagasi luas dengan kapasitas 528 liter saat kursi dalam posisi tegak, siap menampung seluruh barang bawaan Anda.',
   },
 ];
 
 const Features: React.FC = () => {
-  const [activeId, setActiveId] = useState('ex5');
+  const [activeId, setActiveId] = useState('ex2');
   const model = MODEL_TECH.find(m => m.id === activeId)!;
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.play().catch(err => {
+        console.log("Autoplay blocked or failed:", err);
+      });
+    }
+  }, [activeId]);
 
   return (
     <section id="technology" className="pt-12 pb-10 md:pt-16 md:pb-16 bg-slate-50 dark:bg-slate-950">
@@ -156,11 +165,10 @@ const Features: React.FC = () => {
               <button
                 key={m.id}
                 onClick={() => setActiveId(m.id)}
-                className={`px-5 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all duration-300 ${
-                  activeId === m.id
-                    ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-md'
-                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-white'
-                }`}
+                className={`px-5 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all duration-300 ${activeId === m.id
+                  ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-md'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-white'
+                  }`}
               >
                 {m.label}
               </button>
@@ -194,18 +202,40 @@ const Features: React.FC = () => {
             </div>
 
             {/* Highlights Grid */}
-            <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+            <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
               {model.highlights.map((h, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-4 p-5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-600 transition-colors"
+                  className="flex flex-col bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 hover:border-slate-350 dark:hover:border-slate-700 hover:shadow-xl transition-all duration-300 group overflow-hidden"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0">
-                    <h.icon size={20} className={h.color} />
+                  <div className="w-full aspect-[16/10] overflow-hidden bg-slate-100 dark:bg-slate-950 border-b border-slate-100 dark:border-slate-805/50">
+                    {h.image.endsWith('.mp4') ? (
+                      <video
+                        src={h.image}
+                        className="w-full h-full object-cover"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                      />
+                    ) : (
+                      <img
+                        src={h.image}
+                        alt={h.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    )}
                   </div>
-                  <div>
-                    <div className="font-bold text-slate-900 dark:text-white text-sm mb-0.5">{h.title}</div>
-                    <div className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">{h.desc}</div>
+                  <div className="p-3.5 flex-1 flex flex-col justify-between">
+                    <div>
+                      <div className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm mb-1 group-hover:text-accent transition-colors">
+                        {h.title}
+                      </div>
+                      <div className="text-slate-500 dark:text-slate-400 text-[10px] sm:text-xs leading-relaxed line-clamp-3">
+                        {h.desc}
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -226,17 +256,40 @@ const Features: React.FC = () => {
                   <div className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Advanced Driver Assistance</div>
                 </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {model.adasItems.map((item, i) => (
-                  <div key={i} className="flex items-center gap-2.5 text-sm text-slate-600 dark:text-slate-300">
-                    <CheckCircle2 size={14} className="text-accent flex-shrink-0" />
-                    <span>{item}</span>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                {/* Left Side: ADAS list */}
+                <div className="lg:col-span-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {model.adasItems.map((item, i) => (
+                      <div key={i} className="flex items-center gap-2.5 text-sm text-slate-600 dark:text-slate-300">
+                        <CheckCircle2 size={14} className="text-accent flex-shrink-0" />
+                        <span className="line-clamp-2">{item}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+
+                {/* Right Side: ADAS Video */}
+                {model.adasVideo && (
+                  <div className="lg:col-span-6">
+                    <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-950 aspect-video shadow-md group">
+                      <video
+                        ref={videoRef}
+                        key={activeId}
+                        src={model.adasVideo}
+                        className="w-full h-full object-cover"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
 
-              {/* Safety Badges */}
-              <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
+              {/* Safety Badges - spans full width below the list & video */}
+              <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
                 <div className="text-[10px] text-slate-400 uppercase tracking-widest font-black mb-3">Safety & Certification</div>
                 <div className="flex flex-wrap gap-2">
                   {model.safetyBadges.map((badge, i) => (

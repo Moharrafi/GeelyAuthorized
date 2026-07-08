@@ -118,7 +118,7 @@ const TestDriveModal: React.FC<TestDriveModalProps> = ({ isOpen, onClose }) => {
             </div>
 
             {/* Tab Navigation */}
-            <div className="flex flex-col md:flex-row border-b border-slate-700 mt-8 mx-0 md:mx-12">
+            <div className="flex flex-row border-b border-slate-700 mt-6 mx-0 md:mx-12 overflow-x-auto scrollbar-none">
                 {[
                     { id: 'pre-book', label: 'PRE-BOOK NOW', sub: 'Pre-book Geely Concept' },
                     { id: 'book-now', label: 'BOOK NOW', sub: 'Secure your offer today' },
@@ -127,20 +127,20 @@ const TestDriveModal: React.FC<TestDriveModalProps> = ({ isOpen, onClose }) => {
                     <button
                         key={tab.id}
                         onClick={() => handleTabChange(tab.id as TabType)}
-                        className={`flex-1 text-left py-4 px-6 transition-all duration-300 relative group ${
+                        className={`flex-1 text-center md:text-left py-3 px-3 md:py-4 md:px-6 transition-all duration-300 relative group flex-shrink-0 min-w-[110px] md:min-w-0 ${
                             activeTab === tab.id ? 'bg-slate-800/50' : 'hover:bg-slate-800/30'
                         }`}
                     >
-                        <span className={`block text-lg font-bold mb-1 uppercase tracking-wider ${
+                        <span className={`block text-xs md:text-lg font-bold mb-0.5 md:mb-1 uppercase tracking-wider ${
                             activeTab === tab.id ? 'text-accent' : 'text-slate-400 group-hover:text-white'
                         }`}>
                             {tab.label}
                         </span>
-                        <span className="block text-xs text-slate-500 font-medium">
+                        <span className="hidden md:block text-xs text-slate-500 font-medium">
                             {tab.sub}
                         </span>
                         {activeTab === tab.id && (
-                            <div className="absolute bottom-0 left-0 w-full h-1 bg-accent shadow-[0_0_10px_rgba(56,189,248,0.5)]"></div>
+                            <div className="absolute bottom-0 left-0 w-full h-0.5 md:h-1 bg-accent shadow-[0_0_10px_rgba(56,189,248,0.5)]"></div>
                         )}
                     </button>
                 ))}

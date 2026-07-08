@@ -77,7 +77,7 @@ const CarDetailModal: React.FC<CarDetailModalProps> = ({ car, isOpen, onClose, o
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 lg:top-6 lg:right-6 z-20 w-10 h-10 bg-black/30 hover:bg-white text-white hover:text-slate-900 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300"
+          className="absolute top-4 right-4 lg:top-6 lg:right-6 z-50 w-10 h-10 bg-black/30 hover:bg-white text-white hover:text-slate-900 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300"
           aria-label="Close car details"
         >
           <X size={20} />
@@ -85,23 +85,16 @@ const CarDetailModal: React.FC<CarDetailModalProps> = ({ car, isOpen, onClose, o
 
         {/* Left Side: Image */}
         <div className="w-full lg:w-1/2 relative h-[28rem] lg:h-auto overflow-hidden">
-          {images.map((src, idx) => {
-            // Only render active image and adjacent ones for performance
-            const distance = Math.abs(idx - activeImage);
-            const wrappedDistance = Math.min(distance, images.length - distance);
-            if (wrappedDistance > 1) return null;
-            return (
-              <img
-                key={`${src}-${idx}`}
-                src={src}
-                alt={`${car.name} ${idx + 1}`}
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${idx === activeImage ? 'opacity-100' : 'opacity-0'
-                  }`}
-                loading={idx === activeImage ? 'eager' : 'lazy'}
-                decoding="async"
-              />
-            );
-          })}
+          {images.map((src, idx) => (
+            <img
+              key={`${src}-${idx}`}
+              src={src}
+              alt={`${car.name} ${idx + 1}`}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${idx === activeImage ? 'opacity-100' : 'opacity-0'}`}
+              loading={idx === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+            />
+          ))}
           {images.length > 1 && (
             <div className="absolute bottom-5 left-1/2 -translate-x-1/2 hidden lg:flex items-center gap-2 z-10">
               {images.map((_, idx) => (
@@ -124,73 +117,104 @@ const CarDetailModal: React.FC<CarDetailModalProps> = ({ car, isOpen, onClose, o
         </div>
 
         {/* Right Side: Details */}
-        <div className="w-full lg:w-1/2 p-8 lg:p-10 overflow-y-auto custom-scrollbar">
+        <div className="w-full lg:w-1/2 p-8 lg:p-12 overflow-y-auto custom-scrollbar relative z-30">
+          
+          {/* Tagline Pill */}
+          <div className="mb-3">
+            <span className="inline-block px-3 py-1 bg-accent/10 border border-accent/25 text-accent text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] rounded-full">
+              {car.tagline}
+            </span>
+          </div>
+
+          {/* Title */}
           <h2
-            className={`font-bold text-white mb-2 ${car.name === 'Geely Starray EM-i' ? 'text-3xl lg:text-4xl' : 'text-4xl lg:text-5xl'
-              }`}
+            className={`font-bold text-white tracking-tighter mb-4 leading-none ${
+              car.name === 'Geely Starray EM-i' ? 'text-3xl lg:text-4xl' : 'text-4xl lg:text-[2.75rem]'
+            }`}
           >
             {car.name}
           </h2>
-          <p className="text-xl text-accent font-medium mb-6">{car.tagline}</p>
 
-          <div className="flex flex-col gap-1 mb-8 border-b border-slate-800 pb-8">
-            <div className="text-xs text-slate-500 uppercase tracking-widest mb-1">OTR Jakarta*</div>
-            {car.pricePro && car.priceMax ? (
-              <div className="flex flex-col gap-1">
-                <div className="flex items-baseline gap-3">
-                  <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest w-8">Pro</span>
-                  <span className="text-2xl font-bold text-white">{car.pricePro}</span>
-                </div>
-                <div className="flex items-baseline gap-3">
-                  <span className="text-[11px] font-black text-accent uppercase tracking-widest w-8">Max</span>
-                  <span className="text-2xl font-bold text-white">{car.priceMax}</span>
-                </div>
-              </div>
-            ) : (
-              <span className="text-3xl font-bold text-white">{car.price}</span>
-            )}
+          {/* Price Section */}
+          <div className="flex flex-col gap-1 mb-6 border-b border-slate-800/80 pb-6">
+            <div className="text-[9px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest">Harga OTR Jakarta</div>
+            <div className="flex flex-wrap items-center gap-4 mt-2">
+              {car.pricePro && car.priceMax ? (
+                <>
+                  <div className="flex items-center gap-2 bg-slate-950/40 border border-slate-800/60 px-3.5 py-1.5 rounded-full">
+                    <span className="text-[7.5px] font-black text-slate-400 uppercase tracking-wider">Pro</span>
+                    <span className="text-base md:text-lg font-bold text-white">{car.pricePro}</span>
+                  </div>
+                  <div className="w-px h-4 bg-slate-800/80" />
+                  <div className="flex items-center gap-2 bg-accent/10 border border-accent/20 px-3.5 py-1.5 rounded-full">
+                    <span className="text-[7.5px] font-black text-accent uppercase tracking-wider">Max</span>
+                    <span className="text-base md:text-lg font-bold text-white">{car.priceMax}</span>
+                  </div>
+                </>
+              ) : (
+                <span className="text-2xl font-bold text-white">{car.price}</span>
+              )}
+            </div>
           </div>
 
-          <p className="text-slate-300 leading-relaxed mb-8">
+          {/* Description */}
+          <p className="text-slate-300/90 leading-relaxed text-sm md:text-base font-light mb-8 antialiased">
             {car.description}
           </p>
 
           {/* Specs Grid */}
-          <div className={`grid gap-4 mb-8 ${car.specs.range ? 'grid-cols-2 sm:grid-cols-4' : 'grid-cols-3'}`}>
-            <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700 text-center">
-              <Gauge className="text-accent w-6 h-6 mx-auto mb-2" />
-              <div className="font-bold text-white text-sm">{car.specs.acceleration}</div>
-              <div className="text-[10px] text-slate-500 uppercase">0–100 km/h</div>
+          <div className={`grid gap-3 mb-8 ${car.specs.range ? 'grid-cols-2 sm:grid-cols-4' : 'grid-cols-3'}`}>
+            <div className="bg-slate-950/40 p-4 rounded-2xl border border-slate-800/60 hover:bg-slate-950/80 hover:border-slate-700/50 transition-all duration-300 text-center shadow-md flex flex-col justify-between min-h-[110px]">
+              <Gauge className="text-accent w-5 h-5 mx-auto" />
+              <div>
+                <div className="font-bold text-white text-sm md:text-base mt-2">{car.specs.acceleration}</div>
+                <div className="text-[8px] md:text-[9px] text-slate-500 font-bold uppercase tracking-widest mt-1">0–100 km/h</div>
+              </div>
             </div>
-            <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700 text-center">
-              <Zap className="text-accent w-6 h-6 mx-auto mb-2" />
-              <div className="font-bold text-white text-sm">{car.specs.power}</div>
-              <div className="text-[10px] text-slate-500 uppercase">Power</div>
+
+            <div className="bg-slate-950/40 p-4 rounded-2xl border border-slate-800/60 hover:bg-slate-950/80 hover:border-slate-700/50 transition-all duration-300 text-center shadow-md flex flex-col justify-between min-h-[110px]">
+              <Zap className="text-accent w-5 h-5 mx-auto" />
+              <div>
+                <div className="font-bold text-white text-sm md:text-base mt-2 truncate max-w-full">{car.specs.power}</div>
+                <div className="text-[8px] md:text-[9px] text-slate-500 font-bold uppercase tracking-widest mt-1">Power</div>
+              </div>
             </div>
+
             {car.specs.range && (
-              <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700 text-center col-span-1">
-                <svg className="text-accent w-6 h-6 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <div className="bg-slate-950/40 p-4 rounded-2xl border border-slate-800/60 hover:bg-slate-950/80 hover:border-slate-700/50 transition-all duration-300 text-center shadow-md flex flex-col justify-between min-h-[110px]">
+                <svg className="text-accent w-5 h-5 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
-                <div className="font-bold text-white text-sm leading-tight">{car.specs.range}</div>
-                <div className="text-[10px] text-slate-500 uppercase">Range</div>
+                <div>
+                  <div className="font-bold text-white text-sm md:text-base mt-2 leading-tight">{car.specs.range}</div>
+                  <div className="text-[8px] md:text-[9px] text-slate-500 font-bold uppercase tracking-widest mt-1">Range</div>
+                </div>
               </div>
             )}
-            <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700 text-center">
-              <Wind className="text-accent w-6 h-6 mx-auto mb-2" />
-              <div className="font-bold text-white text-sm">{car.specs.topSpeed}</div>
-              <div className="text-[10px] text-slate-500 uppercase">Top Speed</div>
+
+            <div className="bg-slate-950/40 p-4 rounded-2xl border border-slate-800/60 hover:bg-slate-950/80 hover:border-slate-700/50 transition-all duration-300 text-center shadow-md flex flex-col justify-between min-h-[110px]">
+              <Wind className="text-accent w-5 h-5 mx-auto" />
+              <div>
+                <div className="font-bold text-white text-sm md:text-base mt-2">{car.specs.topSpeed}</div>
+                <div className="text-[8px] md:text-[9px] text-slate-500 font-bold uppercase tracking-widest mt-1">Top Speed</div>
+              </div>
             </div>
           </div>
 
           {/* Features List */}
           <div className="mb-8">
-            <h4 className="text-white font-bold mb-4 uppercase text-sm tracking-wider">Key Features</h4>
+            <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-[0.2em] flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
+              Key Features & Technologies
+            </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {car.features.map((feature, index) => (
-                <div key={index} className="flex items-center gap-2 text-slate-400 text-sm">
-                  <CheckCircle2 size={16} className="text-accent" />
-                  {feature}
+                <div 
+                  key={index} 
+                  className="flex items-center gap-3 p-3 bg-slate-950/30 border border-slate-800/40 hover:border-slate-850 hover:bg-slate-950/60 rounded-xl text-slate-300 text-xs md:text-sm transition-all duration-300 shadow-sm"
+                >
+                  <CheckCircle2 size={15} className="text-accent shrink-0" />
+                  <span className="font-medium tracking-wide">{feature}</span>
                 </div>
               ))}
             </div>
@@ -202,10 +226,10 @@ const CarDetailModal: React.FC<CarDetailModalProps> = ({ car, isOpen, onClose, o
               onClose();
               onTestDriveClick();
             }}
-            className="w-full py-4 bg-white text-slate-950 font-bold uppercase tracking-widest rounded-full hover:bg-accent transition-colors flex items-center justify-center gap-2"
+            className="w-full py-4 bg-white text-slate-950 font-bold uppercase text-xs tracking-[0.2em] rounded-full hover:bg-accent transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-white/5 hover:shadow-accent/25 hover:-translate-y-0.5 active:translate-y-0 active:scale-98 group"
           >
             Book a Test Drive
-            <ChevronRight size={18} />
+            <ChevronRight size={16} className="transition-transform group-hover:translate-x-0.5" />
           </button>
         </div>
       </div>
