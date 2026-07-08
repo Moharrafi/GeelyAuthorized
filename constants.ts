@@ -95,21 +95,21 @@ export const NAV_LINKS = [
 export const HERO_SLIDES = [
   {
     id: 1,
-    image: 'https://geelywonder.id/public/domain/g/geelywonder.id/images/power.webp',
+    image: '/img/power.webp',
     title: 'Future Driven',
     subtitle: 'Experience the next generation of automotive excellence.',
     cta: 'Discover Models'
   },
   {
     id: 2,
-    image: 'https://geelywonder.id/public/domain/g/geelywonder.id/images/banner_lp.jpg',
+    image: '/img/banner_lp.jpg',
     title: 'Zero Emissions',
     subtitle: 'Sustainable luxury without compromising performance.',
     cta: 'View Electric'
   },
   {
     id: 3,
-    image: 'https://appliedleasing.co.uk/uploads/geely-starray_desert-1.jpg',
+    image: '/img/geely-starray_desert-1.jpg',
     title: 'Unbound Freedom',
     subtitle: 'Designed to take you further than ever before.',
     cta: 'Book Test Drive',
