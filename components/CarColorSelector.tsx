@@ -119,6 +119,17 @@ const CarColorSelector: React.FC = () => {
     }
   }, [shouldPreload, activeModel.id]);
 
+  // Eagerly preload the FIRST image of all models immediately once section is near viewport
+  useEffect(() => {
+    if (!shouldPreload || typeof Image === 'undefined') return;
+    CAR_MODELS.forEach((m) => {
+      if (m.colors[0]) {
+        const img = new Image();
+        img.src = m.colors[0].image;
+      }
+    });
+  }, [shouldPreload]);
+
   // Preload a model's colors when hovering its button
   const preloadModelOnHover = (model: CarModel) => {
     if (model.id === activeModel.id || typeof Image === 'undefined') return;
@@ -462,7 +473,7 @@ const CarColorSelector: React.FC = () => {
                 {/* Stats — keyed to model: slide in from right when model changes */}
                 <div key={activeModel.id} className="absolute top-4 right-4 lg:top-0 lg:-right-24 space-y-3 lg:space-y-6 hidden md:block stats-enter">
                   {legacyStats.map((stat, i) => (
-                    <div key={i} className="flex items-center justify-between min-w-[140px] lg:min-w-[240px] bg-white/95 dark:bg-slate-900/90 backdrop-blur-3xl border border-white/60 dark:border-white/10 p-3 lg:p-6 rounded-full group/stat hover:bg-accent hover:border-accent dark:hover:bg-white dark:hover:border-white/80 transition-all duration-500 hover:-translate-x-3 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] cursor-help">
+                    <div key={i} className="flex items-center justify-between min-w-[140px] lg:min-w-[240px] bg-white/98 dark:bg-slate-900/95 border border-white/60 dark:border-white/10 p-3 lg:p-6 rounded-full group/stat hover:bg-accent hover:border-accent dark:hover:bg-white dark:hover:border-white/80 transition-all duration-500 hover:-translate-x-3 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] cursor-help">
                       <div className="text-right pl-2 lg:pl-4">
                         <div className="text-[7px] lg:text-[8px] font-black text-accent/70 uppercase tracking-[0.4em] mb-0.5 lg:mb-1 group-hover/stat:text-slate-900 dark:group-hover/stat:text-slate-900 transition-colors">{stat.label}</div>
                         <div className="text-xs lg:text-sm font-black text-slate-900 dark:text-white tracking-tighter group-hover/stat:text-slate-950 dark:group-hover/stat:text-slate-950 transition-colors">{stat.value}</div>
@@ -611,6 +622,7 @@ const CarColorSelector: React.FC = () => {
           .stats-enter {
             animation: stats-slide-in 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
             animation-delay: 60ms;
+            will-change: transform, opacity;
           }
         }
         @keyframes stats-slide-in {
