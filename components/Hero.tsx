@@ -155,7 +155,7 @@ const Hero: React.FC<HeroProps> = ({ onDiscoverClick, onBookingClick }) => {
                 {/* Bottom content (Buttons) on Mobile */}
                 <div
                   key={`btns-${actKey}`}
-                  className="flex flex-col sm:flex-row gap-3 w-full items-center justify-end md:justify-start mt-auto md:mt-10"
+                  className="flex flex-col sm:flex-row gap-3 w-full items-center justify-center md:justify-start mt-auto md:mt-10"
                   style={{
                     opacity: 0,
                     animation: isActive
